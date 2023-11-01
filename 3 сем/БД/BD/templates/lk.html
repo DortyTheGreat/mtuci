@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="static/css/style2.css">
+
+    <title>KURS - Личный Кабинет</title>
+	<style>
+        .alert {
+            background-color: var(--background);
+            color: var(--text-muted);
+            position: relative;
+            padding: 1rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: .25rem;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class='pages'>Личный Кабинет
+			<a href="/">НА ГЛАВНУЮ</a>
+            <a href="portfolio">ПОРТФОЛИО</a>
+			<a href="contacts">КОНТАКТЫ</a>
+            <a href="about" class="margin">О КОМПАНИИ</a>
+			<a href="price" class="margin">ЦЕНОВАЯ ПОЛИТИКА</a>
+		</h1>
+        <hr>
+    </header>
+	
+	{% with errors = get_flashed_messages(category_filter=["error"]) %}
+	{% if errors %}
+	<div class="alert-message block-message error">
+	  <a class="close" href="#">×</a>
+	  <ul>
+		{%- for msg in errors %}
+		<li>{{ msg }}</li>
+		{% endfor -%}
+	  </ul>
+	</div>
+	{% endif %}
+	{% endwith %}
+	
+    <form method="post">
+		<input type=text name=username_login placeholder="John" required>
+		<input type=password name=pwd placeholder="123456" required>
+		<input type=submit value=Login>
+	</form>
+	
+	<form action="" method="post">
+		<input type="text" name=username_register placeholder="John" required>
+		<input type="password" name="pwd" placeholder="123456" required>
+		<input type="submit" value=Register>
+	</form>
+</body>
+</html> 
