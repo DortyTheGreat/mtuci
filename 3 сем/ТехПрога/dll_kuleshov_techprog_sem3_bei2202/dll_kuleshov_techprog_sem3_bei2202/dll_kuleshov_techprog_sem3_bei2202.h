@@ -40,5 +40,8 @@ namespace dll_kuleshov_techprog_sem3_bei2202 {
 
 			static void ProstObmenSort(double* a, int n); /// 13 algo
 
+			// ЛР #6
+			static void Functions_Class::zapisExcel(double* mas, double* rezmas, int n, int j);
+
 	};
 }

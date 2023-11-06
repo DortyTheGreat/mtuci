@@ -11,7 +11,9 @@ using namespace System::Data::OleDb;
 using namespace System::Runtime::InteropServices;
 using namespace Microsoft::Office::Interop;
 
+
 using namespace System::Globalization;
+
 
 namespace dll_kuleshov_techprog_sem3_bei2202 {
 
@@ -253,6 +255,27 @@ namespace dll_kuleshov_techprog_sem3_bei2202 {
 				}
 			}
 			--m;
+		}
+	}
+
+	void Functions_Class::zapisExcel(double* mas, double* rezmas, int n, int j)
+	{
+		auto XL = gcnew Microsoft::Office::Interop::Excel::ApplicationClass();
+		XL->Visible = true;
+		Object^ t = Type::Missing;
+		auto Workbook = XL->Workbooks->Add(t);
+		String^ str;
+		XL->Cells[1, 1] = "Исходный массив";
+		for (int i = 0; i < n; i++)
+		{
+			XL->Cells[2, i + 1] = Convert::ToString(i);
+			XL->Cells[3, i + 1] = Convert::ToString(mas[i]);
+		}
+		XL->Cells[5, 1] = "Результирующий массив"; 
+		for (int i = 0; i < j; i++)
+		{
+			XL->Cells[6, i + 1] = Convert::ToString(i);
+			XL->Cells[7, i + 1] = Convert::ToString(rezmas[i]);
 		}
 	}
 }
