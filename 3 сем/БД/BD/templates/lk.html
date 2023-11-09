@@ -42,16 +42,31 @@
 	{% endif %}
 	{% endwith %}
 	
-    <form method="post">
-		<input type=text name=username_login placeholder="John" required>
-		<input type=password name=pwd placeholder="123456" required>
-		<input type=submit value=Login>
-	</form>
 	
-	<form action="" method="post">
-		<input type="text" name=username_register placeholder="John" required>
-		<input type="password" name="pwd" placeholder="123456" required>
-		<input type="submit" value=Register>
-	</form>
+	{% if user_logged %}
+		<h2>Здравствуйте, {{login}} <a href={{url_for('logout')}}> Выйти </a></h2>
+		
+		Ваше ФИО: <form method="post"> <input type=text name=name_change placeholder="Кулешов Александр Сергеевич" {% if name != None %} value="{{name}}" {% endif %}>  <input type=submit value='Изменить имя'></form>
+		
+		Ваш email: <form method="post"> <input type=text name=email_change placeholder="example@gmail.com" {% if email != None %} value="{{email}}" {% endif %}>  <input type=submit value='Изменить email'></form>
+		
+		Ваш статус: {{status}}
+		
+	{% else %}
+		<form method="post">
+			<input type=text name=username_login placeholder="John" required>
+			<input type=password name=pwd placeholder="123456" required>
+			<input type=submit value=Login>
+		</form>
+	
+		<form action="" method="post">
+			<input type="text" name=username_register placeholder="John" required>
+			<input type="password" name="pwd" placeholder="123456" required>
+			<input type="submit" value=Register>
+		</form>
+	{% endif %}
+	
+	
+    
 </body>
 </html> 

@@ -6,6 +6,9 @@ DATABASE = 'kurs_bd.db'
 from flask import Flask, render_template, request,jsonify,json,g
 from flask_socketio import SocketIO, emit
 from flask import flash
+from flask import session
+from flask import redirect
+from flask import url_for
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -16,6 +19,11 @@ socketio = SocketIO(app)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('username')
+    return redirect(url_for('lk'))
 
 @app.route('/portfolio')
 def portfolio():
@@ -38,22 +46,41 @@ def map():
     return render_template('map.html')
 
 @app.route('/lk', methods=['GET', 'POST'])
-def lk():
+def lk(method='any'):
 
-    if request.method == 'GET':
-        return render_template('lk.html')
+    if request.method == 'GET' or method == 'get':
+        user_logged = False
+        loginname = "Unknown"
+        res = [(-1,-1,-1,-1,-1,-1,-1)]
+        if 'username' in session:
+            loginname = session['username']
+            user_logged = True
+            res = run_script_get(f"SELECT * FROM users WHERE login='{loginname}'")
+
+        return render_template('lk.html', user_logged=user_logged, login=loginname, email=res[0][2],
+                               name= res[0][1], status = res[0][5])
+
+    if (request.form.__contains__('name_change')):
+        res = run_script_write(
+            f"UPDATE users SET name = '{request.form['name_change']}' WHERE login='{session['username']}' ")
+
+    if (request.form.__contains__('email_change')):
+        res = run_script_write(
+            f"UPDATE users SET email = '{request.form['email_change']}' WHERE login='{session['username']}' ")
 
     if (request.form.__contains__('username_login')):
         # login
 
-        res = run_script_get(f"SELECT * FROM users WHERE login={request.form['username_login']}")
+        res = run_script_get(f"SELECT * FROM users WHERE login='{request.form['username_login']}' AND password = '{request.form['pwd']}'")
         print(res)
 
         if len(res) == 0:
-            flash('Такого пользователя нет в ДБ', 'error')
-            return render_template('lk.html')
+            flash('Неверный пароль или логин', 'error')
+            return lk('get')
 
-        pass
+
+        flash('Вы были успешно авторизированы')
+        session['username'] = request.form['username_login']
 
     if (request.form.__contains__('username_register')):
         # register
@@ -62,23 +89,21 @@ def lk():
         print(res)
 
         if len(res) != 0:
-            print('none')
             flash('Такой пользователь уже есть в ДБ. Выберите другой логин', 'error')
             return render_template('lk.html')
 
 
         req_str = f"""INSERT INTO users (login, password)\nVALUES ({request.form['username_register']}, {request.form['pwd']})"""
         print(req_str)
-        res = run_script_write(f"""INSERT INTO users (login, password)\n
-        VALUES ('{request.form['username_register']}', '{request.form['pwd']}')""")
+        res = run_script_write(f"""INSERT INTO users (login, password, status)\n
+        VALUES ('{request.form['username_register']}', '{request.form['pwd']}', 'user')""")
 
-        print(res)
-
-        res = run_script_get(f"SELECT * FROM users WHERE login='{request.form['username_register']}'")
-        print(res)
+        session['username'] = request.form['username_register']
+        flash('Вы были успешно зарегестрированы')
 
 
-    return render_template('lk.html')
+
+    return lk('get')
 
 
 def get_db():
