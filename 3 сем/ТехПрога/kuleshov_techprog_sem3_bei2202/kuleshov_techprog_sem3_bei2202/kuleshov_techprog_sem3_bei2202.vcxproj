@@ -132,6 +132,8 @@
     <ClCompile Include="lab1_solution.cpp" />
     <ClCompile Include="lab2_condition.cpp" />
     <ClCompile Include="lab2_solution.cpp" />
+    <ClCompile Include="lab3_condition.cpp" />
+    <ClCompile Include="lab3_solution.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +147,12 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="lab2_solution.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="lab3_condition.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="lab3_solution.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Main.h">
@@ -163,6 +171,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="lab2_solution.resx">
       <DependentUpon>lab2_solution.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="lab3_condition.resx">
+      <DependentUpon>lab3_condition.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="lab3_solution.resx">
+      <DependentUpon>lab3_solution.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.h</DependentUpon>

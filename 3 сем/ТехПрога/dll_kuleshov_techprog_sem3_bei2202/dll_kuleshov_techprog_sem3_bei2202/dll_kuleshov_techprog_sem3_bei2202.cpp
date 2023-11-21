@@ -74,6 +74,8 @@ namespace dll_kuleshov_techprog_sem3_bei2202 {
 		}
 	}
 
+	
+
 	int Functions_Class::set_mas(double* mas, int n, double* rezmas) {
 		int cou = count_in_bounds(mas, n);
 		int j = 0;
@@ -276,6 +278,98 @@ namespace dll_kuleshov_techprog_sem3_bei2202 {
 		{
 			XL->Cells[6, i + 1] = Convert::ToString(i);
 			XL->Cells[7, i + 1] = Convert::ToString(rezmas[i]);
+		}
+	}
+
+	// ЛР №2
+	void Functions_Class::gen_matrix(int** matr, int n, int m) {
+		srand(time(0));
+		for (int i = 0; i < n; i++) {
+			matr[i] = new int[m];
+			for (int j = 0; j < m; j++) {
+				matr[i][j] = (int)(rand() % 60) - 30;
+			}
+		}
+	
+	}
+
+	void Functions_Class::clear(int** mas, int n) {
+		for (int i = 0; i < n; i++) {
+			delete[](mas[i]);
+		}
+		delete[] mas;
+	}
+
+	void Functions_Class::output_matr(int** matr, int n, int m, DataGridView^ grid) {
+		grid->ColumnCount = m + 1;
+		grid->RowCount = n + 1;
+		grid->Rows[0]->Cells[0]->Value = "[" + n + "]" + "[" + m + "]";
+		for (int i = 0; i < n; i++) {
+			grid->Rows[i + 1]->Cells[0]->Value = "[" + i + "]";
+		}
+		for (int j = 0; j < m; j++) {
+			grid->Rows[0]->Cells[j + 1]->Value = "[" + j + "]";
+		}
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				grid->Rows[i + 1]->Cells[j + 1]->Value = matr[i][j];
+			}
+		}
+		int width = 0, height = 0;
+		//Настройка ширины DataGridView
+		for (int s = 0; s < grid->ColumnCount; s++) {
+			width += grid->Columns[s]->Width;
+		}
+		if (width > 200 + 10)
+			grid->Width = 200;
+		else
+			grid->Width = width + 10;
+
+		for (int q = 0; q < grid->RowCount; q++) {
+			height += grid->Rows[q]->Height;
+		}
+		if (height > 200 + 10)
+			grid->Height = 200;
+		else
+			grid->Height = height + 10;
+
+	}
+
+	double Functions_Class::get_mean(int** matr, int n, int m) {
+		double sum = 0;
+		int count = 0;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				if ((i + j) > n && (matr[i][j] % 2 == 0)) {
+					sum += matr[i][j];
+					count += 1;
+				}
+			}
+		}
+		return sum / count;
+	}
+
+	int Functions_Class::create_array_7(int** matr, int n, int m, int* arr) {
+		int h = 0;
+		double mean = get_mean(matr, n, m);
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				if (matr[i][j] > mean) {
+					arr[h++] = matr[i][j];
+				}
+			}
+		}
+		return h;
+	}
+
+	void Functions_Class::output_mas(int* mas, int len, DataGridView^ grid) {
+		grid->RowCount = 2;
+		grid->ColumnCount = len;
+
+		for (int i = 0; i < len; i++)
+		{
+			grid->Rows[0]->Cells[i]->Value = String::Format("[{0}]", i);
+			grid->Rows[1]->Cells[i]->Value = mas[i].ToString();
 		}
 	}
 }

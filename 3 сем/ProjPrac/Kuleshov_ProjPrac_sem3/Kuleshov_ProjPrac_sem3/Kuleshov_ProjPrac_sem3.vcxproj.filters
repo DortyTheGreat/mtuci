@@ -24,12 +24,24 @@
     <ClCompile Include="Quests.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="TehPolozh.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Totals.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Titul.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Quests.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="TehPolozh.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Totals.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 #include "lab1_condition.h"
 #include "lab2_condition.h"
+#include "lab3_condition.h"
 namespace kuleshov_techprog_sem3_bei2202 {
 
 	using namespace System;
@@ -42,6 +43,7 @@ namespace kuleshov_techprog_sem3_bei2202 {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::Button^ button4;
 
 	private:
 		/// <summary>
@@ -62,16 +64,17 @@ namespace kuleshov_techprog_sem3_bei2202 {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button3
 			// 
 			this->button3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button3->Location = System::Drawing::Point(423, 300);
-			this->button3->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button3->Location = System::Drawing::Point(443, 300);
+			this->button3->Margin = System::Windows::Forms::Padding(2);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(150, 50);
+			this->button3->Size = System::Drawing::Size(130, 50);
 			this->button3->TabIndex = 14;
 			this->button3->Text = L"Выйти из приложения";
 			this->button3->UseVisualStyleBackColor = true;
@@ -121,9 +124,9 @@ namespace kuleshov_techprog_sem3_bei2202 {
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->button1->Location = System::Drawing::Point(11, 300);
-			this->button1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button1->Margin = System::Windows::Forms::Padding(2);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(150, 50);
+			this->button1->Size = System::Drawing::Size(130, 50);
 			this->button1->TabIndex = 9;
 			this->button1->Text = L"Лаб. Работа №1";
 			this->button1->UseVisualStyleBackColor = true;
@@ -133,27 +136,41 @@ namespace kuleshov_techprog_sem3_bei2202 {
 			// 
 			this->button2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button2->Location = System::Drawing::Point(212, 300);
-			this->button2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button2->Location = System::Drawing::Point(157, 300);
+			this->button2->Margin = System::Windows::Forms::Padding(2);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(150, 50);
+			this->button2->Size = System::Drawing::Size(130, 50);
 			this->button2->TabIndex = 15;
 			this->button2->Text = L"Лаб. Работа №2";
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &Main::button2_Click);
+			// 
+			// button4
+			// 
+			this->button4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->button4->Location = System::Drawing::Point(303, 300);
+			this->button4->Margin = System::Windows::Forms::Padding(2);
+			this->button4->Name = L"button4";
+			this->button4->Size = System::Drawing::Size(130, 50);
+			this->button4->TabIndex = 16;
+			this->button4->Text = L"Лаб. Работа №7";
+			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &Main::button4_Click);
 			// 
 			// Main
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(584, 361);
+			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->button1);
-			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"Main";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Main";
@@ -173,6 +190,12 @@ namespace kuleshov_techprog_sem3_bei2202 {
 	}
 private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 	lab2_condition^ f = gcnew lab2_condition();
+	f->Owner = this;
+	f->Show();
+	this->Hide();
+}
+private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+	lab3_condition^ f = gcnew lab3_condition();
 	f->Owner = this;
 	f->Show();
 	this->Hide();

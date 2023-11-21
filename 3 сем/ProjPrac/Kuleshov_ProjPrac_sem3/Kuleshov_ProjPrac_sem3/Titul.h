@@ -1,5 +1,6 @@
 #pragma once
 #include "Quests.h"
+#include "TehPolozh.h"
 
 namespace KuleshovProjPracsem3 {
 
@@ -73,6 +74,7 @@ namespace KuleshovProjPracsem3 {
 			this->button1->TabIndex = 0;
 			this->button1->Text = L"Теоретические Положения\r\n(отсутсвуют)";
 			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &Titul::button1_Click);
 			// 
 			// label1
 			// 
@@ -152,5 +154,12 @@ namespace KuleshovProjPracsem3 {
 		this->Hide();
 		
 	}
+private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+	TehPolozh^ f = gcnew TehPolozh();
+	f->Owner = this;
+	f->Show();
+	this->Hide();
+}
 };
 }

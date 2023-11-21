@@ -41,7 +41,14 @@ namespace dll_kuleshov_techprog_sem3_bei2202 {
 			static void ProstObmenSort(double* a, int n); /// 13 algo
 
 			// ЛР #6
-			static void Functions_Class::zapisExcel(double* mas, double* rezmas, int n, int j);
+			static void zapisExcel(double* mas, double* rezmas, int n, int j);
 
+			// ЛР #7
+			static void gen_matrix(int** matr, int n, int m);
+			static void clear(int** mas, int n);
+			static void output_matr(int** matr, int n, int m, DataGridView^ grid);
+			static double get_mean(int** matr, int n, int m);
+			static int create_array_7(int** matr, int n, int m, int* arr);
+			static void output_mas(int* mas, int len, DataGridView^ grid);
 	};
 }

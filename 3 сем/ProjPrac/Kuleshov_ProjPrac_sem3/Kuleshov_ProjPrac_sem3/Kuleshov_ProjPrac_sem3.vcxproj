@@ -126,13 +126,21 @@
   <ItemGroup>
     <ClCompile Include="Questions.cpp" />
     <ClCompile Include="Quests.cpp" />
+    <ClCompile Include="TehPolozh.cpp" />
     <ClCompile Include="Titul.cpp" />
+    <ClCompile Include="Totals.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Quests.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="TehPolozh.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Titul.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Totals.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
@@ -140,8 +148,14 @@
     <EmbeddedResource Include="Quests.resx">
       <DependentUpon>Quests.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TehPolozh.resx">
+      <DependentUpon>TehPolozh.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Titul.resx">
       <DependentUpon>Titul.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Totals.resx">
+      <DependentUpon>Totals.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
