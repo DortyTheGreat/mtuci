@@ -72,7 +72,7 @@ namespace KuleshovProjPracsem3 {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(150, 75);
 			this->button1->TabIndex = 0;
-			this->button1->Text = L"Теоретические Положения\r\n(отсутсвуют)";
+			this->button1->Text = L"Теоретические Положения";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &Titul::button1_Click);
 			// 
@@ -159,7 +159,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	TehPolozh^ f = gcnew TehPolozh();
 	f->Owner = this;
 	f->Show();
-	this->Hide();
+	//this->Hide();
 }
 };
 }

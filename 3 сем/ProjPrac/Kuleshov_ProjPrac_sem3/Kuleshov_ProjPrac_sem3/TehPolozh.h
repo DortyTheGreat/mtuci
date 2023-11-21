@@ -77,7 +77,7 @@ namespace KuleshovProjPracsem3 {
 		}
 #pragma endregion
 	private: System::Void TehPolozh_Load(System::Object^ sender, System::EventArgs^ e) {
-		auto GuideURI = gcnew Uri(System::String::Format("https://lms.mtuci.ru/lms/pluginfile.php/114386/mod_resource/content/3/%D0%92%D0%B0%D1%80%D0%B8%D0%B0%D0%BD%D1%82%D1%8B%20%D0%B4%D0%BB%D1%8F%20%D0%91%D0%AD%D0%982202.pdf"));
+		auto GuideURI = gcnew Uri(System::String::Format("https://dortythegreat.github.io/%D0%A2%D0%B5%D1%80%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BBh.html"));
 		webBrowser1->Navigate(GuideURI);
 	}
 	};
