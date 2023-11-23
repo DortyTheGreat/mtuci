@@ -1,0 +1,61 @@
+create table apartment(
+	id SERIAL primary key,
+	owner_id integer,
+	total_space integer, 
+	living_space integer,
+	rooms_amount integer,
+	kitchen_space integer,
+	floor integer,
+	floors_in_building integer,
+	closest_metro varchar(50),
+	price integer,
+	address varchar(30),
+	dateofdata date
+);
+
+create table owners(
+	id SERIAL primary key,
+	name varchar(30)
+);
+
+insert into owners(name)
+values
+('Кулешов Александр Сергеевич'),
+('Никитенко Владислав Генадиевич')
+
+insert into apartment (owner_id, total_space, living_space, rooms_amount, kitchen_space, floor, floors_in_building, closest_metro, price, address, dateofdata)
+values
+(1,123,34,3,34,2,5,'Проспект Мира', 7000000, 'проспект Мира, с118Е, Moscow', '2023-04-30'),
+(2,144,44,3,42,5,5,'Китай–город', 500000, 'Lubyanskiy Proyezd, 19', '2023-06-26'),
+(2,144,44,3,42,3,5,'Китай–город', 700000, 'Lubyanskiy Proyezd, 18', '2023-11-25'),
+(2,60,20,2,1337,1,8,'Китай–город', 300000, 'Lubyanskiy Proyezd, 15', '2023-10-25')
+
+select * from apartment
+
+-- 2.0 Если хоть 1 таблица есть здесь, то результат проверки - "Есть квартира, которая не соответствует нужным правилам"
+select * from apartment where total_space < living_space + kitchen_space
+
+-- 2.1 трёхкомнатных квартир, расположенных не на первом и последнем этажах, 
+--информация о которых поступила за последний месяц
+select * from apartment where rooms_amount=3 AND floor!= 1 AND
+floor != floors_in_building AND TRUNC(DATE_PART('day', CURRENT_DATE::timestamp - dateofdata::timestamp)) < 30
+
+-- 2.2 владельцев и их квартир (идентификатор квартиры и адрес);
+select name, address from (
+select * from (select owner_id, apartment.id, address from apartment) as temp 
+join owners on temp.owner_id= owners.id
+) as temp order by name
+
+-- 2.3 квартир общей площадью не менее 80 м^2
+-- не дороже 600000, расположенных вблизи станции метро "Китай–город"
+select * from apartment where total_space>= 80 AND price <= 600000 AND closest_metro='Китай–город'
+
+-- 3.1 "Двухкомнатные квартиры" (все поля отношения "Квартиры").
+select * from apartment where rooms_amount=2
+
+--  3.2 "Владение квартирами" (имя владельца, количество квартир, общая площадь этих квартир).
+select * from owners join (select owner_id, COUNT(*), SUM(total_space) from apartment group by owner_id) 
+as temp on owners.id = temp.owner_id
+
+-- 3.3 "Средняя стоимость квартир": количество комнат – средняя стоимость
+select rooms_amount, AVG(price) from apartment group by rooms_amount
