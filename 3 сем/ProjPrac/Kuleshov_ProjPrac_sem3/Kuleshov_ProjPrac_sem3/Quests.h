@@ -722,7 +722,7 @@ private: System::Windows::Forms::Label^ Q10_label;
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1924, 1061);
+			this->ClientSize = System::Drawing::Size(684, 461);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->GB_Q10);
