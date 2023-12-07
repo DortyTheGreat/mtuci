@@ -20,6 +20,16 @@ namespace dllkuleshovprojpracsem3 {
 			static int GetRadioButtonScore3(RadioButton^ RB1, RadioButton^ RB2, RadioButton^ RB3, bool S1, bool S2, bool S3);
 			static int GetTextBoxScore(TextBox^ TB, String^ answer);
 
+			static int GetCheckedListBoxScore(CheckedListBox^ CLB, bool S1, bool S2, bool S3);
+
+			static int GetComboBoxScore(ComboBox^ CB);
+
+			static int GetHBARScore(HScrollBar^ HSB);
+			static void HSBar_output(HScrollBar^ HSB, Label^ l);
+
+			static int GetVBARScore(VScrollBar^ VSB);
+			static void VSBar_output(VScrollBar^ VSB, Label^ l);
+
 			static void validate(int call, List<GroupBox^>^ groups);
 
 			static void output_mas(int* mas, int len, DataGridView^ grid);

@@ -47,6 +47,50 @@ namespace dllkuleshovprojpracsem3 {
 		return TB->Text == answer;
 	}
 
+	int Functions::GetCheckedListBoxScore(CheckedListBox^ CLB, bool S1, bool S2, bool S3) {
+		if (CLB->CheckedItems->Count == 0) return -1;
+		return (!(CLB->CheckedIndices->Contains(0) ^ S1) && !(CLB->CheckedIndices->Contains(1) ^ S2) && !(CLB->CheckedIndices->Contains(2) ^ S3));
+	}
+
+	int Functions::GetComboBoxScore(ComboBox^ CB) {
+		if (CB->SelectedIndex == -1) return -1;
+		return CB->SelectedIndex == 1;
+	}
+
+	int Functions::GetHBARScore(HScrollBar^ HSB) {
+		return (HSB->Value <= 33);
+	}
+
+	void Functions::HSBar_output(HScrollBar^ HSB, Label^ l) {
+		if (HSB->Value <= 33) {
+			l->Text = "Ваш ответ: оценочных";
+		}
+		else if (HSB->Value <= 66) {
+			l->Text = "Ваш ответ: экономических";
+		}
+		else{
+			l->Text = "Ваш ответ: продуктовых";
+		}
+		
+	}
+
+	int Functions::GetVBARScore(VScrollBar^ VSB) {
+		return (VSB->Value <= 33);
+	}
+
+	void Functions::VSBar_output(VScrollBar^ VSB, Label^ l) {
+		if (VSB->Value <= 33) {
+			l->Text = "Ваш ответ: правильного прогнозирования экономических переменных";
+		}
+		else if (VSB->Value <= 66) {
+			l->Text = "Ваш ответ: оценки методов аппроксимации прибыли";
+		}
+		else {
+			l->Text = "Ваш ответ: поиск оптимального выбора инновации";
+		}
+
+	}
+
 	void Functions::validate(int call, List<GroupBox^>^ groups) {
 		if (call == -1) {
 			MessageBox::Show("Вы не ответили на вопрос", "Внимание", MessageBoxButtons::OK, MessageBoxIcon::Error);
