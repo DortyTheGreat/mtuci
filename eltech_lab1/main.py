@@ -48,6 +48,7 @@ for i in result:
     print(list_of_names[k], " : ", i)
     k += 1
 
+print()
 print('2. Метод Контурных токов')
 
 '''
@@ -82,7 +83,7 @@ J3 = result[1] - result[0]
 
 print("J3  : ", J3)
 
-
+print()
 print('3. Метод Узловых Потенциалов')
 
 '''
@@ -99,7 +100,7 @@ phi_a * ( (1/R1) + (1/R4) + (1/(R2+R3)) ) - phi_b * ((1/R1) + (1/R4) + (1/(R2+R3
 '''
 
 
-useless, phi_b = symbols('useless phi_b')
+phi_b = symbols('phi_b')
 
 phi_a = 0
 
@@ -132,7 +133,7 @@ J3 = (phi_a - phi_b + 0) * (1/(R2 + R3))
 print("J3  : ", J3)
 
 # 4
-
+print()
 print('4. Метод наложения')
 
 '''
@@ -159,12 +160,28 @@ print("J2  : ", J2)
 J3 = J1 - J2
 print("J3  : ", J3)
 
+print()
+print('5. Метод Эквивалентного генератора')
 
-## TO-DO: 5
+
+J_R1, J_RR = symbols('J_R1 J_RR')
 
 
+eq1 = Eq(J_R1 * (R1+R3+R2) - J_RR * (R2 + R3), E1)
+eq2 = Eq(J_RR * (R2+R3+R4) - J_R1 * (R2+R3), E2)
+
+sys = [eq1, eq2]
+
+
+result = solve(sys, (J_R1, J_RR), precision=10)
+print(result)
+
+print('J_R1  :  ', result[J_R1].evalf())
+
+print()
 print('6. Баланс мощностей')
 
 P_I = J2**2 * R1 + J1**2 * R4 + J3**2 * (R2 + R3)
 P_E = E1 * J2 + E2*J1
-print(P_E, P_I)
+print('Мощность выделяемая на ЭДС: ', P_E)
+print('Мощность поглощаемая на резисторах: ', P_I)
