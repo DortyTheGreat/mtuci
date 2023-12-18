@@ -32,6 +32,7 @@ CREATE TABLE projects(
 	FinishDate date NOT NULL -- Дата конца делания проекта (в случае ожидания - 1 Января 1970, в случае "в процессе", то предположительная дата, в случае законченного проекта - дата фактического завершения проекта)
 );
 
+
 CREATE TABLE project_to_employee_linker(
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	project_id integer,

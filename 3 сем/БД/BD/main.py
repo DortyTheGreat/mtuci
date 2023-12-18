@@ -46,7 +46,7 @@ def map():
     return render_template('map.html')
 
 @app.route('/lk', methods=['GET', 'POST'])
-def lk(method='any'):
+def lk(method='any', get_matr = -1):
 
     if request.method == 'GET' or method == 'get':
         user_logged = False
@@ -68,8 +68,23 @@ def lk(method='any'):
 
         print(user_id, res_projects)
 
+        lenX = -1
+        lenY = -1
+        try:
+            if (get_matr != -1):
+                lenX = len(get_matr)
+                lenY = len(get_matr[0])
+        except:
+            lenX = -1
+            lenY = -1
+
+        print(res)
+        print(get_matr)
+        print(lenX, lenY)
         return render_template('lk.html', user_logged=user_logged, login=loginname, email=res[0][2],
-                               name= res[0][1], status = res[0][5], proj_table = res_projects, pt_len = len(res_projects))
+                               name= res[0][1], status = res[0][5], proj_table = res_projects, pt_len = len(res_projects),
+                               get_matr = get_matr, lenX = lenX, lenY = lenY)
+
 
     if (request.form.__contains__('name_change')):
         res = run_script_write(
@@ -78,6 +93,16 @@ def lk(method='any'):
     if (request.form.__contains__('email_change')):
         res = run_script_write(
             f"UPDATE users SET email = '{request.form['email_change']}' WHERE login='{session['username']}' ")
+
+    if (request.form.__contains__('write')):
+        print(request.form['sql'])
+        res = run_script_write(request.form['sql'])
+
+
+    if (request.form.__contains__('get')):
+        print(request.form['sql'])
+        res = run_script_get(request.form['sql'])
+        return lk('get', res)
 
     if (request.form.__contains__('submit_login')):
         # login

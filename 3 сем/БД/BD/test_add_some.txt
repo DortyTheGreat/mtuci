@@ -1,7 +1,7 @@
-INSERT INTO users (login, password)
+INSERT INTO users (login, password, status)
 VALUES 
-(123, 1234),
-('Kuleshov', 'secret');
+(123, 1234, 'user'),
+('Kuleshov', 'secret', 'admin');
 
 
 INSERT INTO jobs (name, salary)

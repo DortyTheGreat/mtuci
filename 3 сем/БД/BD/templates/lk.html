@@ -117,6 +117,40 @@
 				</table>
 			{% endif %}
 			
+			{% if status == 'admin' %}
+				<form action="" method="post">
+				  <br>
+				  <label>SQL-Запрос</label>
+				  
+				  <br>
+				  <textarea id="sql" name="sql" rows="5" cols="30"></textarea>
+				  <br>
+				  <button type="submit" name="get">get-запрос</button>
+				  <button type="submit" name="write">write-запрос</button>
+				</form>
+				
+				{% if lenY != -1 %}
+					<table id="customers">
+					
+					<tr>
+						{%for j in range(0, lenY)%}
+						<th>Дата подачи заявки</th>
+						{%endfor%} 
+
+					</tr>
+					
+					{%for i in range(0, lenX)%}
+					<tr>
+						{%for j in range(0, lenY)%}
+						<td>{{get_matr[i][j]}}</td>
+						{%endfor%} 
+					</tr>
+					{%endfor%} 
+				</table>
+				{% endif %}
+				
+			{% endif %}
+			
 	{% else %}
 
 		
