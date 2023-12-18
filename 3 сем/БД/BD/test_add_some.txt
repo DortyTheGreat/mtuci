@@ -1,2 +1,30 @@
 INSERT INTO users (login, password)
-VALUES (123, 1234)
+VALUES 
+(123, 1234),
+('Kuleshov', 'secret');
+
+
+INSERT INTO jobs (name, salary)
+VALUES 
+("Архитектор", 100000),
+("Планировщик", 90000),
+("Дизайнер", 80000);
+
+INSERT INTO employees (name, BirthDate, gender, phone, job_id)
+VALUES 
+("Никинов Олег Дмитриевич", '1986-11-23', "Мужчина", "89998887766", 1),
+("Смирнова Татьяна Александровна", '1999-09-01', "Женщина", "87776665544", 3)
+;
+
+
+
+
+
+INSERT INTO projects (name, user_id, SignUpDate, status, FinishDate)
+VALUES
+("Выбор краски для стен на кухне", 2, '2023-12-15', 'Выполняется', '2023-12-28' ),
+("Ремонт в гостиной", 2, '2023-12-18', 'В ожидании', '1970-01-01' );
+
+INSERT INTO project_to_employee_linker(project_id, employee_id)
+VALUES
+(1,3);

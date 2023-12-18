@@ -15,6 +15,33 @@
             border-radius: .25rem;
             box-sizing: border-box;
         }
+		
+		
+        #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+        #customers tr:hover {background-color: #ddd;}
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #344D45;
+            color: white;
+        }
+
+
+
     </style>
 </head>
 <body>
@@ -46,25 +73,73 @@
 	{% if user_logged %}
 		<h2>Здравствуйте, {{login}} <a href={{url_for('logout')}}> Выйти </a></h2>
 		
-		Ваше ФИО: <form method="post"> <input type=text name=name_change placeholder="Кулешов Александр Сергеевич" {% if name != None %} value="{{name}}" {% endif %}>  <input type=submit value='Изменить имя'></form>
-		
-		Ваш email: <form method="post"> <input type=text name=email_change placeholder="example@gmail.com" {% if email != None %} value="{{email}}" {% endif %}>  <input type=submit value='Изменить email'></form>
-		
-		Ваш статус: {{status}}
-		
+		<div class="box-outer">
+			<form name="signup_form" method="post" action="" autocomplete="off">
+
+				<label>Ваше ФИО:</label>
+				<input type="text" name=name_change class="input-control" placeholder="Кулешов Александр Сергеевич" required {% if name != None %} value="{{name}}" {% endif %}>
+				<input type="submit" class="button" value="Изменить имя">
+				<br>
+				<br>
+				<br>
+			</form>
+			
+			<form name="signup_form" method="post" action="" autocomplete="off">
+				<label>Ваш email:</label>
+				<input type="text" name=email_change class="input-control" placeholder="example@gmail.com" required {% if email != None %} value="{{email}}" {% endif %}>
+				<input type="submit" class="button" value="Изменить email">
+				<br>
+				<br>
+				<br>
+			</form>
+			<label>Ваш статус: {{status}}</label>
+			
+			{% if pt_len == 0 %}
+				<h2>У вас ещё нет заявок на проекты </a></h2>
+			{% else %}
+				<h2>Заказанные проекты </a></h2>
+				<table id="customers">
+					<tr>
+						<th>Название Проекта</th>
+						<th>Дата подачи заявки</th>
+						<th>Статус заявки</th>
+						<th>Дата окончания работ</th>
+
+					</tr>
+					{%for i in range(0, pt_len)%}
+					<tr>
+						<td>{{proj_table[i][2]}}</td>
+						<td>{{proj_table[i][3]}}</td>
+						<td>{{proj_table[i][4]}}</td>
+						<td>{{proj_table[i][5]}}</td>
+					</tr>
+					{%endfor%} 
+				</table>
+			{% endif %}
+			
 	{% else %}
-		<form method="post">
-			<input type=text name=username_login placeholder="John" required>
-			<input type=password name=pwd placeholder="123456" required>
-			<input type=submit value=Login>
-		</form>
-	
-		<form action="" method="post">
-			<input type="text" name=username_register placeholder="John" required>
-			<input type="password" name="pwd" placeholder="123456" required>
-			<input type="submit" value=Register>
-		</form>
+
+		
+		
+		<div class="box-outer">
+			<form name="signup_form" method="post" action="" autocomplete="off">
+				<h2 class="heading">Авторизация</h2>
+
+				<label>Логин</label>
+				<input type="text" name=username class="input-control" placeholder="Ваш Логин" required>
+
+				<label>Пароль</label>
+				<input type="text" name=pwd class="input-control" placeholder="Ваш пароль" required>
+
+				<input type="submit" name="submit_login" class="button" value="Войти">
+				<input type="submit" name="submit_register" class="button" value="Регистрация">
+			</form>
+		
+		
+	</div>
+	<hr>
 	{% endif %}
+	
 	
 	
     

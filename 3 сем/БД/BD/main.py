@@ -52,13 +52,24 @@ def lk(method='any'):
         user_logged = False
         loginname = "Unknown"
         res = [(-1,-1,-1,-1,-1,-1,-1)]
+        res_projects = []
+        user_id = 0
         if 'username' in session:
             loginname = session['username']
             user_logged = True
             res = run_script_get(f"SELECT * FROM users WHERE login='{loginname}'")
 
+            user_id = run_script_get(f"SELECT id FROM users WHERE login='{loginname}'")[0][0]
+            res_projects = run_script_get(f"SELECT * FROM projects WHERE user_id='{user_id}'")
+        #
+        if len(res) == 0:
+            session.pop('username')
+            return lk('get')
+
+        print(user_id, res_projects)
+
         return render_template('lk.html', user_logged=user_logged, login=loginname, email=res[0][2],
-                               name= res[0][1], status = res[0][5])
+                               name= res[0][1], status = res[0][5], proj_table = res_projects, pt_len = len(res_projects))
 
     if (request.form.__contains__('name_change')):
         res = run_script_write(
@@ -68,10 +79,10 @@ def lk(method='any'):
         res = run_script_write(
             f"UPDATE users SET email = '{request.form['email_change']}' WHERE login='{session['username']}' ")
 
-    if (request.form.__contains__('username_login')):
+    if (request.form.__contains__('submit_login')):
         # login
 
-        res = run_script_get(f"SELECT * FROM users WHERE login='{request.form['username_login']}' AND password = '{request.form['pwd']}'")
+        res = run_script_get(f"SELECT * FROM users WHERE login='{request.form['username']}' AND password = '{request.form['pwd']}'")
         print(res)
 
         if len(res) == 0:
@@ -80,12 +91,12 @@ def lk(method='any'):
 
 
         flash('Вы были успешно авторизированы')
-        session['username'] = request.form['username_login']
+        session['username'] = request.form['username']
 
-    if (request.form.__contains__('username_register')):
+    if (request.form.__contains__('submit_register')):
         # register
 
-        res = run_script_get(f"SELECT * FROM users WHERE login='{request.form['username_register']}'")
+        res = run_script_get(f"SELECT * FROM users WHERE login='{request.form['username']}'")
         print(res)
 
         if len(res) != 0:
@@ -93,12 +104,12 @@ def lk(method='any'):
             return render_template('lk.html')
 
 
-        req_str = f"""INSERT INTO users (login, password)\nVALUES ({request.form['username_register']}, {request.form['pwd']})"""
+        req_str = f"""INSERT INTO users (login, password)\nVALUES ({request.form['username']}, {request.form['pwd']})"""
         print(req_str)
         res = run_script_write(f"""INSERT INTO users (login, password, status)\n
-        VALUES ('{request.form['username_register']}', '{request.form['pwd']}', 'user')""")
+        VALUES ('{request.form['username']}', '{request.form['pwd']}', 'user')""")
 
-        session['username'] = request.form['username_register']
+        session['username'] = request.form['username']
         flash('Вы были успешно зарегестрированы')
 
 

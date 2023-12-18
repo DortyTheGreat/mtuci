@@ -1,5 +1,11 @@
+DROP TABLE users,jobs,employees, projects, project_to_employee_linker
+
+DROP TABLE jobs
+DROP TABLE projects
+
+DROP TABLE employees
 CREATE TABLE users (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	id SERIAL PRIMARY KEY,
 	name VARCHAR(50),
 	email VARCHAR(50),
 	login VARCHAR(50) not null,
@@ -8,24 +14,24 @@ CREATE TABLE users (
 );
 
 CREATE TABLE jobs (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	name VARCHAR(50),
-	salary integer
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(50) NOT NULL,
+	salary integer NOT NULL
 );
 
 -- employee -> jobs[index]
 CREATE TABLE employees(
-	id INTEGER PRIMARY KEY AUTOINCREMENT, -- код сотрудника
-    name varchar(50), -- Имя
-	BirthDate date not null,
-    gender varchar(10) not null,
+	id SERIAL PRIMARY KEY, -- код сотрудника
+    name varchar(50) NOT NULL, -- Имя
+	BirthDate date NOT NULL,
+    gender varchar(10) NOT NULL,
     phone varchar(15),
-    job_id integer not null
+    job_id integer NOT NULL
 );
 
 CREATE TABLE projects(
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	user_id INTEGER NOT NULL,
+	id SERIAL PRIMARY KEY,
+	user_id integer NOT NULL, -- Пользователь, который оставил заявку
 	name varchar(50) NOT NULL, -- Имя
 	SignUpDate date NOT NULL, -- Дата подачи заявки
 	status varchar(50) NOT NULL, -- pending(в ожидании рассмотрения компанией\\ оплаты\\ прочих бюрократических условностей),  in_action(в процессе строительства\\проектирования), finished(закончено)
@@ -33,7 +39,7 @@ CREATE TABLE projects(
 );
 
 CREATE TABLE project_to_employee_linker(
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	project_id integer,
-	employee_id integer
+	id SERIAL PRIMARY KEY,
+	project_id integer NOT NULL,
+	employee_id integer NOT NULL
 );
