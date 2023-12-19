@@ -98,7 +98,6 @@ def lk(method='any', get_matr = -1):
         print(request.form['sql'])
         res = run_script_write(request.form['sql'])
 
-
     if (request.form.__contains__('get')):
         print(request.form['sql'])
         res = run_script_get(request.form['sql'])
