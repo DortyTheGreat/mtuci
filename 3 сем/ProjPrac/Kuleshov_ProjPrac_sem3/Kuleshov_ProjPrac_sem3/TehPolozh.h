@@ -61,6 +61,7 @@ namespace KuleshovProjPracsem3 {
 			this->webBrowser1->Name = L"webBrowser1";
 			this->webBrowser1->Size = System::Drawing::Size(684, 461);
 			this->webBrowser1->TabIndex = 0;
+			this->webBrowser1->DocumentCompleted += gcnew System::Windows::Forms::WebBrowserDocumentCompletedEventHandler(this, &TehPolozh::webBrowser1_DocumentCompleted);
 			// 
 			// TehPolozh
 			// 
@@ -79,6 +80,8 @@ namespace KuleshovProjPracsem3 {
 	private: System::Void TehPolozh_Load(System::Object^ sender, System::EventArgs^ e) {
 		auto GuideURI = gcnew Uri(System::String::Format("https://dortythegreat.github.io/%D0%A2%D0%B5%D1%80%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BBh.html"));
 		webBrowser1->Navigate(GuideURI);
+	}
+	private: System::Void webBrowser1_DocumentCompleted(System::Object^ sender, System::Windows::Forms::WebBrowserDocumentCompletedEventArgs^ e) {
 	}
 	};
 }

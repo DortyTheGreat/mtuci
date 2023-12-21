@@ -845,7 +845,6 @@ private: System::Windows::Forms::ListBox^ LBQ1_2;
 				this->Hide();
 				
 				break;
-			
 		}
 		
 
