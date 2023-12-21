@@ -1,24 +1,93 @@
 from sympy import *
 import decimal
+import cmath
+import math
+import sympy
 
 Variant = 16
+Kursovaya_number = 2
 
-E1 = -(10 + Variant)
-E2 = 5 + Variant
+if Kursovaya_number == 1:
+  E1 = -(10 + Variant)
+  E2 = 5 + Variant
 
-J = Variant / 10
-R1 = 1 + Variant
-R2 = 2 + Variant
-R3 = 3 + Variant
-R4 = 4 + Variant
+  J = Variant / 10
+  R1 = 1 + Variant
+  R2 = 2 + Variant
+  R3 = 3 + Variant
+  R4 = 4 + Variant
+
+  E1_dir = -1
+  E2_dir = 1
+
+  J1_dir = 1
+  J2_dir = 1
+  J3_dir = -1
+
+  Z1 = R1
+  Z2 = R4
+  Z3 = R2 + R3
+else:
+  E1 = -100
+  E2 = 50 * cmath.exp(1j * 10 * Variant)
+
+  f = 50
+  omega = 2*math.pi*f
+  R1 = 1 + Variant
+  R2 = 2 + Variant
+  R3 = 5 + Variant
+
+  L1 = (5 + Variant) * 10**-3
+  L2 = (6 + Variant) * 10**-3
+  L3 = (10 + Variant) * 10**-3
+
+  C1 = (200 + Variant) * 10**-6
+  C2 = (210 + Variant) * 10**-6
+  C3 = (220 + Variant) * 10**-6
+
+  E1_dir = -1
+  E2_dir = 1
+
+  J1_dir = 1
+  J2_dir = 1
+  J3_dir = -1
+
+  Z1 = R1 + 1j*omega*L1
+  Z2 = R3 + 1/(1j*omega*C3)
+  Z3 = R2 + 1/(1j*omega*C2)
 
 
 
-Z1 = R1
-Z2 = R4
-Z3 = R2 + R3
+
+J1 = J2 = J3 = 1
+
+def coole(val):
+  try:
+    return val.evalf()
+  except:
+    return sympy.core.add.Add(val)
+
+def balance():
+  '''
+  J2^2 * Z2 + J1^2 * Z1 + J3^2 * Z3 =
+  = E1 * J1 + E2 * J2
+  '''
+
+  P_I = (J2*J2_dir)**2 * Z2 + (J1*J1_dir)**2 * Z1 + (J3*J3_dir)**2 * Z3
+  P_E = (E1*E1_dir) * (J1*J1_dir) + (E2*E2_dir) * (J2*J2_dir) # Т.к. У нас всякое происходит с направлениями, то вот так вот надобно бы сделать
+
+  print()
+  print('Cумма мощностей, потребляемых приёмниками: ', coole(P_I) )
+  print('Cумма мощностей, отдаваемых источниками: ', coole(P_E) )
+  print()
 
 
+def printJ():
+  print("J1  : ", coole(J1))
+  print("J2  : ", coole(J2))
+  print("J3  : ", coole(J3))
+
+precision = 3
 # 1. Метод Уравнений Киргофа.
 
 #J1 - J2 - J3 = 0 # a
@@ -44,13 +113,14 @@ eq4 = Eq(J3 + J1 - J2, 0)
 sys = [eq1, eq2, eq3, eq4]
 
 
-result = solve(sys, (J1, J2, J3), precision=10)
+result = solve(sys, (J1, J2, J3), precision=precision)
 
 print(result)
-print("J1  : ", result[J1].evalf())
-print("J2  : ", result[J2].evalf())
-print("J3  : ", result[J3].evalf())
-
+J1 = result[J1].evalf()
+J2 = result[J2].evalf()
+J3 = result[J3].evalf()
+printJ()
+balance()
 
 print()
 print('2. Метод Контурных токов')
@@ -69,13 +139,15 @@ eq2 = Eq(J22 * (Z2 + Z3) - J11 * Z3, E2)
 sys = [eq1, eq2]
 
 
-result = solve(sys, (J11, J22), precision=10)
+result = solve(sys, (J11, J22), precision=precision)
 
 print(result)
-print("J1  : ", result[J11].evalf())
-print("J2  : ", result[J22].evalf())
-print("J3  : ", result[J22].evalf() - result[J11].evalf())
+J3 = result[J22].evalf() - result[J11].evalf()
+J1 = result[J11].evalf()
+J2 = result[J22].evalf()
 
+printJ()
+balance()
 
 print()
 print('3. Метод Узловых Потенциалов')
@@ -99,7 +171,7 @@ eq2 = Eq(phi_2 * ((1/Z1) + (1/Z2) + (1/Z3)), -E2*(1/Z2) - E1*(1/Z1))
 sys = [eq1, eq2]
 
 
-result = solve(sys, phi_2, precision=10)
+result = solve(sys, phi_2, precision=precision)
 print(result)
 
 
@@ -108,15 +180,16 @@ phi_2 = result[phi_2]
 
 # Из (1) в (2)
 J1 = (phi_1 - phi_2 - E1) * (1/Z1)
-print("J1  : ", J1)
+
 
 # Из (1) в (2)
 J2 = (phi_1 - phi_2 - E2) * (1/Z2) * (-1)
-print("J2  : ", J2)
+
 
 # Из (1) в (2)
 J3 = (phi_1 - phi_2 + 0) * (1/Z3)
-print("J3  : ", J3)
+printJ()
+balance()
 
 # 4
 print()
@@ -145,9 +218,8 @@ J1 = J1_E1 + J1_E2
 J2 = J2_E1 + J2_E2
 J3 = J2 - J1
 
-print("J1  : ", J1)
-print("J2  : ", J2)
-print("J3  : ", J3)
+printJ()
+balance()
 
 print()
 print('5. Метод Эквивалентного генератора')
@@ -161,22 +233,16 @@ eq2 = Eq(J_RR * (Z2 + Z3) - J_R1 * Z3, E2)
 sys = [eq1, eq2]
 
 
-result = solve(sys, (J_R1, J_RR), precision=10)
+result = solve(sys, (J_R1, J_RR), precision=precision)
 
 #print(result)
 print("J_R1  : ", result[J_R1].evalf())
-
-
-print()
-print('6. Баланс мощностей')
-
-'''
-J2^2 * Z2 + J1^2 * Z1 + J3^2 * Z3 =
-= E1 * J1 + E2 * J2
 '''
 
-P_I = J2**2 * Z2 + J1**2 * Z1 + J3**2 * Z3
-P_E = abs(E1 * J1) + abs(E2 * J2) # Т.к. У нас всякое происходит с направлениями, то вот так вот надобно бы сделать
+Нужно подсчитать токи для всех ветвей!
 
-print('Cумма мощностей, потребляемых приёмниками: ', P_I)
-print('Cумма мощностей, отдаваемых источниками: ', P_E)
+'''
+balance()
+
+
+

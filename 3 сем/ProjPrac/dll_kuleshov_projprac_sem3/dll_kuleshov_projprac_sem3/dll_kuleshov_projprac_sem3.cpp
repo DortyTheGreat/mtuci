@@ -21,13 +21,11 @@ using namespace System::Globalization;
 
 namespace dllkuleshovprojpracsem3 {
 	int Functions::GetCheckBoxScore4(CheckBox^ CB1, CheckBox^ CB2, CheckBox^ CB3, CheckBox^ CB4, bool S1, bool S2, bool S3, bool S4) {
-		int ans = 0;
 		if (!CB1->Checked && !CB2->Checked && !CB3->Checked && !CB4->Checked) return -1; // Вопрос не был выбран
 		return (CB1->Checked == S1 && CB2->Checked == S2 && CB3->Checked == S3 && CB4->Checked == S4);
 	}
 
 	int Functions::GetCheckBoxScore3(CheckBox^ CB1, CheckBox^ CB2, CheckBox^ CB3, bool S1, bool S2, bool S3) {
-		int ans = 0;
 		if (!CB1->Checked && !CB2->Checked && !CB3->Checked) return -1; // Вопрос не был выбран
 		return (CB1->Checked == S1 && CB2->Checked == S2 && CB3->Checked == S3);
 	}
@@ -140,7 +138,6 @@ namespace dllkuleshovprojpracsem3 {
 			return -1;
 		}
 		return (lb2->Items[0] == answer);
-		
 	}
 
 	void Functions::validate(int call, List<GroupBox^>^ groups) {
