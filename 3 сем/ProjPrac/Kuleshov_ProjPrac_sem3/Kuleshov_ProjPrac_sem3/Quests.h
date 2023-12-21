@@ -37,10 +37,10 @@ namespace KuleshovProjPracsem3 {
 			}
 		}
 	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::CheckBox^ CBQ1_4;
 
-	private: System::Windows::Forms::CheckBox^ CBQ1_1;
-	private: System::Windows::Forms::CheckBox^ CBQ1_3;
+
+
+
 
 
 
@@ -54,7 +54,7 @@ namespace KuleshovProjPracsem3 {
 
 	private: System::Windows::Forms::GroupBox^ GB_Q1;
 
-	private: System::Windows::Forms::CheckBox^ CBQ1_2;
+
 	private: System::Windows::Forms::GroupBox^ GB_Q2;
 
 	private: System::Windows::Forms::Label^ label3;
@@ -95,7 +95,7 @@ namespace KuleshovProjPracsem3 {
 
 	private: System::Windows::Forms::RadioButton^ RBQ7_1;
 	private: System::Windows::Forms::GroupBox^ GB_Q8;
-	private: System::Windows::Forms::TextBox^ TBQ8;
+
 	private: System::Windows::Forms::Label^ label8;
 	private: System::Windows::Forms::GroupBox^ GB_Q9;
 
@@ -120,6 +120,21 @@ private: System::Windows::Forms::Label^ Q9_label;
 private: System::Windows::Forms::CheckedListBox^ CLBQ2;
 private: System::Windows::Forms::VScrollBar^ VSBARQ10;
 private: System::Windows::Forms::Label^ Q10_label;
+private: System::Windows::Forms::Label^ Q8;
+
+private: System::Windows::Forms::TrackBar^ TBQ8;
+private: System::Windows::Forms::CheckBox^ CBQ7_3;
+
+private: System::Windows::Forms::CheckBox^ CBQ7_2;
+
+private: System::Windows::Forms::CheckBox^ CBQ7_1;
+private: System::Windows::Forms::ListBox^ LBQ1_1;
+private: System::Windows::Forms::Button^ BQ1_select;
+
+
+private: System::Windows::Forms::ListBox^ LBQ1_2;
+
+
 
 
 
@@ -142,14 +157,14 @@ private: System::Windows::Forms::Label^ Q10_label;
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Quests::typeid));
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->CBQ1_4 = (gcnew System::Windows::Forms::CheckBox());
-			this->CBQ1_1 = (gcnew System::Windows::Forms::CheckBox());
-			this->CBQ1_3 = (gcnew System::Windows::Forms::CheckBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->GB_Q1 = (gcnew System::Windows::Forms::GroupBox());
-			this->CBQ1_2 = (gcnew System::Windows::Forms::CheckBox());
+			this->BQ1_select = (gcnew System::Windows::Forms::Button());
+			this->LBQ1_2 = (gcnew System::Windows::Forms::ListBox());
+			this->LBQ1_1 = (gcnew System::Windows::Forms::ListBox());
 			this->GB_Q2 = (gcnew System::Windows::Forms::GroupBox());
 			this->CLBQ2 = (gcnew System::Windows::Forms::CheckedListBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
@@ -170,12 +185,16 @@ private: System::Windows::Forms::Label^ Q10_label;
 			this->TBQ6 = (gcnew System::Windows::Forms::TextBox());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->GB_Q7 = (gcnew System::Windows::Forms::GroupBox());
+			this->CBQ7_3 = (gcnew System::Windows::Forms::CheckBox());
+			this->CBQ7_2 = (gcnew System::Windows::Forms::CheckBox());
+			this->CBQ7_1 = (gcnew System::Windows::Forms::CheckBox());
 			this->RBQ7_3 = (gcnew System::Windows::Forms::RadioButton());
 			this->RBQ7_2 = (gcnew System::Windows::Forms::RadioButton());
 			this->RBQ7_1 = (gcnew System::Windows::Forms::RadioButton());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->GB_Q8 = (gcnew System::Windows::Forms::GroupBox());
-			this->TBQ8 = (gcnew System::Windows::Forms::TextBox());
+			this->Q8 = (gcnew System::Windows::Forms::Label());
+			this->TBQ8 = (gcnew System::Windows::Forms::TrackBar());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->GB_Q9 = (gcnew System::Windows::Forms::GroupBox());
 			this->Q9_label = (gcnew System::Windows::Forms::Label());
@@ -193,6 +212,7 @@ private: System::Windows::Forms::Label^ Q10_label;
 			this->GB_Q6->SuspendLayout();
 			this->GB_Q7->SuspendLayout();
 			this->GB_Q8->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TBQ8))->BeginInit();
 			this->GB_Q9->SuspendLayout();
 			this->GB_Q10->SuspendLayout();
 			this->SuspendLayout();
@@ -208,45 +228,6 @@ private: System::Windows::Forms::Label^ Q10_label;
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"1. Как классифицируют промышленные инновации для\r\nоценки их эффективности\?";
 			this->label1->Click += gcnew System::EventHandler(this, &Quests::label1_Click);
-			// 
-			// CBQ1_4
-			// 
-			this->CBQ1_4->AutoSize = true;
-			this->CBQ1_4->Checked = true;
-			this->CBQ1_4->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->CBQ1_4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->CBQ1_4->Location = System::Drawing::Point(6, 188);
-			this->CBQ1_4->Name = L"CBQ1_4";
-			this->CBQ1_4->Size = System::Drawing::Size(464, 28);
-			this->CBQ1_4->TabIndex = 1;
-			this->CBQ1_4->Text = L"В зависимости от технологических параметров";
-			this->CBQ1_4->UseVisualStyleBackColor = true;
-			// 
-			// CBQ1_1
-			// 
-			this->CBQ1_1->AutoSize = true;
-			this->CBQ1_1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->CBQ1_1->Location = System::Drawing::Point(6, 86);
-			this->CBQ1_1->Name = L"CBQ1_1";
-			this->CBQ1_1->Size = System::Drawing::Size(344, 28);
-			this->CBQ1_1->TabIndex = 2;
-			this->CBQ1_1->Text = L"В зависимости от рентабельности";
-			this->CBQ1_1->UseVisualStyleBackColor = true;
-			// 
-			// CBQ1_3
-			// 
-			this->CBQ1_3->AutoSize = true;
-			this->CBQ1_3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->CBQ1_3->Location = System::Drawing::Point(6, 154);
-			this->CBQ1_3->Name = L"CBQ1_3";
-			this->CBQ1_3->Size = System::Drawing::Size(401, 28);
-			this->CBQ1_3->TabIndex = 3;
-			this->CBQ1_3->Text = L"В заисимости от исторического периода";
-			this->CBQ1_3->UseVisualStyleBackColor = true;
-			this->CBQ1_3->CheckedChanged += gcnew System::EventHandler(this, &Quests::checkBox2_CheckedChanged);
 			// 
 			// button1
 			// 
@@ -274,11 +255,10 @@ private: System::Windows::Forms::Label^ Q10_label;
 			// 
 			// GB_Q1
 			// 
-			this->GB_Q1->Controls->Add(this->CBQ1_2);
+			this->GB_Q1->Controls->Add(this->BQ1_select);
+			this->GB_Q1->Controls->Add(this->LBQ1_2);
+			this->GB_Q1->Controls->Add(this->LBQ1_1);
 			this->GB_Q1->Controls->Add(this->label1);
-			this->GB_Q1->Controls->Add(this->CBQ1_4);
-			this->GB_Q1->Controls->Add(this->CBQ1_1);
-			this->GB_Q1->Controls->Add(this->CBQ1_3);
 			this->GB_Q1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->GB_Q1->Location = System::Drawing::Point(12, 12);
@@ -287,20 +267,41 @@ private: System::Windows::Forms::Label^ Q10_label;
 			this->GB_Q1->TabIndex = 13;
 			this->GB_Q1->TabStop = false;
 			this->GB_Q1->Text = L"Вопрос 1";
+			this->GB_Q1->Enter += gcnew System::EventHandler(this, &Quests::GB_Q1_Enter);
 			// 
-			// CBQ1_2
+			// BQ1_select
 			// 
-			this->CBQ1_2->AutoSize = true;
-			this->CBQ1_2->Checked = true;
-			this->CBQ1_2->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->CBQ1_2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->BQ1_select->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->CBQ1_2->Location = System::Drawing::Point(6, 120);
-			this->CBQ1_2->Name = L"CBQ1_2";
-			this->CBQ1_2->Size = System::Drawing::Size(357, 28);
-			this->CBQ1_2->TabIndex = 4;
-			this->CBQ1_2->Text = L"В зависимости от сфер приложения";
-			this->CBQ1_2->UseVisualStyleBackColor = true;
+			this->BQ1_select->Location = System::Drawing::Point(482, 121);
+			this->BQ1_select->Name = L"BQ1_select";
+			this->BQ1_select->Size = System::Drawing::Size(100, 75);
+			this->BQ1_select->TabIndex = 23;
+			this->BQ1_select->Text = L"Выбрать";
+			this->BQ1_select->UseVisualStyleBackColor = true;
+			this->BQ1_select->Click += gcnew System::EventHandler(this, &Quests::BQ1_select_Click);
+			// 
+			// LBQ1_2
+			// 
+			this->LBQ1_2->FormattingEnabled = true;
+			this->LBQ1_2->ItemHeight = 24;
+			this->LBQ1_2->Location = System::Drawing::Point(14, 227);
+			this->LBQ1_2->Name = L"LBQ1_2";
+			this->LBQ1_2->Size = System::Drawing::Size(452, 28);
+			this->LBQ1_2->TabIndex = 6;
+			// 
+			// LBQ1_1
+			// 
+			this->LBQ1_1->FormattingEnabled = true;
+			this->LBQ1_1->ItemHeight = 24;
+			this->LBQ1_1->Items->AddRange(gcnew cli::array< System::Object^  >(4) {
+				L"В зависимости от рентабельности", L"В зависимости от сфер приложения",
+					L"В заисимости от исторического периода", L"В зависимости от технологических параметров"
+			});
+			this->LBQ1_1->Location = System::Drawing::Point(14, 96);
+			this->LBQ1_1->Name = L"LBQ1_1";
+			this->LBQ1_1->Size = System::Drawing::Size(452, 100);
+			this->LBQ1_1->TabIndex = 5;
 			// 
 			// GB_Q2
 			// 
@@ -408,7 +409,7 @@ private: System::Windows::Forms::Label^ Q10_label;
 			this->GB_Q4->Controls->Add(this->CBQ4_3);
 			this->GB_Q4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->GB_Q4->Location = System::Drawing::Point(618, 237);
+			this->GB_Q4->Location = System::Drawing::Point(622, 250);
 			this->GB_Q4->Name = L"GB_Q4";
 			this->GB_Q4->Size = System::Drawing::Size(600, 400);
 			this->GB_Q4->TabIndex = 17;
@@ -541,6 +542,9 @@ private: System::Windows::Forms::Label^ Q10_label;
 			// 
 			// GB_Q7
 			// 
+			this->GB_Q7->Controls->Add(this->CBQ7_3);
+			this->GB_Q7->Controls->Add(this->CBQ7_2);
+			this->GB_Q7->Controls->Add(this->CBQ7_1);
 			this->GB_Q7->Controls->Add(this->RBQ7_3);
 			this->GB_Q7->Controls->Add(this->RBQ7_2);
 			this->GB_Q7->Controls->Add(this->RBQ7_1);
@@ -554,10 +558,40 @@ private: System::Windows::Forms::Label^ Q10_label;
 			this->GB_Q7->TabStop = false;
 			this->GB_Q7->Text = L"Вопрос 7";
 			// 
+			// CBQ7_3
+			// 
+			this->CBQ7_3->AutoSize = true;
+			this->CBQ7_3->Location = System::Drawing::Point(139, 250);
+			this->CBQ7_3->Name = L"CBQ7_3";
+			this->CBQ7_3->Size = System::Drawing::Size(430, 28);
+			this->CBQ7_3->TabIndex = 10;
+			this->CBQ7_3->Text = L"Данные значения не изменились к XXI веку ";
+			this->CBQ7_3->UseVisualStyleBackColor = true;
+			// 
+			// CBQ7_2
+			// 
+			this->CBQ7_2->AutoSize = true;
+			this->CBQ7_2->Location = System::Drawing::Point(139, 209);
+			this->CBQ7_2->Name = L"CBQ7_2";
+			this->CBQ7_2->Size = System::Drawing::Size(416, 28);
+			this->CBQ7_2->TabIndex = 9;
+			this->CBQ7_2->Text = L"Данные значения уменьшились к XXI веку ";
+			this->CBQ7_2->UseVisualStyleBackColor = true;
+			// 
+			// CBQ7_1
+			// 
+			this->CBQ7_1->AutoSize = true;
+			this->CBQ7_1->Location = System::Drawing::Point(139, 167);
+			this->CBQ7_1->Name = L"CBQ7_1";
+			this->CBQ7_1->Size = System::Drawing::Size(398, 28);
+			this->CBQ7_1->TabIndex = 8;
+			this->CBQ7_1->Text = L"Данные значения увеличилсь к XXI веку ";
+			this->CBQ7_1->UseVisualStyleBackColor = true;
+			// 
 			// RBQ7_3
 			// 
 			this->RBQ7_3->AutoSize = true;
-			this->RBQ7_3->Location = System::Drawing::Point(20, 250);
+			this->RBQ7_3->Location = System::Drawing::Point(13, 249);
 			this->RBQ7_3->Name = L"RBQ7_3";
 			this->RBQ7_3->Size = System::Drawing::Size(48, 28);
 			this->RBQ7_3->TabIndex = 7;
@@ -568,7 +602,7 @@ private: System::Windows::Forms::Label^ Q10_label;
 			// 
 			this->RBQ7_2->AutoSize = true;
 			this->RBQ7_2->Checked = true;
-			this->RBQ7_2->Location = System::Drawing::Point(16, 193);
+			this->RBQ7_2->Location = System::Drawing::Point(13, 199);
 			this->RBQ7_2->Name = L"RBQ7_2";
 			this->RBQ7_2->Size = System::Drawing::Size(48, 28);
 			this->RBQ7_2->TabIndex = 6;
@@ -579,7 +613,7 @@ private: System::Windows::Forms::Label^ Q10_label;
 			// RBQ7_1
 			// 
 			this->RBQ7_1->AutoSize = true;
-			this->RBQ7_1->Location = System::Drawing::Point(16, 141);
+			this->RBQ7_1->Location = System::Drawing::Point(14, 159);
 			this->RBQ7_1->Name = L"RBQ7_1";
 			this->RBQ7_1->Size = System::Drawing::Size(48, 28);
 			this->RBQ7_1->TabIndex = 5;
@@ -593,14 +627,14 @@ private: System::Windows::Forms::Label^ Q10_label;
 				static_cast<System::Byte>(204)));
 			this->label7->Location = System::Drawing::Point(16, 35);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(569, 96);
+			this->label7->Size = System::Drawing::Size(569, 120);
 			this->label7->TabIndex = 0;
-			this->label7->Text = L"7.Сколько процентов всех инноваций  по данным \r\nМинистерства обороны США, во втор"
-				L"ой половине\r\nXX века в США, получивших повсеместное распространение,\r\nбыли комме"
-				L"рциализированные проекты\?";
+			this->label7->Text = resources->GetString(L"label7.Text");
+			this->label7->Click += gcnew System::EventHandler(this, &Quests::label7_Click);
 			// 
 			// GB_Q8
 			// 
+			this->GB_Q8->Controls->Add(this->Q8);
 			this->GB_Q8->Controls->Add(this->TBQ8);
 			this->GB_Q8->Controls->Add(this->label8);
 			this->GB_Q8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -612,13 +646,25 @@ private: System::Windows::Forms::Label^ Q10_label;
 			this->GB_Q8->TabStop = false;
 			this->GB_Q8->Text = L"Вопрос 8";
 			// 
+			// Q8
+			// 
+			this->Q8->AutoSize = true;
+			this->Q8->Location = System::Drawing::Point(18, 160);
+			this->Q8->Name = L"Q8";
+			this->Q8->Size = System::Drawing::Size(35, 24);
+			this->Q8->TabIndex = 2;
+			this->Q8->Text = L"Q8";
+			// 
 			// TBQ8
 			// 
-			this->TBQ8->Location = System::Drawing::Point(19, 102);
+			this->TBQ8->Location = System::Drawing::Point(13, 92);
+			this->TBQ8->Maximum = 3;
+			this->TBQ8->Minimum = 1;
 			this->TBQ8->Name = L"TBQ8";
-			this->TBQ8->Size = System::Drawing::Size(422, 29);
-			this->TBQ8->TabIndex = 2;
-			this->TBQ8->Text = L"денежные поступления";
+			this->TBQ8->Size = System::Drawing::Size(458, 45);
+			this->TBQ8->TabIndex = 1;
+			this->TBQ8->Value = 1;
+			this->TBQ8->Scroll += gcnew System::EventHandler(this, &Quests::TBQ8_Scroll);
 			// 
 			// label8
 			// 
@@ -638,7 +684,7 @@ private: System::Windows::Forms::Label^ Q10_label;
 			this->GB_Q9->Controls->Add(this->label9);
 			this->GB_Q9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->GB_Q9->Location = System::Drawing::Point(612, 497);
+			this->GB_Q9->Location = System::Drawing::Point(606, 510);
 			this->GB_Q9->Name = L"GB_Q9";
 			this->GB_Q9->Size = System::Drawing::Size(600, 400);
 			this->GB_Q9->TabIndex = 21;
@@ -699,11 +745,11 @@ private: System::Windows::Forms::Label^ Q10_label;
 			// Q10_label
 			// 
 			this->Q10_label->AutoSize = true;
-			this->Q10_label->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->Q10_label->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->Q10_label->Location = System::Drawing::Point(8, 264);
 			this->Q10_label->Name = L"Q10_label";
-			this->Q10_label->Size = System::Drawing::Size(91, 18);
+			this->Q10_label->Size = System::Drawing::Size(118, 24);
 			this->Q10_label->TabIndex = 10;
 			this->Q10_label->Text = L"Ваш Ответ: ";
 			// 
@@ -725,13 +771,13 @@ private: System::Windows::Forms::Label^ Q10_label;
 			this->ClientSize = System::Drawing::Size(684, 461);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
+			this->Controls->Add(this->GB_Q4);
 			this->Controls->Add(this->GB_Q10);
 			this->Controls->Add(this->GB_Q9);
 			this->Controls->Add(this->GB_Q8);
 			this->Controls->Add(this->GB_Q7);
 			this->Controls->Add(this->GB_Q6);
 			this->Controls->Add(this->GB_Q5);
-			this->Controls->Add(this->GB_Q4);
 			this->Controls->Add(this->GB_Q3);
 			this->Controls->Add(this->GB_Q2);
 			this->Controls->Add(this->GB_Q1);
@@ -755,6 +801,7 @@ private: System::Windows::Forms::Label^ Q10_label;
 			this->GB_Q7->PerformLayout();
 			this->GB_Q8->ResumeLayout(false);
 			this->GB_Q8->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TBQ8))->EndInit();
 			this->GB_Q9->ResumeLayout(false);
 			this->GB_Q9->PerformLayout();
 			this->GB_Q10->ResumeLayout(false);
@@ -778,14 +825,14 @@ private: System::Windows::Forms::Label^ Q10_label;
 
 		switch (Functions::question)
 		{
-		case 1: Functions::validate(Functions::GetCheckBoxScore4(CBQ1_1, CBQ1_2, CBQ1_3, CBQ1_4, 0, 1, 0, 1), groups); break;
+			case 1: Functions::validate(Functions::GetLBScore(LBQ1_2, "В зависимости от технологических параметров"), groups); break;
 			case 2: Functions::validate(Functions::GetCheckedListBoxScore(CLBQ2, 1, 0, 1), groups); break;
 			case 3: Functions::validate(Functions::GetRadioButtonScore3(RBQ3_1, RBQ3_2, RBQ3_3, 1, 0, 0), groups); break;
-			case 4: Functions::validate(Functions::GetCheckBoxScore3(CBQ4_1, CBQ4_2, CBQ4_3, 1, 1, 1), groups); break;
+			case 4: Functions::validate(Functions::GetCheckBoxScore3(CBQ4_1, CBQ4_2, CBQ4_3, 1, 1, 1), groups); break; ///
 			case 5: Functions::validate(Functions::GetComboBoxScore(ComBoxQ5), groups); break; 
-			case 6: Functions::validate(Functions::GetTextBoxScore(TBQ6, "дисконтирования"), groups); break;
-			case 7: Functions::validate(Functions::GetRadioButtonScore3(RBQ7_1, RBQ7_2, RBQ7_3, 0, 1, 0), groups); break;
-			case 8: Functions::validate(Functions::GetTextBoxScore(TBQ8, "денежные поступления"), groups); break;
+			case 6: Functions::validate(Functions::GetTextBoxScore(TBQ6, "дисконтирования"), groups); break;    
+			case 7: Functions::validate(Functions::GetComplexScore(CBQ7_1, CBQ7_2, CBQ7_3, RBQ7_1, RBQ7_2, RBQ7_3), groups); break;
+			case 8: Functions::validate(Functions::GetTrackbarScore(TBQ8), groups); break; 
 			case 9: Functions::validate(Functions::GetHBARScore(HBARQ9), groups);
 				button2->Text = "Закончить тестирование";
 				break;
@@ -812,6 +859,9 @@ private: System::Windows::Forms::Label^ Q10_label;
 	}
 private: System::Void Quests_Load(System::Object^ sender, System::EventArgs^ e) {
 	
+	Functions::Trackbar_output(TBQ8, Q8);
+	Functions::VSBar_output(VSBARQ10, Q10_label);
+	Functions::HSBar_output(HBARQ9, Q9_label);
 	
 	
 
@@ -835,6 +885,8 @@ private: System::Void Quests_Load(System::Object^ sender, System::EventArgs^ e) 
 	groups[0]->Visible = true;
 	this->Size = System::Drawing::Size(700, 500);
 }
+
+	   
 private: System::Void ComBoxQ5_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void HBARQ9_Scroll(System::Object^ sender, System::Windows::Forms::ScrollEventArgs^ e) {
@@ -842,6 +894,18 @@ private: System::Void HBARQ9_Scroll(System::Object^ sender, System::Windows::For
 }
 private: System::Void VSBARQ10_Scroll(System::Object^ sender, System::Windows::Forms::ScrollEventArgs^ e) {
 	Functions::VSBar_output(VSBARQ10, Q10_label);
+}
+private: System::Void TBQ8_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void TBQ8_Scroll(System::Object^ sender, System::EventArgs^ e) {
+	Functions::Trackbar_output(TBQ8, Q8);
+}
+private: System::Void label7_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void BQ1_select_Click(System::Object^ sender, System::EventArgs^ e) {
+	Functions::LB_output(LBQ1_1, LBQ1_2, 4);
+}
+private: System::Void GB_Q1_Enter(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

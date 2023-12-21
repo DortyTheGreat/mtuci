@@ -62,6 +62,7 @@ namespace dllkuleshovprojpracsem3 {
 	}
 
 	void Functions::HSBar_output(HScrollBar^ HSB, Label^ l) {
+		l->Text = "Ваш ответ: оценочных";
 		if (HSB->Value <= 33) {
 			l->Text = "Ваш ответ: оценочных";
 		}
@@ -79,6 +80,7 @@ namespace dllkuleshovprojpracsem3 {
 	}
 
 	void Functions::VSBar_output(VScrollBar^ VSB, Label^ l) {
+		l->Text = "Ваш ответ: правильного прогнозирования экономических переменных";
 		if (VSB->Value <= 33) {
 			l->Text = "Ваш ответ: правильного прогнозирования экономических переменных";
 		}
@@ -89,6 +91,56 @@ namespace dllkuleshovprojpracsem3 {
 			l->Text = "Ваш ответ: поиск оптимального выбора инновации";
 		}
 
+	}
+
+	void Functions::Trackbar_output(TrackBar^ tb, Label^ l) {
+		l->Text = "Ваш ответ: денежные поступления";
+		if (tb->Value == 1) {
+			l->Text = "Ваш ответ: денежные поступления";
+		}
+		if (tb->Value == 2) {
+			l->Text = "Ваш ответ: налоговый вычет";
+		}
+		if (tb->Value == 3) {
+			l->Text = "Ваш ответ: сложный процент";
+		}
+	}
+	int Functions::GetTrackbarScore(TrackBar^ tb) {
+		if (tb->Value == -1) return -1;
+		return tb->Value == 1;
+	}
+
+	int Functions::GetComplexScore(CheckBox^ CB1, CheckBox^ CB2, CheckBox^ CB3, RadioButton^ RB1, RadioButton^ RB2, RadioButton^ RB3) {
+		if (!RB1->Checked && !RB2->Checked && !RB3->Checked)  return -1;
+		if (!CB1->Checked && !CB2->Checked && !CB3->Checked) return -1;
+		return (RB1->Checked == 0 && RB2->Checked == 1 && RB3->Checked == 0) && (CB1->Checked == 1 && CB2->Checked == 0 && CB3->Checked == 0);
+	}
+
+	void Functions::LB_output(ListBox^ lb1, ListBox^ lb2, int q) {
+		for (int i = 0; i < q; i++) {
+			if (lb1->SelectedIndex == i) {
+				System::Object^ saved;
+				bool isSaved = false;
+				if (lb2->Items->Count == 1) {
+					saved = lb2->Items[0];
+					isSaved = true;
+				}
+				lb2->Items->Add(lb1->SelectedItem);
+				lb1->Items->RemoveAt(i);
+
+				if (isSaved) {
+					lb1->Items->Add(saved);
+					lb2->Items->Remove(saved);
+				}
+			}
+		}
+	}
+	int Functions::GetLBScore(ListBox^ lb2, String^ answer) {
+		if (lb2->Items->Count == 0) {
+			return -1;
+		}
+		return (lb2->Items[0] == answer);
+		
 	}
 
 	void Functions::validate(int call, List<GroupBox^>^ groups) {
@@ -103,6 +155,8 @@ namespace dllkuleshovprojpracsem3 {
 				groups[question - 1]->Visible = true;
 		}
 	}
+
+
 
 	void Functions::output_mas(int* mas, int len, DataGridView^ grid) {
 		grid->RowCount = 2;

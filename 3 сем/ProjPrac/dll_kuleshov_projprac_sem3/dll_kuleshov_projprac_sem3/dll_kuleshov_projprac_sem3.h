@@ -30,6 +30,14 @@ namespace dllkuleshovprojpracsem3 {
 			static int GetVBARScore(VScrollBar^ VSB);
 			static void VSBar_output(VScrollBar^ VSB, Label^ l);
 
+			static void Trackbar_output(TrackBar^ tb, Label^ l);
+			static int GetTrackbarScore(TrackBar^ tb);
+
+
+			static int GetComplexScore(CheckBox^ CB1, CheckBox^ CB2, CheckBox^ CB3, RadioButton^ RB1, RadioButton^ RB2, RadioButton^ RB3);
+			static int GetLBScore(ListBox^ lb2, String^ answer);
+			static void LB_output(ListBox^ lb1, ListBox^ lb2, int q);
+
 			static void validate(int call, List<GroupBox^>^ groups);
 
 			static void output_mas(int* mas, int len, DataGridView^ grid);

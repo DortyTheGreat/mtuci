@@ -73,9 +73,10 @@ namespace PracticumFormsVasilyevBEI2202 {
 			// 
 			this->button2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button2->Location = System::Drawing::Point(194, 343);
+			this->button2->Location = System::Drawing::Point(146, 279);
+			this->button2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(351, 46);
+			this->button2->Size = System::Drawing::Size(263, 37);
 			this->button2->TabIndex = 17;
 			this->button2->Text = L"Выйти из приложения";
 			this->button2->UseVisualStyleBackColor = true;
@@ -85,9 +86,10 @@ namespace PracticumFormsVasilyevBEI2202 {
 			// 
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button1->Location = System::Drawing::Point(194, 272);
+			this->button1->Location = System::Drawing::Point(146, 221);
+			this->button1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(351, 46);
+			this->button1->Size = System::Drawing::Size(263, 37);
 			this->button1->TabIndex = 16;
 			this->button1->Text = L"Следующий вопрос";
 			this->button1->UseVisualStyleBackColor = true;
@@ -98,9 +100,10 @@ namespace PracticumFormsVasilyevBEI2202 {
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label1->Location = System::Drawing::Point(12, 37);
+			this->label1->Location = System::Drawing::Point(9, 30);
+			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(735, 50);
+			this->label1->Size = System::Drawing::Size(599, 40);
 			this->label1->TabIndex = 20;
 			this->label1->Text = L"На какие две группы делятся методы преобразования информации с целью \r\nзащиты от "
 				L"несанкционированного доступа";
@@ -111,25 +114,28 @@ namespace PracticumFormsVasilyevBEI2202 {
 			this->listBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->listBox1->FormattingEnabled = true;
-			this->listBox1->ItemHeight = 25;
+			this->listBox1->ItemHeight = 20;
 			this->listBox1->Items->AddRange(gcnew cli::array< System::Object^  >(4) {
 				L"С открытым и закрытым окном", L"С открытым и закрытым шифром",
 					L"С открытым и закрытым ключом", L"С открытой и закрытой дверью"
 			});
-			this->listBox1->Location = System::Drawing::Point(17, 126);
+			this->listBox1->Location = System::Drawing::Point(13, 102);
+			this->listBox1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(347, 104);
+			this->listBox1->Size = System::Drawing::Size(261, 84);
 			this->listBox1->TabIndex = 21;
+			this->listBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &Question5::listBox1_SelectedIndexChanged);
 			// 
 			// listBox2
 			// 
 			this->listBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->listBox2->FormattingEnabled = true;
-			this->listBox2->ItemHeight = 25;
-			this->listBox2->Location = System::Drawing::Point(390, 201);
+			this->listBox2->ItemHeight = 20;
+			this->listBox2->Location = System::Drawing::Point(292, 163);
+			this->listBox2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->listBox2->Name = L"listBox2";
-			this->listBox2->Size = System::Drawing::Size(347, 29);
+			this->listBox2->Size = System::Drawing::Size(261, 24);
 			this->listBox2->TabIndex = 22;
 			// 
 			// button3
@@ -137,9 +143,10 @@ namespace PracticumFormsVasilyevBEI2202 {
 			this->button3->BackColor = System::Drawing::SystemColors::Desktop;
 			this->button3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button3->Location = System::Drawing::Point(390, 126);
+			this->button3->Location = System::Drawing::Point(292, 102);
+			this->button3->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(347, 46);
+			this->button3->Size = System::Drawing::Size(260, 37);
 			this->button3->TabIndex = 23;
 			this->button3->Text = L"Ответить";
 			this->button3->UseVisualStyleBackColor = false;
@@ -147,15 +154,16 @@ namespace PracticumFormsVasilyevBEI2202 {
 			// 
 			// Question5
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(767, 441);
+			this->ClientSize = System::Drawing::Size(575, 358);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->listBox2);
 			this->Controls->Add(this->listBox1);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
+			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->Name = L"Question5";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Question5";
@@ -181,6 +189,8 @@ namespace PracticumFormsVasilyevBEI2202 {
 	}
 private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
 	Class1::LB_output(listBox1, listBox2, 4);
+}
+private: System::Void listBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

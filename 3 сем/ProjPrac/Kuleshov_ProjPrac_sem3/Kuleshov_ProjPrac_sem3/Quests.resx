@@ -117,4 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label7.Text" xml:space="preserve">
+    <value>7.Сколько процентов всех инноваций  по данным 
+Министерства обороны США, во второй половине
+XX века в США, получивших повсеместное распространение,
+были коммерциализированные проекты?
+Дайте ответы на суждения.</value>
+  </data>
 </root>
