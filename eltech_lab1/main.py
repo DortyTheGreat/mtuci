@@ -3,6 +3,8 @@ import decimal
 import cmath
 import math
 import sympy
+import numpy as np
+import matplotlib.pyplot as plt
 
 Variant = 16
 Kursovaya_number = 2
@@ -57,15 +59,23 @@ else:
   Z3 = R2 + 1/(1j*omega*C2)
 
 
-
+def f_J1(t_arr):
+  ret = []
+  for elem in t_arr:
+    ret.append(abs(J1) * sin(2*math.pi*f*elem + J1.imag))
+  return ret
 
 J1 = J2 = J3 = 1
 
-def coole(val):
+from sympy.core.rules import Transform
+def cooll(val):
   try:
     return val.evalf()
   except:
     return sympy.core.add.Add(val)
+
+def coole(val):
+  return N(cooll(val),4)
 
 def balance():
   '''
@@ -77,15 +87,15 @@ def balance():
   P_E = (E1*E1_dir) * (J1*J1_dir) + (E2*E2_dir) * (J2*J2_dir) # Т.к. У нас всякое происходит с направлениями, то вот так вот надобно бы сделать
 
   print()
-  print('Cумма мощностей, потребляемых приёмниками: ', coole(P_I) )
-  print('Cумма мощностей, отдаваемых источниками: ', coole(P_E) )
+  print('Cумма мощностей, потребляемых приёмниками: ', coole(P_I), 'Вт')
+  print('Cумма мощностей, отдаваемых источниками: ', coole(P_E), 'Вт')
   print()
 
 
 def printJ():
-  print("J1  : ", coole(J1))
-  print("J2  : ", coole(J2))
-  print("J3  : ", coole(J3))
+  print("J1  : ", coole(J1), 'А')
+  print("J2  : ", coole(J2), 'А')
+  print("J3  : ", coole(J3), 'А')
 
 precision = 3
 # 1. Метод Уравнений Киргофа.
@@ -115,10 +125,24 @@ sys = [eq1, eq2, eq3, eq4]
 
 result = solve(sys, (J1, J2, J3), precision=precision)
 
-print(result)
 J1 = result[J1].evalf()
 J2 = result[J2].evalf()
 J3 = result[J3].evalf()
+
+if Kursovaya_number == 2:
+  plt.plot([0, complex(J1).real], [0, complex(J1).imag], marker='o', linestyle='-', color='blue', label='J1')
+  plt.plot([0, complex(J2).real], [0, complex(J2).imag], marker='o', linestyle='-', color='red', label='J2')
+  plt.plot([0, complex(J3).real], [0, complex(J3).imag], marker='o', linestyle='-', color='green', label='J3')
+  #plt.plot(data['x'][num_iterations:], data['y'][num_iterations:], marker='o', linestyle='-', color='red', label='ГДШ')
+  plt.xlabel('Действительная часть тока')
+  plt.ylabel('Мнимая часть тока')
+
+
+  plt.show()
+  pass
+
+print(result)
+
 printJ()
 balance()
 
@@ -230,19 +254,28 @@ J_R1, J_RR = symbols('JR1 JRR')
 eq1 = Eq(J_R1 * (Z1 + Z3) - J_RR * Z3, -E1)
 eq2 = Eq(J_RR * (Z2 + Z3) - J_R1 * Z3, E2)
 
+
+
+
 sys = [eq1, eq2]
 
 
 result = solve(sys, (J_R1, J_RR), precision=precision)
+if Kursovaya_number == 2:
+  t1 = np.arange(0.0, 0.1, 0.0001)
+  plt.figure()
+  plt.subplot(211)
+  plt.plot(t1, f_J1(t1), 'bo')
 
+  plt.xlabel('t, секунды')
+  plt.ylabel('I, А')
+  plt.show()
+  pass
 #print(result)
-print("J_R1  : ", result[J_R1].evalf())
-'''
+print("J_Z1  : ", coole(result[J_R1]), 'А')
+print("J_Z2  : ", coole(result[J_RR].evalf()), 'А')
+print("J_Z3  : ", coole(result[J_RR].evalf() - result[J_R1]), 'А')
 
-Нужно подсчитать токи для всех ветвей!
-
-'''
 balance()
-
 
 
