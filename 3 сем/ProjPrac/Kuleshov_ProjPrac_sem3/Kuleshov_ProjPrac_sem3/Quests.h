@@ -380,12 +380,10 @@ private: System::Windows::Forms::ListBox^ LBQ1_2;
 			// RBQ3_1
 			// 
 			this->RBQ3_1->AutoSize = true;
-			this->RBQ3_1->Checked = true;
 			this->RBQ3_1->Location = System::Drawing::Point(20, 84);
 			this->RBQ3_1->Name = L"RBQ3_1";
 			this->RBQ3_1->Size = System::Drawing::Size(533, 52);
 			this->RBQ3_1->TabIndex = 1;
-			this->RBQ3_1->TabStop = true;
 			this->RBQ3_1->Text = L"Характеризует  изменение  прибыли  от операционной \r\nдеятельности за определенный"
 				L" период";
 			this->RBQ3_1->UseVisualStyleBackColor = true;
@@ -419,8 +417,6 @@ private: System::Windows::Forms::ListBox^ LBQ1_2;
 			// CBQ4_2
 			// 
 			this->CBQ4_2->AutoSize = true;
-			this->CBQ4_2->Checked = true;
-			this->CBQ4_2->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->CBQ4_2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->CBQ4_2->Location = System::Drawing::Point(6, 168);
@@ -445,8 +441,6 @@ private: System::Windows::Forms::ListBox^ LBQ1_2;
 			// CBQ4_1
 			// 
 			this->CBQ4_1->AutoSize = true;
-			this->CBQ4_1->Checked = true;
-			this->CBQ4_1->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->CBQ4_1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->CBQ4_1->Location = System::Drawing::Point(6, 110);
@@ -460,8 +454,6 @@ private: System::Windows::Forms::ListBox^ LBQ1_2;
 			// CBQ4_3
 			// 
 			this->CBQ4_3->AutoSize = true;
-			this->CBQ4_3->Checked = true;
-			this->CBQ4_3->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->CBQ4_3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->CBQ4_3->Location = System::Drawing::Point(6, 226);
@@ -525,7 +517,6 @@ private: System::Windows::Forms::ListBox^ LBQ1_2;
 			this->TBQ6->Name = L"TBQ6";
 			this->TBQ6->Size = System::Drawing::Size(422, 29);
 			this->TBQ6->TabIndex = 1;
-			this->TBQ6->Text = L"дисконтирования";
 			// 
 			// label4
 			// 
@@ -601,12 +592,10 @@ private: System::Windows::Forms::ListBox^ LBQ1_2;
 			// RBQ7_2
 			// 
 			this->RBQ7_2->AutoSize = true;
-			this->RBQ7_2->Checked = true;
 			this->RBQ7_2->Location = System::Drawing::Point(13, 199);
 			this->RBQ7_2->Name = L"RBQ7_2";
 			this->RBQ7_2->Size = System::Drawing::Size(48, 28);
 			this->RBQ7_2->TabIndex = 6;
-			this->RBQ7_2->TabStop = true;
 			this->RBQ7_2->Text = L"60";
 			this->RBQ7_2->UseVisualStyleBackColor = true;
 			// 

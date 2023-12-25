@@ -205,8 +205,8 @@ namespace dllkuleshovprojpracsem3 {
 
 	void Functions::CreateAccessDbFile()
 	{
-		if (File::Exists(L"1dim_array.accdb"))
-			File::Delete(L"1dim_array.accdb");
+		if (File::Exists(L"results.accdb"))
+			File::Delete(L"results.accdb");
 
 		ADOX::CatalogClass^ catalog = gcnew ADOX::CatalogClass();
 		catalog->Create(ConnectionString);
@@ -237,7 +237,7 @@ namespace dllkuleshovprojpracsem3 {
 
 	void Functions::FillAccessDb(int* sourceArray, int* transformedArray, int sourceArrayLength, int transformedArrayLength)
 	{
-		if (!File::Exists(L"1dim_array.accdb"))
+		if (!File::Exists(L"results.accdb"))
 			return;
 
 		OleDbConnection connection(ConnectionString);

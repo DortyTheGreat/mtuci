@@ -159,7 +159,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	TehPolozh^ f = gcnew TehPolozh();
 	f->Owner = this;
 	f->Show();
-	//this->Hide();
+	this->Hide();
 }
 };
 }
