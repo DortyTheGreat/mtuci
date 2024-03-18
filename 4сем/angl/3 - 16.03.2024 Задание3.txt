@@ -1,0 +1,70 @@
+Кулешов Александр БЭИ2202. от 16.03.2024.
+
+Vocabulary 1.
+
+1. intelligence - C
+2. general intelligence - A
+3. AI - D
+4. superintelligence - B
+5. far-fetched - L
+6. exponential growth - J
+7. oracle - M
+8. mothership - G
+9. prudent - O
+10. limbic system - H
+11. breakthrough - N
+12. berserk - E
+13. qualm - F
+14. inevitable - K
+15. drudgery - I
+
+Fill in the gaps. 3
+
+1. qualm
+2. far-fetched
+3. AI, inevitable
+4. general intelligence
+5. intelligence
+6. drudgery
+7. oracle
+8. berserk
+9. mothership, breakthrough
+10. prudent
+
+Solve the clues and the puzzle. 4.
+
+1. Assumption
+2. Progress
+3. Machine
+4. Technology
+5. Prudent
+6. Intelligence
+7. Civilization
+8. Drudgery
+9. Exponential
+10. Berserk
+11. Artificial
+12. Researcher
+13. Qualm
+14. Breakthrough
+15. Mothership
+16. Expert(Oracle??)
+17. Scenario
+18. Superintelligence
+
+
+Comprehension.
+
+1. Sam Harris's work focuses on how our growing understanding of ourselves and the world is changing our sense of how we should live.
+2. First option - we stop making progress in building intelligent machines. Our computer hardware and software just stops getting better for some reason. But what could stop us from doing this?
+   Second option - is that we continue to improve our intelligent machines year after year after year. At a certain point, we will build machines that are smarter than we are, and once we have machines that are smarter than we are, they will begin to improve themselves.
+3. At a certain point, we will build machines that are smarter than we are, and once we have machines that are smarter than we are, they will begin to improve themselves. And then we risk what the mathematician IJ Good called an "intelligence explosion," that the process could get away from us. The concern is really that we will build machines that are so much more competent than we are that the slightest divergence between their goals and our own could destroy us.
+4. The concern is that we will one day build machines that, whether they're conscious or not, could treat us with similar disregard as we treat ants.
+5. We have already built narrow intelligence into our machines, and many of these machines perform at a level of superhuman intelligence already. And we know that mere matter can give rise to what is called "general intelligence," an ability to think flexibly across multiple domains, because our brains have managed it. 
+6. Intelligence is a matter of information processing in physical systems. We will keep going. We will continue to improve our intelligent machines. We don't stand on a peak of intelligence, or anywhere near it, likely. 
+7. Risks: If we build machines that are more intelligent than we are, they will very likely explore this spectrum in ways that we can't imagine, and exceed us in ways that we can't imagine.
+8. The most common reason we're told not to worry is time. This is all a long way off, don't you know. This is probably 50 or 100 years away. One researcher has said, "Worrying about AI safety is like worrying about overpopulation on Mars."
+   Another reason we're told not to worry is that these machines can't help but share our values because they will be literally extensions of ourselves. They'll be grafted onto our brains, and we'll essentially become their limbic systems.
+9. Problem is that building superintelligent AI on its own seems likely to be easier than building superintelligent AI and having the completed neuroscience that allows us to seamlessly integrate our minds with it. 
+10. He thinks we need something like a Manhattan Project on the topic of artificial intelligence. Not to build it, because he thinks we'll inevitably do that, but to understand how to avoid an arms race and to build it in a way that is aligned with our interests.
+
