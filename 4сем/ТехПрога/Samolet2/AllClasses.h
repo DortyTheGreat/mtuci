@@ -104,6 +104,10 @@ namespace Creatures {
 	};
 
 
+	public ref class PlanedMovementObject : RotationalObject{
+		//List<Point>^
+	};
+
 	public ref class Plane : RotationalObject {
 		
 		protected:

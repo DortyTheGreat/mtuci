@@ -41,6 +41,11 @@ namespace TechProg4Kuleshov {
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Timer^ timer1;
 	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::Button^ button3;
+	private: System::Windows::Forms::Button^ button4;
+	private: System::Windows::Forms::Button^ button5;
+	private: System::Windows::Forms::Button^ button6;
+	private: System::Windows::Forms::Button^ button7;
 
 	private: System::ComponentModel::IContainer^ components;
 	protected:
@@ -62,6 +67,11 @@ namespace TechProg4Kuleshov {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button1
@@ -83,17 +93,72 @@ namespace TechProg4Kuleshov {
 			// 
 			this->button2->BackColor = System::Drawing::Color::LightSlateGray;
 			this->button2->Enabled = false;
-			this->button2->Location = System::Drawing::Point(-22, 211);
+			this->button2->Location = System::Drawing::Point(-41, 115);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(1249, 51);
+			this->button2->Size = System::Drawing::Size(1249, 50);
 			this->button2->TabIndex = 2;
 			this->button2->UseVisualStyleBackColor = false;
+			// 
+			// button3
+			// 
+			this->button3->BackColor = System::Drawing::Color::LightSlateGray;
+			this->button3->Enabled = false;
+			this->button3->Location = System::Drawing::Point(80, 115);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(50, 258);
+			this->button3->TabIndex = 3;
+			this->button3->UseVisualStyleBackColor = false;
+			// 
+			// button4
+			// 
+			this->button4->BackColor = System::Drawing::Color::LightSlateGray;
+			this->button4->Enabled = false;
+			this->button4->Location = System::Drawing::Point(80, 323);
+			this->button4->Name = L"button4";
+			this->button4->Size = System::Drawing::Size(1249, 50);
+			this->button4->TabIndex = 4;
+			this->button4->UseVisualStyleBackColor = false;
+			// 
+			// button5
+			// 
+			this->button5->BackColor = System::Drawing::Color::LightSlateGray;
+			this->button5->Enabled = false;
+			this->button5->Location = System::Drawing::Point(1136, 246);
+			this->button5->Name = L"button5";
+			this->button5->Size = System::Drawing::Size(50, 204);
+			this->button5->TabIndex = 5;
+			this->button5->UseVisualStyleBackColor = false;
+			// 
+			// button6
+			// 
+			this->button6->BackColor = System::Drawing::Color::LightSlateGray;
+			this->button6->Enabled = false;
+			this->button6->Location = System::Drawing::Point(967, 246);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(50, 204);
+			this->button6->TabIndex = 6;
+			this->button6->UseVisualStyleBackColor = false;
+			// 
+			// button7
+			// 
+			this->button7->BackColor = System::Drawing::Color::LightSlateGray;
+			this->button7->Enabled = false;
+			this->button7->Location = System::Drawing::Point(199, 323);
+			this->button7->Name = L"button7";
+			this->button7->Size = System::Drawing::Size(50, 302);
+			this->button7->TabIndex = 7;
+			this->button7->UseVisualStyleBackColor = false;
 			// 
 			// BeeBehaviourTestForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1220, 677);
+			this->Controls->Add(this->button7);
+			this->Controls->Add(this->button6);
+			this->Controls->Add(this->button5);
+			this->Controls->Add(this->button4);
+			this->Controls->Add(this->button3);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->button2);
 			this->Margin = System::Windows::Forms::Padding(2);
