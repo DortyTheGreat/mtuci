@@ -1,25 +1,9 @@
-import math
+
+from module import *
+import logging
+logging.basicConfig(filename='log.txt', level=logging.INFO, encoding='utf-8')
 
 
-def func(x, a, z, b, c):
-    if x < 0 and z < 0:
-        m = x
-        if a > m:
-            m = a
-        m2 = z
-        if x * a ** m < m2:
-            m2 = x * a ** m
-        return math.log(x * a + m2)
-    else:
-        if 0 <= x and x < 4 and 0 <= z and z < 3:
-            m = z
-            if (math.sqrt(x) > m):
-                m = math.sqrt(x)
-            if (abs(math.sqrt(x)) > m):
-                m = abs(math.sqrt(x))
-            return math.log(b ** 2) + m
-        else:
-            return b + c * x
 
 
 x, a, z, b, c = 0, 0, 0, 0, 0
@@ -30,12 +14,19 @@ try:
     z = float(input("Введите z: "))
     b = float(input("Введите b: "))
     c = float(input("Введите c: "))
-except ValueError:
+except ValueError as e:
     print("Введённые значения должны быть числового типа")
+    logging.error(str(e))
     quit()
 
-result = func(x,a,z,b,c)
+result = 0
 
+try:
+    result = func(x,a,z,b,c)
+except Exception as e:
+    print("Произошла ошибка при вычислениях")
+    logging.error(str(e))
+    quit()
 print()
 print(f"Выходные данные:")
 print(f"func(три знака после запятой): {'%.3f' % result}")
@@ -54,6 +45,7 @@ file.write(f"func(floor): {math.floor(result)}\n")
 file.write(f"func(round): {round(result)}\n")
 file.write(f"func(trunc): {math.trunc(result)}\n")
 
+logging.info(f"Значение результирующей функции: {'%.3f' % result}")
+
 
 file.close()
-
