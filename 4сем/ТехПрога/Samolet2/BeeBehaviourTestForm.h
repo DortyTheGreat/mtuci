@@ -46,6 +46,13 @@ namespace TechProg4Kuleshov {
 	private: System::Windows::Forms::Button^ button5;
 	private: System::Windows::Forms::Button^ button6;
 	private: System::Windows::Forms::Button^ button7;
+	private: System::Windows::Forms::Button^ left_VPP;
+	private: System::Windows::Forms::Button^ right_VPP;
+	private: System::Windows::Forms::Button^ left_down;
+	private: System::Windows::Forms::Button^ hung_cross1;
+	private: System::Windows::Forms::Button^ hung_cross2;
+
+
 
 	private: System::ComponentModel::IContainer^ components;
 	protected:
@@ -72,6 +79,11 @@ namespace TechProg4Kuleshov {
 			this->button5 = (gcnew System::Windows::Forms::Button());
 			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->button7 = (gcnew System::Windows::Forms::Button());
+			this->left_VPP = (gcnew System::Windows::Forms::Button());
+			this->right_VPP = (gcnew System::Windows::Forms::Button());
+			this->left_down = (gcnew System::Windows::Forms::Button());
+			this->hung_cross1 = (gcnew System::Windows::Forms::Button());
+			this->hung_cross2 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button1
@@ -149,11 +161,66 @@ namespace TechProg4Kuleshov {
 			this->button7->TabIndex = 7;
 			this->button7->UseVisualStyleBackColor = false;
 			// 
+			// left_VPP
+			// 
+			this->left_VPP->Location = System::Drawing::Point(101, 135);
+			this->left_VPP->Name = L"left_VPP";
+			this->left_VPP->Size = System::Drawing::Size(10, 10);
+			this->left_VPP->TabIndex = 8;
+			this->left_VPP->Text = L"left_VPP";
+			this->left_VPP->UseVisualStyleBackColor = true;
+			this->left_VPP->Visible = false;
+			// 
+			// right_VPP
+			// 
+			this->right_VPP->Location = System::Drawing::Point(1176, 135);
+			this->right_VPP->Name = L"right_VPP";
+			this->right_VPP->Size = System::Drawing::Size(10, 10);
+			this->right_VPP->TabIndex = 9;
+			this->right_VPP->Text = L"button8";
+			this->right_VPP->UseVisualStyleBackColor = true;
+			this->right_VPP->Visible = false;
+			// 
+			// left_down
+			// 
+			this->left_down->Location = System::Drawing::Point(101, 343);
+			this->left_down->Name = L"left_down";
+			this->left_down->Size = System::Drawing::Size(10, 10);
+			this->left_down->TabIndex = 10;
+			this->left_down->Text = L"button8";
+			this->left_down->UseVisualStyleBackColor = true;
+			this->left_down->Visible = false;
+			// 
+			// hung_cross1
+			// 
+			this->hung_cross1->Location = System::Drawing::Point(985, 343);
+			this->hung_cross1->Name = L"hung_cross1";
+			this->hung_cross1->Size = System::Drawing::Size(10, 10);
+			this->hung_cross1->TabIndex = 11;
+			this->hung_cross1->Text = L"button8";
+			this->hung_cross1->UseVisualStyleBackColor = true;
+			this->hung_cross1->Visible = false;
+			// 
+			// hung_cross2
+			// 
+			this->hung_cross2->Location = System::Drawing::Point(1155, 343);
+			this->hung_cross2->Name = L"hung_cross2";
+			this->hung_cross2->Size = System::Drawing::Size(10, 10);
+			this->hung_cross2->TabIndex = 12;
+			this->hung_cross2->Text = L"button8";
+			this->hung_cross2->UseVisualStyleBackColor = true;
+			this->hung_cross2->Visible = false;
+			// 
 			// BeeBehaviourTestForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1220, 677);
+			this->Controls->Add(this->hung_cross2);
+			this->Controls->Add(this->hung_cross1);
+			this->Controls->Add(this->left_down);
+			this->Controls->Add(this->right_VPP);
+			this->Controls->Add(this->left_VPP);
 			this->Controls->Add(this->button7);
 			this->Controls->Add(this->button6);
 			this->Controls->Add(this->button5);
@@ -178,10 +245,17 @@ namespace TechProg4Kuleshov {
 		//bees = gcnew List<Bee^>();
 		int Qx = 100;
 		int Qy = 200;
-		p = gcnew Plane(this, Point(Qx, Qy), 100);
+		//button8->Location.X;
+		p = gcnew Plane(this, hung_cross1->Location, 100);
 		p->Rotate(RotationalObject::Direction::Right);
 		p->BringToFront();
 
+		List<Point>^ Movement_path = gcnew List<Point>;
+		Movement_path->Add(hung_cross1->Location);
+		Movement_path->Add(left_down->Location);
+		Movement_path->Add(left_VPP->Location);
+
+		p->prepare_to_fly(Movement_path);
 	}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		p->tick();

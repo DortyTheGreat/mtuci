@@ -7,6 +7,8 @@ using namespace System::Drawing;
 namespace Creatures {
 	public ref class RotationalObject : PictureBox {
 
+		public: int size = 100;
+
 		protected: static String^ ImagePath = "test.bmp";
 		protected: static int FlightStep = 30;
 
@@ -105,10 +107,57 @@ namespace Creatures {
 
 
 	public ref class PlanedMovementObject : RotationalObject{
-		//List<Point>^
+		public:
+
+			float Speed = 5;
+
+			List<Point>^ Movement_path;
+			int progress = 0;
+
+			bool isFinished() {
+				return progress == Movement_path->Count;
+			}
+
+			void move() {
+				
+				Point Center = this->Location;
+
+				Center.Offset(Point(size / 2, size / 2));
+
+				if (isFinished()) return;
+				if (Center == Movement_path[progress]) { progress++; return; }
+
+				
+
+				Point delta = Point(0, 0);
+
+				delta.Offset(Center);
+				delta.X *= -1;
+				delta.Y *= -1;
+
+				delta.Offset(Movement_path[progress]);
+
+				if (delta.X > Speed) { delta.X = Speed; Rotate(Direction::Right); }
+				if (delta.X < -Speed) { delta.X = -Speed; Rotate(Direction::Left); }
+				if (delta.Y > Speed) { delta.Y = Speed; Rotate(Direction::Up); }
+				if (delta.Y < -Speed) { delta.Y = -Speed; Rotate(Direction::Down); }
+
+				Console::WriteLine(delta.X);
+				Console::WriteLine(delta.Y);
+
+				Console::WriteLine(Center.X);
+				Console::WriteLine(Center.Y);
+
+				Fly(delta.X, delta.Y);
+
+				Console::WriteLine(Center.X);
+				Console::WriteLine(Center.Y);
+
+			}
+
 	};
 
-	public ref class Plane : RotationalObject {
+	public ref class Plane : PlanedMovementObject {
 		
 		protected:
 			float XVelocity = 0;
@@ -122,25 +171,46 @@ namespace Creatures {
 			const float TopYVelocity = 5;
 			bool grounded = true;
 			Direction DirectionHeading = Direction::Right;
-	
+			
+			
+
+			String^ state = "Idle";
+
 		protected: 
 			static String^ ImagePathGrounded = "plane_grounded.bmp";
 			static String^ ImagePathUnGrounded = "plane_ungrounded.bmp";
 
 		public:
-			Plane::Plane(Form^ World, Point location, int size) {
-				ChangeImage(ImagePathGrounded, 100);
+			Plane::Plane(Form^ World, Point location, int size_) {
+				state = "Idle";
+				size = size_;
+				ChangeImage(ImagePathGrounded, size);
+				location.Offset(Point(-size / 2, -size / 2));
 				InitInsect(World, location);
 			}
 
 			void UnGround() {
 				if (grounded == false) return;
 				grounded = false;
-				ChangeImage(ImagePathUnGrounded, 100);
+				ChangeImage(ImagePathUnGrounded, size);
 				Rotate(Direction::Right);
 			}
 
+			void prepare_to_fly(List<Point>^ Movement_path_) {
+				state = "moving_to_VPP";
+				Movement_path = Movement_path_;
+				progress = 0;
+			}
+
 			void tick() {
+
+				Console::WriteLine("tick");
+
+				if (!isFinished() && state == "moving_to_VPP") { move(); Console::WriteLine("move");}
+				else { state = "flying"; Fly_VPP(); Console::WriteLine("fly");};
+			}
+
+			void Fly_VPP() {
 				XVelocity += XAcceleration;
 				if (XVelocity > ReqXVelocity) {
 					YVelocity += YAcceleration;
