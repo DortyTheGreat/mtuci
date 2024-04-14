@@ -139,8 +139,8 @@ namespace Creatures {
 
 				if (delta.X > Speed) { delta.X = Speed; Rotate(Direction::Right); }
 				if (delta.X < -Speed) { delta.X = -Speed; Rotate(Direction::Left); }
-				if (delta.Y > Speed) { delta.Y = Speed; Rotate(Direction::Up); }
-				if (delta.Y < -Speed) { delta.Y = -Speed; Rotate(Direction::Down); }
+				if (delta.Y > Speed) { delta.Y = Speed; Rotate(Direction::Down); }
+				if (delta.Y < -Speed) { delta.Y = -Speed; Rotate(Direction::Up); }
 
 				Console::WriteLine(delta.X);
 				Console::WriteLine(delta.Y);
@@ -207,7 +207,7 @@ namespace Creatures {
 				Console::WriteLine("tick");
 
 				if (!isFinished() && state == "moving_to_VPP") { move(); Console::WriteLine("move");}
-				else { state = "flying"; Fly_VPP(); Console::WriteLine("fly");};
+				else { state = "flying"; Fly_VPP(); Rotate(Direction::Right); Console::WriteLine("fly"); };
 			}
 
 			void Fly_VPP() {
