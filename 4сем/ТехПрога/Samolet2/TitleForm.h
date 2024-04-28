@@ -37,7 +37,7 @@ namespace TechProg4Kuleshov {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Button^ button1;
+
 	private: System::Windows::Forms::Timer^ timer1;
 	private: System::Windows::Forms::Button^ button2;
 	private: System::ComponentModel::IContainer^ components;
@@ -58,20 +58,9 @@ namespace TechProg4Kuleshov {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(1202, 518);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(200, 67);
-			this->button1->TabIndex = 0;
-			this->button1->Text = L"start test";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &TitleForm::button1_Click);
 			// 
 			// timer1
 			// 
@@ -80,21 +69,24 @@ namespace TechProg4Kuleshov {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(1202, 609);
+			this->button2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->button2->Location = System::Drawing::Point(902, 495);
+			this->button2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(200, 67);
+			this->button2->Size = System::Drawing::Size(150, 54);
 			this->button2->TabIndex = 1;
-			this->button2->Text = L"next test";
+			this->button2->Text = L"К Симуляции";
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &TitleForm::button2_Click);
 			// 
 			// TitleForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1529, 968);
+			this->ClientSize = System::Drawing::Size(1147, 786);
 			this->Controls->Add(this->button2);
-			this->Controls->Add(this->button1);
+			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->Name = L"TitleForm";
 			this->Text = L"MovementTest";
 			this->Load += gcnew System::EventHandler(this, &TitleForm::TitleForm_Load);

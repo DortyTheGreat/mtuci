@@ -153,6 +153,7 @@ namespace Creatures {
 	};
 
 	public delegate void FlewAwayHandler();
+	public delegate void LandedHandler();
 
 	public ref class Plane : PlanedMovementObject {
 		
@@ -171,7 +172,7 @@ namespace Creatures {
 			
 			
 
-			String^ state = "Idle";
+			
 
 		protected: 
 			static String^ ImagePathGrounded = "plane_grounded.bmp";
@@ -180,10 +181,11 @@ namespace Creatures {
 		public:
 
 			event FlewAwayHandler^ FlewAway;
-
+			event LandedHandler^ Landed;
+			String^ state = "Idle3";
 
 			Plane::Plane(Form^ World, Point location, int size_) {
-				state = "Idle";
+				state = "Idle3";
 				size = size_;
 				ChangeImage(ImagePathGrounded, size);
 				location.Offset(Point(-size / 2, -size / 2));
@@ -197,18 +199,41 @@ namespace Creatures {
 				Rotate(Direction::Right);
 			}
 
-			void prepare_to_fly(List<Point>^ Movement_path_) {
+			void prepare_to_fly() {
+				YVelocity = 0;
+				XVelocity = Speed;
 				state = "moving_to_VPP";
+				Movement_path->Reverse();
+				progress = 0;
+			}
+
+			void prepare_to_land(List<Point>^ Movement_path_) {
+
+				XVelocity = -2 * Speed;
+				YVelocity = 1;
+
+				state = "landing";
+
+				Movement_path_->Reverse();
+
 				Movement_path = Movement_path_;
 				progress = 0;
 			}
 
+			int idler = 0;
 			void tick() {
+				if (state == "flewaway") { Console::WriteLine("H1"); return;  }
 
-				Console::WriteLine("tick");
-				if (state == "flewaway") { return; }
-				if (!isFinished() && state == "moving_to_VPP") { move(); }
-				else { state = "flying"; Fly_VPP(); Rotate(Direction::Right); };
+				if (state == "Idle") { Console::WriteLine("Idle");  return; }
+
+				if (state == "landing") { land(); Console::WriteLine("H2"); return; }
+
+				if (state == "moving_to_hung" && isFinished()) { state = "Idle"; Console::WriteLine("H3"); Landed(); return; }
+				if (state == "moving_to_hung" && !isFinished()) { move(); Console::WriteLine("H4"); return; }
+				
+				if ((state == "moving_to_VPP" || state == "flying") && isFinished()) { state = "flying"; Fly_VPP(); Rotate(Direction::Right); Console::WriteLine("H5"); return; };
+				if (state == "moving_to_VPP" && !isFinished()) { move(); Console::WriteLine("H6"); return; }
+				
 			}
 
 			void Fly_VPP() {
@@ -217,12 +242,32 @@ namespace Creatures {
 					YVelocity += YAcceleration;
 					UnGround();
 				}
-				if (this->Location.X > 1000) {
+				if (this->Location.X > 1500) {
 					state = "flewaway";
 					FlewAway();
 				}
 				Fly(XVelocity, YVelocity);
 				//Rotate(Direction::Down);
+			}
+
+			void land() {
+				XVelocity += XAcceleration;
+				int still_accelerating = 0;
+				if (XVelocity > -1 * Speed) {
+					XVelocity = -Speed;
+					++still_accelerating;
+				}
+
+				if (this->Location.Y >= 135 - size / 2) {
+					this->Location = Point(this->Location.X, 135 - size / 2);
+					++still_accelerating;
+				}
+
+				if (still_accelerating == 2) {
+					state = "moving_to_hung";
+				}
+				
+				Fly(XVelocity, YVelocity);
 			}
 	};
 

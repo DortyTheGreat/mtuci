@@ -11,6 +11,7 @@ namespace TechProg4Kuleshov {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace Creatures;
+	using namespace System::Threading;
 	//using namespace Ran;
 
 	/// <summary>
@@ -54,6 +55,12 @@ namespace TechProg4Kuleshov {
 	private: System::Windows::Forms::Button^ button8;
 	private: System::Windows::Forms::Button^ button9;
 	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Button^ hung_0;
+	private: System::Windows::Forms::Button^ hung_1;
+	private: System::Windows::Forms::Button^ hung_2;
+	private: System::Windows::Forms::Button^ hung_3;
+	private: System::Windows::Forms::Label^ label2;
+
 
 
 
@@ -90,16 +97,23 @@ namespace TechProg4Kuleshov {
 			this->button8 = (gcnew System::Windows::Forms::Button());
 			this->button9 = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->hung_0 = (gcnew System::Windows::Forms::Button());
+			this->hung_1 = (gcnew System::Windows::Forms::Button());
+			this->hung_2 = (gcnew System::Windows::Forms::Button());
+			this->hung_3 = (gcnew System::Windows::Forms::Button());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(1036, 535);
+			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->button1->Location = System::Drawing::Point(448, 498);
 			this->button1->Margin = System::Windows::Forms::Padding(2);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(150, 54);
+			this->button1->Size = System::Drawing::Size(150, 70);
 			this->button1->TabIndex = 1;
-			this->button1->Text = L"start test";
+			this->button1->Text = L"«апустить симул€цию";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &BeeBehaviourTestForm::button1_Click);
 			// 
@@ -219,38 +233,100 @@ namespace TechProg4Kuleshov {
 			// 
 			// button8
 			// 
-			this->button8->Location = System::Drawing::Point(305, 463);
+			this->button8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->button8->Location = System::Drawing::Point(305, 457);
 			this->button8->Name = L"button8";
-			this->button8->Size = System::Drawing::Size(75, 23);
+			this->button8->Size = System::Drawing::Size(75, 29);
 			this->button8->TabIndex = 13;
-			this->button8->Text = L"+";
+			this->button8->Text = L"-";
 			this->button8->UseVisualStyleBackColor = true;
 			this->button8->Click += gcnew System::EventHandler(this, &BeeBehaviourTestForm::button8_Click);
 			// 
 			// button9
 			// 
+			this->button9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
 			this->button9->Location = System::Drawing::Point(305, 535);
 			this->button9->Name = L"button9";
-			this->button9->Size = System::Drawing::Size(75, 23);
+			this->button9->Size = System::Drawing::Size(75, 33);
 			this->button9->TabIndex = 14;
-			this->button9->Text = L"-";
+			this->button9->Text = L"+";
 			this->button9->UseVisualStyleBackColor = true;
 			this->button9->Click += gcnew System::EventHandler(this, &BeeBehaviourTestForm::button9_Click);
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(321, 506);
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label1->Location = System::Drawing::Point(327, 498);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(35, 13);
+			this->label1->Size = System::Drawing::Size(20, 24);
 			this->label1->TabIndex = 15;
-			this->label1->Text = L"label1";
+			this->label1->Text = L"3";
+			// 
+			// hung_0
+			// 
+			this->hung_0->Location = System::Drawing::Point(985, 269);
+			this->hung_0->Name = L"hung_0";
+			this->hung_0->Size = System::Drawing::Size(10, 10);
+			this->hung_0->TabIndex = 16;
+			this->hung_0->Text = L"button8";
+			this->hung_0->UseVisualStyleBackColor = true;
+			this->hung_0->Visible = false;
+			// 
+			// hung_1
+			// 
+			this->hung_1->Location = System::Drawing::Point(985, 423);
+			this->hung_1->Name = L"hung_1";
+			this->hung_1->Size = System::Drawing::Size(10, 10);
+			this->hung_1->TabIndex = 17;
+			this->hung_1->Text = L"button8";
+			this->hung_1->UseVisualStyleBackColor = true;
+			this->hung_1->Visible = false;
+			// 
+			// hung_2
+			// 
+			this->hung_2->Location = System::Drawing::Point(1155, 269);
+			this->hung_2->Name = L"hung_2";
+			this->hung_2->Size = System::Drawing::Size(10, 10);
+			this->hung_2->TabIndex = 18;
+			this->hung_2->Text = L"button8";
+			this->hung_2->UseVisualStyleBackColor = true;
+			this->hung_2->Visible = false;
+			// 
+			// hung_3
+			// 
+			this->hung_3->Location = System::Drawing::Point(1155, 423);
+			this->hung_3->Name = L"hung_3";
+			this->hung_3->Size = System::Drawing::Size(10, 10);
+			this->hung_3->TabIndex = 19;
+			this->hung_3->Text = L"button8";
+			this->hung_3->UseVisualStyleBackColor = true;
+			this->hung_3->Visible = false;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label2->Location = System::Drawing::Point(255, 430);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(200, 24);
+			this->label2->TabIndex = 20;
+			this->label2->Text = L"—корость —имул€ции";
 			// 
 			// BeeBehaviourTestForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1220, 677);
+			this->Controls->Add(this->label2);
+			this->Controls->Add(this->hung_3);
+			this->Controls->Add(this->hung_2);
+			this->Controls->Add(this->hung_1);
+			this->Controls->Add(this->hung_0);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->button9);
 			this->Controls->Add(this->button8);
@@ -282,44 +358,161 @@ namespace TechProg4Kuleshov {
 		int clock_carr = 3;
 
 		Plane^ p;
+
+		List<Plane^> planes;
+		int current_plane = -1;
+
+		List<Point>^ Movement_path0 = gcnew List<Point>;
+		List<Point>^ Movement_path1 = gcnew List<Point>;
+		List<Point>^ Movement_path2 = gcnew List<Point>;
+		List<Point>^ Movement_path3 = gcnew List<Point>;
+		Random^ rnd = gcnew Random();
 	private: System::Void BeeBehaviourTestForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		
-		clock_intervals[0] = 10;
-		clock_intervals[1] = 20;
-		clock_intervals[2] = 40;
-		clock_intervals[3] = 80;
+		clock_intervals[0] = 5;
+		clock_intervals[1] = 10;
+		clock_intervals[2] = 20;
+		clock_intervals[3] = 50;
 		clock_intervals[4] = 100;
 		clock_intervals[5] = 200;
 		
-		//bees = gcnew List<Bee^>();
-		int Qx = 100;
-		int Qy = 200;
-		//button8->Location.X;
-		p = gcnew Plane(this, hung_cross1->Location, 100);
-		p->Rotate(RotationalObject::Direction::Right);
-		p->BringToFront();
 
-		List<Point>^ Movement_path = gcnew List<Point>;
-		Movement_path->Add(hung_cross1->Location);
-		Movement_path->Add(left_down->Location);
-		Movement_path->Add(left_VPP->Location);
+		Movement_path0->Add(hung_0->Location);
+		Movement_path0->Add(hung_cross1->Location);
 
-		p->prepare_to_fly(Movement_path);
+		Movement_path1->Add(hung_1->Location);
+		Movement_path1->Add(hung_cross1->Location);
 
-		p->FlewAway += gcnew FlewAwayHandler(this, &BeeBehaviourTestForm::NextPlane);
+		Movement_path2->Add(hung_2->Location);
+		Movement_path2->Add(hung_cross2->Location);
+
+		Movement_path3->Add(hung_3->Location);
+		Movement_path3->Add(hung_cross2->Location);
+
+		Movement_path0->Add(left_down->Location);
+		Movement_path0->Add(left_VPP->Location);
+
+		Movement_path1->Add(left_down->Location);
+		Movement_path1->Add(left_VPP->Location);
+
+		Movement_path2->Add(left_down->Location);
+		Movement_path2->Add(left_VPP->Location);
+
+		Movement_path3->Add(left_down->Location);
+		Movement_path3->Add(left_VPP->Location);
+
+		NextPlane();
+	}
+	
+
+	
+	List<Point>^ Movement_path;
+
+	void generate_path() {
+		if (current_plane == 0) Movement_path = Movement_path0;
+		if (current_plane == 1) Movement_path = Movement_path1;
+		if (current_plane == 2) Movement_path = Movement_path2;
+		if (current_plane == 3) Movement_path = Movement_path3;
+	}
+
+	void LandPlane() {
+		Console::WriteLine("LandPlane");
+		current_plane = -1;
+
+		for (int i = 0; i < planes.Count; ++i) {
+			if (planes[i] == nullptr) {
+				current_plane = i;
+				generate_path();
+
+				Point in_sky = Movement_path[Movement_path->Count - 1];
+				in_sky.X += 900;
+				in_sky.Y -= 100;
+				planes[i] = (gcnew Plane(this, in_sky, 100));
+
+				break;
+			}
+		}
+		if (current_plane == -1) {
+			current_plane = planes.Count;
+
+			generate_path();
+
+			Point in_sky = Movement_path[Movement_path->Count - 1];
+			in_sky.X += 1300;
+			in_sky.Y -= 100;
+			planes.Add(gcnew Plane(this, in_sky, 100));
+		}
+
+		planes[current_plane]->Rotate(RotationalObject::Direction::Left);
+		planes[current_plane]->BringToFront();
+
+		planes[current_plane]->prepare_to_land(Movement_path);
+		planes[current_plane]->Landed += gcnew LandedHandler(this, &BeeBehaviourTestForm::NextPlane);
+
+	}
+
+	void FlyPlane() {
+		Console::WriteLine("FlyPlane");
+
+		current_plane = -1;
+		int there_is_plane = -1;
+		for (int i = 0; i < planes.Count; ++i) {
+			if (planes[i] != nullptr) {
+				there_is_plane = i;
+				if (rnd->Next() < 0.3) current_plane = i;
+				break;
+			}
+		}
+
+		if (current_plane == -1) current_plane = there_is_plane;
+		Console::WriteLine(current_plane);
+		planes[current_plane]->prepare_to_fly();
+		Console::WriteLine(planes[current_plane]->state);
+		planes[current_plane]->FlewAway += gcnew FlewAwayHandler(this, &BeeBehaviourTestForm::NextPlane);
 	}
 
 	void NextPlane() {
-		Console::WriteLine("next_plane");
+		Thread::Sleep(100);
+		Console::WriteLine("NextPlane");
+		clear_missing_planes();
+
+		int real_count = 0;
+
+		for (int i = 0; i < planes.Count; ++i) {
+			if (planes[i] != nullptr) ++real_count;
+		}
+
+		if (real_count == 0) { LandPlane(); return; }
+		if (real_count == 4) { FlyPlane(); return; }
+
+		if (rnd->NextDouble() < 0.5) {
+			LandPlane();
+		}
+		else {
+			FlyPlane();
+		}
+
+	}
+
+	void clear_missing_planes() {
+		for (int i = 0; i < planes.Count; ++i) {
+			if (planes[i] == nullptr) continue;
+
+			if (planes[i]->state == "flewaway") {
+				planes[i] = nullptr;
+			}
+			
+		}
+
 	}
 
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
-		p->tick();
-		
-
+		planes[current_plane]->tick();
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		timer1->Enabled = !timer1->Enabled;
+		if (timer1->Enabled) button1->Text = "«апустить симул€цию";
+		else button1->Text = "ќстановить симул€цию";
 	}
 	private: System::Void BeeBehaviourTestForm_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 		//queen->Location = e->Location;
@@ -332,10 +525,13 @@ namespace TechProg4Kuleshov {
 
 		if (++clock_carr > 5) clock_carr = 5;
 		timer1->Interval = clock_intervals[clock_carr];
+		label1->Text = ( 6 - clock_carr).ToString();
 	}
 	private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (--clock_carr < 0) clock_carr = 0;
 		timer1->Interval = clock_intervals[clock_carr];
+		label1->Text = ( 6 - clock_carr).ToString();
 	}
+
 };
 }
