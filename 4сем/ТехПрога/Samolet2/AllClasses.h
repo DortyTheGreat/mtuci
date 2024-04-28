@@ -142,20 +142,17 @@ namespace Creatures {
 				if (delta.Y > Speed) { delta.Y = Speed; Rotate(Direction::Down); }
 				if (delta.Y < -Speed) { delta.Y = -Speed; Rotate(Direction::Up); }
 
-				Console::WriteLine(delta.X);
-				Console::WriteLine(delta.Y);
 
-				Console::WriteLine(Center.X);
-				Console::WriteLine(Center.Y);
 
 				Fly(delta.X, delta.Y);
 
-				Console::WriteLine(Center.X);
-				Console::WriteLine(Center.Y);
+
 
 			}
 
 	};
+
+	public delegate void FlewAwayHandler();
 
 	public ref class Plane : PlanedMovementObject {
 		
@@ -181,6 +178,10 @@ namespace Creatures {
 			static String^ ImagePathUnGrounded = "plane_ungrounded.bmp";
 
 		public:
+
+			event FlewAwayHandler^ FlewAway;
+
+
 			Plane::Plane(Form^ World, Point location, int size_) {
 				state = "Idle";
 				size = size_;
@@ -205,9 +206,9 @@ namespace Creatures {
 			void tick() {
 
 				Console::WriteLine("tick");
-
-				if (!isFinished() && state == "moving_to_VPP") { move(); Console::WriteLine("move");}
-				else { state = "flying"; Fly_VPP(); Rotate(Direction::Right); Console::WriteLine("fly"); };
+				if (state == "flewaway") { return; }
+				if (!isFinished() && state == "moving_to_VPP") { move(); }
+				else { state = "flying"; Fly_VPP(); Rotate(Direction::Right); };
 			}
 
 			void Fly_VPP() {
@@ -216,8 +217,17 @@ namespace Creatures {
 					YVelocity += YAcceleration;
 					UnGround();
 				}
+				if (this->Location.X > 1000) {
+					state = "flewaway";
+					FlewAway();
+				}
 				Fly(XVelocity, YVelocity);
 				//Rotate(Direction::Down);
 			}
+	};
+
+
+	public ref class Airport {
+		
 	};
 }

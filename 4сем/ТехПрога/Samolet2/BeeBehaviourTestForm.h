@@ -51,6 +51,9 @@ namespace TechProg4Kuleshov {
 	private: System::Windows::Forms::Button^ left_down;
 	private: System::Windows::Forms::Button^ hung_cross1;
 	private: System::Windows::Forms::Button^ hung_cross2;
+	private: System::Windows::Forms::Button^ button8;
+	private: System::Windows::Forms::Button^ button9;
+	private: System::Windows::Forms::Label^ label1;
 
 
 
@@ -84,6 +87,9 @@ namespace TechProg4Kuleshov {
 			this->left_down = (gcnew System::Windows::Forms::Button());
 			this->hung_cross1 = (gcnew System::Windows::Forms::Button());
 			this->hung_cross2 = (gcnew System::Windows::Forms::Button());
+			this->button8 = (gcnew System::Windows::Forms::Button());
+			this->button9 = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// button1
@@ -211,11 +217,43 @@ namespace TechProg4Kuleshov {
 			this->hung_cross2->UseVisualStyleBackColor = true;
 			this->hung_cross2->Visible = false;
 			// 
+			// button8
+			// 
+			this->button8->Location = System::Drawing::Point(305, 463);
+			this->button8->Name = L"button8";
+			this->button8->Size = System::Drawing::Size(75, 23);
+			this->button8->TabIndex = 13;
+			this->button8->Text = L"+";
+			this->button8->UseVisualStyleBackColor = true;
+			this->button8->Click += gcnew System::EventHandler(this, &BeeBehaviourTestForm::button8_Click);
+			// 
+			// button9
+			// 
+			this->button9->Location = System::Drawing::Point(305, 535);
+			this->button9->Name = L"button9";
+			this->button9->Size = System::Drawing::Size(75, 23);
+			this->button9->TabIndex = 14;
+			this->button9->Text = L"-";
+			this->button9->UseVisualStyleBackColor = true;
+			this->button9->Click += gcnew System::EventHandler(this, &BeeBehaviourTestForm::button9_Click);
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(321, 506);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(35, 13);
+			this->label1->TabIndex = 15;
+			this->label1->Text = L"label1";
+			// 
 			// BeeBehaviourTestForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1220, 677);
+			this->Controls->Add(this->label1);
+			this->Controls->Add(this->button9);
+			this->Controls->Add(this->button8);
 			this->Controls->Add(this->hung_cross2);
 			this->Controls->Add(this->hung_cross1);
 			this->Controls->Add(this->left_down);
@@ -234,13 +272,24 @@ namespace TechProg4Kuleshov {
 			this->Load += gcnew System::EventHandler(this, &BeeBehaviourTestForm::BeeBehaviourTestForm_Load);
 			this->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &BeeBehaviourTestForm::BeeBehaviourTestForm_MouseClick);
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
 
+
+		int* clock_intervals = new int[6];
+		int clock_carr = 3;
+
 		Plane^ p;
 	private: System::Void BeeBehaviourTestForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		
+		clock_intervals[0] = 10;
+		clock_intervals[1] = 20;
+		clock_intervals[2] = 40;
+		clock_intervals[3] = 80;
+		clock_intervals[4] = 100;
+		clock_intervals[5] = 200;
 		
 		//bees = gcnew List<Bee^>();
 		int Qx = 100;
@@ -256,7 +305,14 @@ namespace TechProg4Kuleshov {
 		Movement_path->Add(left_VPP->Location);
 
 		p->prepare_to_fly(Movement_path);
+
+		p->FlewAway += gcnew FlewAwayHandler(this, &BeeBehaviourTestForm::NextPlane);
 	}
+
+	void NextPlane() {
+		Console::WriteLine("next_plane");
+	}
+
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		p->tick();
 		
@@ -268,7 +324,18 @@ namespace TechProg4Kuleshov {
 	private: System::Void BeeBehaviourTestForm_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 		//queen->Location = e->Location;
 	}
-	private: System::Void pictureBox1_LocationChanged(System::Object^ sender, System::EventArgs^ e) {
+
+	
+	
+	
+	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		if (++clock_carr > 5) clock_carr = 5;
+		timer1->Interval = clock_intervals[clock_carr];
+	}
+	private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (--clock_carr < 0) clock_carr = 0;
+		timer1->Interval = clock_intervals[clock_carr];
 	}
 };
 }
