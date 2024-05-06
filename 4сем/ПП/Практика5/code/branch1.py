@@ -1,7 +1,7 @@
 import math
 
 def branch(x, a, z, b, c):
-    #print("Ветвь x < 0 и z < 0")
+    print("Ветвь x < 0 и z < 0")
     m = x
     if a > m:
         m = a
