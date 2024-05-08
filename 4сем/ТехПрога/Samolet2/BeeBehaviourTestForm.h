@@ -66,6 +66,8 @@ namespace TechProg4Kuleshov {
 	private: System::Windows::Forms::Button^ cargo_cross;
 	private: System::Windows::Forms::Button^ bus_stop;
 	private: System::Windows::Forms::Button^ bus_plane_stop;
+	private: System::Windows::Forms::Button^ cargo_stop;
+
 
 
 
@@ -114,6 +116,7 @@ namespace TechProg4Kuleshov {
 			this->cargo_cross = (gcnew System::Windows::Forms::Button());
 			this->bus_stop = (gcnew System::Windows::Forms::Button());
 			this->bus_plane_stop = (gcnew System::Windows::Forms::Button());
+			this->cargo_stop = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button1
@@ -167,9 +170,9 @@ namespace TechProg4Kuleshov {
 			// 
 			this->button5->BackColor = System::Drawing::Color::LightSlateGray;
 			this->button5->Enabled = false;
-			this->button5->Location = System::Drawing::Point(1132, 326);
+			this->button5->Location = System::Drawing::Point(1132, 315);
 			this->button5->Name = L"button5";
-			this->button5->Size = System::Drawing::Size(50, 204);
+			this->button5->Size = System::Drawing::Size(50, 236);
 			this->button5->TabIndex = 5;
 			this->button5->UseVisualStyleBackColor = false;
 			// 
@@ -177,9 +180,9 @@ namespace TechProg4Kuleshov {
 			// 
 			this->button6->BackColor = System::Drawing::Color::LightSlateGray;
 			this->button6->Enabled = false;
-			this->button6->Location = System::Drawing::Point(931, 327);
+			this->button6->Location = System::Drawing::Point(931, 315);
 			this->button6->Name = L"button6";
-			this->button6->Size = System::Drawing::Size(50, 204);
+			this->button6->Size = System::Drawing::Size(50, 236);
 			this->button6->TabIndex = 6;
 			this->button6->UseVisualStyleBackColor = false;
 			// 
@@ -270,7 +273,7 @@ namespace TechProg4Kuleshov {
 			// 
 			// hung_0
 			// 
-			this->hung_0->Location = System::Drawing::Point(949, 350);
+			this->hung_0->Location = System::Drawing::Point(949, 336);
 			this->hung_0->Name = L"hung_0";
 			this->hung_0->Size = System::Drawing::Size(10, 10);
 			this->hung_0->TabIndex = 16;
@@ -280,7 +283,7 @@ namespace TechProg4Kuleshov {
 			// 
 			// hung_1
 			// 
-			this->hung_1->Location = System::Drawing::Point(949, 504);
+			this->hung_1->Location = System::Drawing::Point(949, 520);
 			this->hung_1->Name = L"hung_1";
 			this->hung_1->Size = System::Drawing::Size(10, 10);
 			this->hung_1->TabIndex = 17;
@@ -290,7 +293,7 @@ namespace TechProg4Kuleshov {
 			// 
 			// hung_2
 			// 
-			this->hung_2->Location = System::Drawing::Point(1151, 349);
+			this->hung_2->Location = System::Drawing::Point(1151, 336);
 			this->hung_2->Name = L"hung_2";
 			this->hung_2->Size = System::Drawing::Size(10, 10);
 			this->hung_2->TabIndex = 18;
@@ -300,7 +303,7 @@ namespace TechProg4Kuleshov {
 			// 
 			// hung_3
 			// 
-			this->hung_3->Location = System::Drawing::Point(1151, 503);
+			this->hung_3->Location = System::Drawing::Point(1151, 520);
 			this->hung_3->Name = L"hung_3";
 			this->hung_3->Size = System::Drawing::Size(10, 10);
 			this->hung_3->TabIndex = 19;
@@ -371,7 +374,7 @@ namespace TechProg4Kuleshov {
 			// 
 			// bus_plane_stop
 			// 
-			this->bus_plane_stop->Location = System::Drawing::Point(325, 488);
+			this->bus_plane_stop->Location = System::Drawing::Point(325, 502);
 			this->bus_plane_stop->Name = L"bus_plane_stop";
 			this->bus_plane_stop->Size = System::Drawing::Size(10, 10);
 			this->bus_plane_stop->TabIndex = 26;
@@ -379,11 +382,22 @@ namespace TechProg4Kuleshov {
 			this->bus_plane_stop->UseVisualStyleBackColor = true;
 			this->bus_plane_stop->Visible = false;
 			// 
+			// cargo_stop
+			// 
+			this->cargo_stop->Location = System::Drawing::Point(-100, 572);
+			this->cargo_stop->Name = L"cargo_stop";
+			this->cargo_stop->Size = System::Drawing::Size(10, 10);
+			this->cargo_stop->TabIndex = 27;
+			this->cargo_stop->Text = L"button8";
+			this->cargo_stop->UseVisualStyleBackColor = true;
+			this->cargo_stop->Visible = false;
+			// 
 			// BeeBehaviourTestForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1296, 703);
+			this->Controls->Add(this->cargo_stop);
 			this->Controls->Add(this->bus_plane_stop);
 			this->Controls->Add(this->bus_stop);
 			this->Controls->Add(this->cargo_cross);
@@ -436,13 +450,14 @@ namespace TechProg4Kuleshov {
 		List<Point>^ Movement_path3 = gcnew List<Point>;
 
 		List<Point>^ Movement_path_bus = gcnew List<Point>;
+		List<Point>^ Movement_path_cargo_car = gcnew List<Point>;
 
 		List<Point>^ Elipse = gcnew List<Point>;
 
 		Random^ rnd = gcnew Random();
 
 		Bus^ Buss;
-
+		CargoCar^ CargoCarr;
 		Point in_sky;
 
 	private: System::Void BeeBehaviourTestForm_Load(System::Object^ sender, System::EventArgs^ e) {
@@ -456,21 +471,28 @@ namespace TechProg4Kuleshov {
 		
 		in_sky = left_VPP->Location;
 		in_sky.X += 1300;
-		in_sky.Y -= 100;
+		in_sky.Y -= 150;
 
 		const int points_discretion = 60;
-		const int radius = 300;
-		for (int i = 0; i < points_discretion; ++i) {
-			Math::Cos(10);
-			Elipse->Add(Point(radius + radius * Math::Cos(i * 2 * Math::PI / points_discretion), radius + radius * Math::Sin(i * 2 * Math::PI / points_discretion)));
+		const int radius = 500;
+		for (int i = 0; i <= points_discretion; ++i) {
+			Elipse->Add(Point(in_sky.X - radius + radius * Math::Cos(i * 2 * Math::PI / points_discretion), in_sky.Y + radius / 8 * Math::Sin(i * 2 * Math::PI / points_discretion)));
 		}
 
-		Buss = gcnew Bus(this, bus_stop->Location, 600);
+		Buss = gcnew Bus(this, bus_stop->Location, 30);
 		Buss->BringToFront();
+
+		CargoCarr = gcnew CargoCar(this, cargo_stop->Location, 35);
+		CargoCarr->BringToFront();
 
 		Movement_path_bus->Add(bus_stop->Location); 
 		Movement_path_bus->Add(bus_plane_stop->Location);
 		Buss->Movement_path = Movement_path_bus;
+
+		Movement_path_cargo_car->Add(cargo_stop->Location);
+		Movement_path_cargo_car->Add(cargo_cross->Location);
+		Movement_path_cargo_car->Add(bus_plane_stop->Location);
+		CargoCarr->Movement_path = Movement_path_cargo_car;
 
 		Movement_path0->Add(hung_0->Location);
 		Movement_path0->Add(hung_cross1->Location);
@@ -507,7 +529,6 @@ namespace TechProg4Kuleshov {
 		planes.Add(nullptr);
 
 		NextPlane();
-		add_to_wait();
 	}
 	
 
@@ -529,7 +550,7 @@ namespace TechProg4Kuleshov {
 			if (planes[i] == nullptr) {
 				current_plane = i;
 
-				planes[i] = (gcnew Plane(this, in_sky, 100));
+				planes[i] = get_plane();
 
 				break;
 			}
@@ -573,19 +594,19 @@ namespace TechProg4Kuleshov {
 			if (planes[i] != nullptr) ++real_count;
 		}
 
-		if (real_count == 0) { LandPlane(); return; }
-		if (real_count == 4) { FlyPlane(); return; }
-
 		if (waiting_plane != -1) {
-			
+
 			current_plane = waiting_plane;
 			waiting_plane = -1;
 			planes[current_plane]->airport_is_busy = false;
 
-			/// current plane -> land
-
 			return;
 		}
+
+		if (real_count == 0) { LandPlane(); return; }
+		if (real_count == 4) { FlyPlane(); return; }
+
+		
 
 		if (rnd->NextDouble() < 0.5) {
 			LandPlane();
@@ -594,6 +615,11 @@ namespace TechProg4Kuleshov {
 			FlyPlane();
 		}
 
+	}
+
+	Plane^ get_plane() {
+		if (rnd->NextDouble() < 0.5) return gcnew Plane(this, in_sky, 85);
+		return gcnew CargoPlane(this, in_sky, 100);
 	}
 
 	void add_to_wait() {
@@ -613,7 +639,7 @@ namespace TechProg4Kuleshov {
 		
 		
 
-		planes[waiting_plane] = gcnew Plane(this, in_sky, 100);
+		planes[waiting_plane] = get_plane();
 		planes[waiting_plane]->Rotate(RotationalObject::Direction::Left);
 		planes[waiting_plane]->BringToFront();
 
@@ -638,30 +664,34 @@ namespace TechProg4Kuleshov {
 		Plane::Callback clb = planes[current_plane]->tick();
 		if (clb == Plane::Callback::Default) return;
 		if (clb == Plane::Callback::Bus) {
-
-			Bus::Callback clbb = Buss->tick();
-			if (clbb == Bus::Callback::Delivered) planes[current_plane]->loaded ^= 1;
+			if (planes[current_plane]->isCargo) {
+				Bus::Callback clbb = CargoCarr->tick();
+				if (clbb == Bus::Callback::Delivered) planes[current_plane]->loaded ^= 1;
+			}
+			else {
+				Bus::Callback clbb = Buss->tick();
+				if (clbb == Bus::Callback::Delivered) planes[current_plane]->loaded ^= 1;
+			}
+			
 		}
 	}
 
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		main_tick();
 
+		if (rnd->NextDouble() < 1.0 / 1000.0) add_to_wait();
 
 		if (waiting_plane != -1) planes[waiting_plane]->tick();
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		timer1->Enabled = !timer1->Enabled;
-		if (timer1->Enabled) button1->Text = "«апустить симул€цию";
+		if (!timer1->Enabled) button1->Text = "«апустить симул€цию";
 		else button1->Text = "ќстановить симул€цию";
 	}
 	private: System::Void BeeBehaviourTestForm_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-		//queen->Location = e->Location;
+		add_to_wait();
 	}
 
-	
-	
-	
 	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		if (++clock_carr > 5) clock_carr = 5;

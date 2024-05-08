@@ -7,7 +7,7 @@ using namespace System::Drawing;
 namespace Creatures {
 	public ref class RotationalObject : PictureBox {
 
-		public: int size = 100;
+		public: int size = 70;
 
 		protected: static String^ ImagePath = "test.bmp";
 		protected: static int FlightStep = 30;
@@ -28,18 +28,22 @@ namespace Creatures {
 		public: RotationalObject::RotationalObject() {
 
 		}
+		
+		public: void ChangeImage(String^ ImagePath, int sizeX, int sizeY) {
+			this->CurrentDirection = Direction::Up;
+			this->Size = System::Drawing::Size(sizeX, sizeY);
+			this->Image = Image->FromFile(ImagePath);
+			this->BackColor = Color::Transparent;
+		}
 
 		public: void ChangeImage(String^ ImagePath, int size) {
-			this->CurrentDirection = Direction::Up;
-			this->Size = System::Drawing::Size(size, size);
-			auto img = gcnew Bitmap(ImagePath);
-			this->Image = img;
+			ChangeImage(ImagePath, size, size);
 		}
 
 		public: RotationalObject::RotationalObject(Form^ World, Point location) {
 			this->Size = System::Drawing::Size(FlightStep, FlightStep);
-			auto img = gcnew Bitmap(ImagePath);
-			this->Image = img;
+			this->Image = Image->FromFile(ImagePath);
+			this->BackColor = Color::Transparent;
 			InitInsect(World, location);
 		}
 		protected: void InitInsect(Form^ World, Point location) {
@@ -101,6 +105,10 @@ namespace Creatures {
 			//this->Image->RotateFlip(RotateFlipType::Rotate90FlipNone);
 			//this->Image->RotateFlip(RotateFlipType::Rotate180FlipNone);
 			//this->Image->RotateFlip(RotateFlipType::Rotate270FlipNone);
+		}
+		
+		Direction get_direction() {
+			return CurrentDirection;
 		}
 		
 	};
@@ -177,7 +185,7 @@ namespace Creatures {
 
 
 		protected: 
-			static String^ ImagePath = "plane_grounded.bmp";
+			static String^ ImagePath = "plane.png";
 
 		public:
 			List<Point>^ LandingMovement_path;
@@ -186,6 +194,7 @@ namespace Creatures {
 			String^ state = "Idle3";
 			bool loaded = true;
 			bool airport_is_busy = true;
+			bool isCargo = false;
 
 			Plane::Plane() {
 
@@ -216,9 +225,10 @@ namespace Creatures {
 			}
 
 			void prepare_to_land(List<Point>^ Movement_path_) {
+				Rotate(Direction::Left);
 				Speed = 5;
 				XVelocity = -2.5 * Speed;
-				YVelocity = 2;
+				YVelocity = 3;
 
 				state = "landing";
 				Movement_path_->Reverse();
@@ -227,7 +237,7 @@ namespace Creatures {
 			}
 
 			void prepare_to_wait(List<Point>^ Movement_path_) {
-				Speed = 12;
+				Speed = 17;
 
 				state = "wait";
 				Movement_path = Movement_path_;
@@ -305,12 +315,15 @@ namespace Creatures {
 
 	public ref class Bus : PlanedMovementObject {
 		
-		static String^ ImagePath = "bus.bmp";
+		static String^ ImagePath = "bus2.png";
 
 	public:
+
+		Bus::Bus() {}
+
 		Bus::Bus(Form^ World, Point location, int size_) {
 			size = size_;
-			ChangeImage(ImagePath, size);
+			ChangeImage(ImagePath, size, size * 2);
 			location.Offset(Point(-size / 2, -size / 2));
 			InitInsect(World, location);
 		}
@@ -338,5 +351,40 @@ namespace Creatures {
 			}
 			return Callback::Default;
 		}
+	};
+
+	public ref class CargoCar : Bus {
+
+		static String^ ImagePath = "cargocar.png";
+
+	public:
+		CargoCar::CargoCar(Form^ World, Point location, int size_) {
+			size = size_;
+			ChangeImage(ImagePath, size, size * 2);
+			location.Offset(Point(-size / 2, -size / 2));
+			InitInsect(World, location);
+		}
+
+		Bus::Callback tick() {
+			Bus::Callback ret = Bus::tick();
+			if (get_direction() == Direction::Right || get_direction() == Direction::Left) ChangeImage(ImagePath, size * 2, size);
+			else ChangeImage(ImagePath, size, size * 2);
+
+			return ret;
+		}
+	};
+
+	public ref class CargoPlane : Plane {
+	protected:
+		static String^ ImagePath = "cargoplane.png";
+	public:
+		CargoPlane::CargoPlane(Form^ World, Point location, int size_) {
+			state = "Idle3";
+			size = size_; isCargo = true;
+			ChangeImage(ImagePath, size);
+			location.Offset(Point(-size / 2, -size / 2));
+			InitInsect(World, location);
+		}
+
 	};
 }
