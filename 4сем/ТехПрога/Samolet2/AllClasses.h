@@ -174,21 +174,18 @@ namespace Creatures {
 			const float TopXVelocity = 15;
 			const float TopYVelocity = 5;
 			bool grounded = true;
-			Direction DirectionHeading = Direction::Right;
-			
-			
 
-			
 
 		protected: 
 			static String^ ImagePath = "plane_grounded.bmp";
 
 		public:
-
+			List<Point>^ LandingMovement_path;
 			event FlewAwayHandler^ FlewAway;
 			event LandedHandler^ Landed;
 			String^ state = "Idle3";
 			bool loaded = true;
+			bool airport_is_busy = true;
 
 			Plane::Plane() {
 
@@ -210,6 +207,7 @@ namespace Creatures {
 			}
 
 			void prepare_to_fly() {
+				Speed = 5;
 				YVelocity = 0;
 				XVelocity = Speed;
 				state = "moving_to_VPP";
@@ -218,14 +216,20 @@ namespace Creatures {
 			}
 
 			void prepare_to_land(List<Point>^ Movement_path_) {
-
+				Speed = 5;
 				XVelocity = -2.5 * Speed;
 				YVelocity = 2;
 
 				state = "landing";
-
 				Movement_path_->Reverse();
+				Movement_path = Movement_path_;
+				progress = 0;
+			}
 
+			void prepare_to_wait(List<Point>^ Movement_path_) {
+				Speed = 12;
+
+				state = "wait";
 				Movement_path = Movement_path_;
 				progress = 0;
 			}
@@ -241,6 +245,9 @@ namespace Creatures {
 				if (state == "flewaway") { Console::WriteLine("H1"); return Callback::Default;  }
 
 				if (state == "Idle") { Console::WriteLine("Idle");  return Callback::Default; }
+
+				if (state == "wait" && isFinished()) { if (airport_is_busy) { progress = 0; } else { prepare_to_land(LandingMovement_path); }  Console::WriteLine("wait");  return Callback::Default; }
+				if (state == "wait") { move();  Console::WriteLine("wait");  return Callback::Default; }
 
 				if (state == "landing") { land(); Console::WriteLine("H2"); return Callback::Default; }
 

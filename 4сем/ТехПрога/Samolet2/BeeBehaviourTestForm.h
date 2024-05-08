@@ -428,6 +428,7 @@ namespace TechProg4Kuleshov {
 
 		List<Plane^> planes;
 		int current_plane = -1;
+		int waiting_plane = -1;
 
 		List<Point>^ Movement_path0 = gcnew List<Point>;
 		List<Point>^ Movement_path1 = gcnew List<Point>;
@@ -436,9 +437,13 @@ namespace TechProg4Kuleshov {
 
 		List<Point>^ Movement_path_bus = gcnew List<Point>;
 
+		List<Point>^ Elipse = gcnew List<Point>;
+
 		Random^ rnd = gcnew Random();
 
 		Bus^ Buss;
+
+		Point in_sky;
 
 	private: System::Void BeeBehaviourTestForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		
@@ -449,6 +454,17 @@ namespace TechProg4Kuleshov {
 		clock_intervals[4] = 100;
 		clock_intervals[5] = 200;
 		
+		in_sky = left_VPP->Location;
+		in_sky.X += 1300;
+		in_sky.Y -= 100;
+
+		const int points_discretion = 60;
+		const int radius = 300;
+		for (int i = 0; i < points_discretion; ++i) {
+			Math::Cos(10);
+			Elipse->Add(Point(radius + radius * Math::Cos(i * 2 * Math::PI / points_discretion), radius + radius * Math::Sin(i * 2 * Math::PI / points_discretion)));
+		}
+
 		Buss = gcnew Bus(this, bus_stop->Location, 600);
 		Buss->BringToFront();
 
@@ -485,53 +501,45 @@ namespace TechProg4Kuleshov {
 		Movement_path3->Add(left_down->Location);
 		Movement_path3->Add(left_VPP->Location);
 		
+		planes.Add(nullptr);
+		planes.Add(nullptr);
+		planes.Add(nullptr);
+		planes.Add(nullptr);
 
 		NextPlane();
+		add_to_wait();
 	}
 	
 
 	
 	List<Point>^ Movement_path;
 
-	void generate_path() {
-		if (current_plane == 0) Movement_path = Movement_path0;
-		if (current_plane == 1) Movement_path = Movement_path1;
-		if (current_plane == 2) Movement_path = Movement_path2;
-		if (current_plane == 3) Movement_path = Movement_path3;
+	List<Point>^ generate_path(int index) {
+		if (index == 0) return Movement_path = Movement_path0;
+		if (index == 1) return Movement_path = Movement_path1;
+		if (index == 2) return Movement_path = Movement_path2;
+		if (index == 3) return Movement_path = Movement_path3;
 	}
 
 	void LandPlane() {
 		Console::WriteLine("LandPlane");
 		current_plane = -1;
 
-		for (int i = 0; i < planes.Count; ++i) {
+		for (int i = 0; i < 4; ++i) {
 			if (planes[i] == nullptr) {
 				current_plane = i;
-				generate_path();
 
-				Point in_sky = left_VPP->Location;
-				in_sky.X += 1300;
-				in_sky.Y -= 100;
 				planes[i] = (gcnew Plane(this, in_sky, 100));
 
 				break;
 			}
 		}
-		if (current_plane == -1) {
-			current_plane = planes.Count;
 
-			generate_path();
-
-			Point in_sky = left_VPP->Location;
-			in_sky.X += 1300;
-			in_sky.Y -= 100;
-			planes.Add(gcnew Plane(this, in_sky, 100));
-		}
 
 		planes[current_plane]->Rotate(RotationalObject::Direction::Left);
 		planes[current_plane]->BringToFront();
 
-		planes[current_plane]->prepare_to_land(Movement_path);
+		planes[current_plane]->prepare_to_land(generate_path(current_plane));
 		planes[current_plane]->Landed += gcnew LandedHandler(this, &BeeBehaviourTestForm::NextPlane);
 
 	}
@@ -541,12 +549,10 @@ namespace TechProg4Kuleshov {
 
 		current_plane = -1;
 		int there_is_plane = -1;
-		for (int i = 0; i < planes.Count; ++i) {
-			if (planes[i] != nullptr) {
-				there_is_plane = i;
-				if (rnd->Next() < 0.3) current_plane = i;
-				break;
-			}
+		for (int i = 0; i < 4; ++i) {
+			if (planes[i] == nullptr) continue;
+			there_is_plane = i;
+			if (rnd->Next() < 0.3) current_plane = i;
 		}
 
 		if (current_plane == -1) current_plane = there_is_plane;
@@ -563,12 +569,23 @@ namespace TechProg4Kuleshov {
 
 		int real_count = 0;
 
-		for (int i = 0; i < planes.Count; ++i) {
+		for (int i = 0; i < 4; ++i) {
 			if (planes[i] != nullptr) ++real_count;
 		}
 
 		if (real_count == 0) { LandPlane(); return; }
 		if (real_count == 4) { FlyPlane(); return; }
+
+		if (waiting_plane != -1) {
+			
+			current_plane = waiting_plane;
+			waiting_plane = -1;
+			planes[current_plane]->airport_is_busy = false;
+
+			/// current plane -> land
+
+			return;
+		}
 
 		if (rnd->NextDouble() < 0.5) {
 			LandPlane();
@@ -579,8 +596,34 @@ namespace TechProg4Kuleshov {
 
 	}
 
+	void add_to_wait() {
+		if (waiting_plane != -1) return; 
+
+
+		int there_is_plane = -1;
+		for (int i = 0; i < 4; ++i) {
+			if (planes[i] != nullptr) continue;
+			there_is_plane = i;
+			if (rnd->Next() < 0.3) waiting_plane = i;
+		}
+
+		if (waiting_plane == -1) waiting_plane = there_is_plane;
+		if (waiting_plane == -1) return;
+
+		
+		
+
+		planes[waiting_plane] = gcnew Plane(this, in_sky, 100);
+		planes[waiting_plane]->Rotate(RotationalObject::Direction::Left);
+		planes[waiting_plane]->BringToFront();
+
+		planes[waiting_plane]->prepare_to_wait(Elipse);
+		planes[waiting_plane]->LandingMovement_path = generate_path(waiting_plane);
+		planes[waiting_plane]->Landed += gcnew LandedHandler(this, &BeeBehaviourTestForm::NextPlane);
+	}
+
 	void clear_missing_planes() {
-		for (int i = 0; i < planes.Count; ++i) {
+		for (int i = 0; i < 4; ++i) {
 			if (planes[i] == nullptr) continue;
 
 			if (planes[i]->state == "flewaway") {
@@ -591,14 +634,21 @@ namespace TechProg4Kuleshov {
 
 	}
 
-	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
+	void main_tick() {
 		Plane::Callback clb = planes[current_plane]->tick();
 		if (clb == Plane::Callback::Default) return;
 		if (clb == Plane::Callback::Bus) {
-			
+
 			Bus::Callback clbb = Buss->tick();
 			if (clbb == Bus::Callback::Delivered) planes[current_plane]->loaded ^= 1;
 		}
+	}
+
+	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
+		main_tick();
+
+
+		if (waiting_plane != -1) planes[waiting_plane]->tick();
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		timer1->Enabled = !timer1->Enabled;
