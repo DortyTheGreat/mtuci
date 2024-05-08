@@ -114,8 +114,14 @@ namespace Creatures {
 			List<Point>^ Movement_path;
 			int progress = 0;
 
+			int mid_point = 3;
+
 			bool isFinished() {
 				return progress == Movement_path->Count;
+			}
+
+			bool isMidPoint() {
+				return progress == mid_point;
 			}
 
 			void move() {
@@ -175,19 +181,23 @@ namespace Creatures {
 			
 
 		protected: 
-			static String^ ImagePathGrounded = "plane_grounded.bmp";
-			static String^ ImagePathUnGrounded = "plane_ungrounded.bmp";
+			static String^ ImagePath = "plane_grounded.bmp";
 
 		public:
 
 			event FlewAwayHandler^ FlewAway;
 			event LandedHandler^ Landed;
 			String^ state = "Idle3";
+			bool loaded = true;
+
+			Plane::Plane() {
+
+			}
 
 			Plane::Plane(Form^ World, Point location, int size_) {
 				state = "Idle3";
 				size = size_;
-				ChangeImage(ImagePathGrounded, size);
+				ChangeImage(ImagePath, size);
 				location.Offset(Point(-size / 2, -size / 2));
 				InitInsect(World, location);
 			}
@@ -195,7 +205,7 @@ namespace Creatures {
 			void UnGround() {
 				if (grounded == false) return;
 				grounded = false;
-				ChangeImage(ImagePathUnGrounded, size);
+				//ChangeImage(ImagePathUnGrounded, size);
 				Rotate(Direction::Right);
 			}
 
@@ -209,8 +219,8 @@ namespace Creatures {
 
 			void prepare_to_land(List<Point>^ Movement_path_) {
 
-				XVelocity = -2 * Speed;
-				YVelocity = 1;
+				XVelocity = -2.5 * Speed;
+				YVelocity = 2;
 
 				state = "landing";
 
@@ -220,19 +230,28 @@ namespace Creatures {
 				progress = 0;
 			}
 
+			public: enum class Callback
+			{
+				Default,
+				Bus
+			};
+
 			int idler = 0;
-			void tick() {
-				if (state == "flewaway") { Console::WriteLine("H1"); return;  }
+			Callback tick() {
+				if (state == "flewaway") { Console::WriteLine("H1"); return Callback::Default;  }
 
-				if (state == "Idle") { Console::WriteLine("Idle");  return; }
+				if (state == "Idle") { Console::WriteLine("Idle");  return Callback::Default; }
 
-				if (state == "landing") { land(); Console::WriteLine("H2"); return; }
+				if (state == "landing") { land(); Console::WriteLine("H2"); return Callback::Default; }
 
-				if (state == "moving_to_hung" && isFinished()) { state = "Idle"; Console::WriteLine("H3"); Landed(); return; }
-				if (state == "moving_to_hung" && !isFinished()) { move(); Console::WriteLine("H4"); return; }
-				
-				if ((state == "moving_to_VPP" || state == "flying") && isFinished()) { state = "flying"; Fly_VPP(); Rotate(Direction::Right); Console::WriteLine("H5"); return; };
-				if (state == "moving_to_VPP" && !isFinished()) { move(); Console::WriteLine("H6"); return; }
+
+				if (state == "moving_to_hung" && isFinished()) { state = "Idle"; Console::WriteLine("H3"); Landed(); return Callback::Default; }
+				if (state == "moving_to_hung" && (!isMidPoint() || !loaded)) { move(); Console::WriteLine("H4"); return Callback::Default; }
+				if (state == "moving_to_hung") { Console::WriteLine("cargo"); return Callback::Bus; }
+
+				if ((state == "moving_to_VPP" || state == "flying") && isFinished()) { state = "flying"; Fly_VPP(); Rotate(Direction::Right); Console::WriteLine("H5"); return Callback::Default; };
+				if (state == "moving_to_VPP" && (!isMidPoint() || loaded)) { move(); Console::WriteLine("H6"); return Callback::Default; }
+				if (state == "moving_to_VPP") { Console::WriteLine("cargo"); return Callback::Bus; }
 				
 			}
 
@@ -251,15 +270,20 @@ namespace Creatures {
 			}
 
 			void land() {
-				XVelocity += XAcceleration;
+				
 				int still_accelerating = 0;
-				if (XVelocity > -1 * Speed) {
-					XVelocity = -Speed;
+
+				if (this->Location.Y >= 189 - size / 2) {
+					this->Location = Point(this->Location.X, 189 - size / 2);
+					YVelocity = 0;
 					++still_accelerating;
+					XVelocity += XAcceleration;
 				}
 
-				if (this->Location.Y >= 135 - size / 2) {
-					this->Location = Point(this->Location.X, 135 - size / 2);
+				
+				
+				if (XVelocity > -1 * Speed) {
+					XVelocity = -Speed;
 					++still_accelerating;
 				}
 
@@ -272,7 +296,40 @@ namespace Creatures {
 	};
 
 
-	public ref class Airport {
+	public ref class Bus : PlanedMovementObject {
 		
+		static String^ ImagePath = "bus.bmp";
+
+	public:
+		Bus::Bus(Form^ World, Point location, int size_) {
+			size = size_;
+			ChangeImage(ImagePath, size);
+			location.Offset(Point(-size / 2, -size / 2));
+			InitInsect(World, location);
+		}
+
+		enum class Callback
+		{
+			Default,
+			FinishedLoading,
+			Delivered
+		};
+
+		int ticks_waiting = 0;
+		Callback tick() {
+			move();
+			if (isFinished()) ticks_waiting++;
+			if (ticks_waiting == 100) {
+				progress = 0;
+				Movement_path->Reverse();
+				ticks_waiting++;
+			}
+
+			if (ticks_waiting >= 100) {
+				if (isFinished()) { progress = 0; ticks_waiting = 0; Movement_path->Reverse(); Console::WriteLine("delivered"); return Callback::Delivered; }
+				return Callback::FinishedLoading;
+			}
+			return Callback::Default;
+		}
 	};
 }

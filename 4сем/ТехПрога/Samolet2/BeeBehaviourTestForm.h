@@ -46,7 +46,7 @@ namespace TechProg4Kuleshov {
 	private: System::Windows::Forms::Button^ button4;
 	private: System::Windows::Forms::Button^ button5;
 	private: System::Windows::Forms::Button^ button6;
-	private: System::Windows::Forms::Button^ button7;
+
 	private: System::Windows::Forms::Button^ left_VPP;
 	private: System::Windows::Forms::Button^ right_VPP;
 	private: System::Windows::Forms::Button^ left_down;
@@ -60,6 +60,13 @@ namespace TechProg4Kuleshov {
 	private: System::Windows::Forms::Button^ hung_2;
 	private: System::Windows::Forms::Button^ hung_3;
 	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Button^ button10;
+	private: System::Windows::Forms::Button^ button11;
+	private: System::Windows::Forms::Button^ human_cross;
+	private: System::Windows::Forms::Button^ cargo_cross;
+	private: System::Windows::Forms::Button^ bus_stop;
+	private: System::Windows::Forms::Button^ bus_plane_stop;
+
 
 
 
@@ -88,7 +95,6 @@ namespace TechProg4Kuleshov {
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button5 = (gcnew System::Windows::Forms::Button());
 			this->button6 = (gcnew System::Windows::Forms::Button());
-			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->left_VPP = (gcnew System::Windows::Forms::Button());
 			this->right_VPP = (gcnew System::Windows::Forms::Button());
 			this->left_down = (gcnew System::Windows::Forms::Button());
@@ -102,13 +108,19 @@ namespace TechProg4Kuleshov {
 			this->hung_2 = (gcnew System::Windows::Forms::Button());
 			this->hung_3 = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->button10 = (gcnew System::Windows::Forms::Button());
+			this->button11 = (gcnew System::Windows::Forms::Button());
+			this->human_cross = (gcnew System::Windows::Forms::Button());
+			this->cargo_cross = (gcnew System::Windows::Forms::Button());
+			this->bus_stop = (gcnew System::Windows::Forms::Button());
+			this->bus_plane_stop = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button1
 			// 
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button1->Location = System::Drawing::Point(448, 498);
+			this->button1->Location = System::Drawing::Point(931, 638);
 			this->button1->Margin = System::Windows::Forms::Padding(2);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(150, 70);
@@ -125,9 +137,9 @@ namespace TechProg4Kuleshov {
 			// 
 			this->button2->BackColor = System::Drawing::Color::LightSlateGray;
 			this->button2->Enabled = false;
-			this->button2->Location = System::Drawing::Point(-41, 115);
+			this->button2->Location = System::Drawing::Point(-39, 169);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(1249, 50);
+			this->button2->Size = System::Drawing::Size(1379, 50);
 			this->button2->TabIndex = 2;
 			this->button2->UseVisualStyleBackColor = false;
 			// 
@@ -135,9 +147,9 @@ namespace TechProg4Kuleshov {
 			// 
 			this->button3->BackColor = System::Drawing::Color::LightSlateGray;
 			this->button3->Enabled = false;
-			this->button3->Location = System::Drawing::Point(80, 115);
+			this->button3->Location = System::Drawing::Point(80, 169);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(50, 258);
+			this->button3->Size = System::Drawing::Size(50, 281);
 			this->button3->TabIndex = 3;
 			this->button3->UseVisualStyleBackColor = false;
 			// 
@@ -145,7 +157,7 @@ namespace TechProg4Kuleshov {
 			// 
 			this->button4->BackColor = System::Drawing::Color::LightSlateGray;
 			this->button4->Enabled = false;
-			this->button4->Location = System::Drawing::Point(80, 323);
+			this->button4->Location = System::Drawing::Point(80, 404);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(1249, 50);
 			this->button4->TabIndex = 4;
@@ -155,7 +167,7 @@ namespace TechProg4Kuleshov {
 			// 
 			this->button5->BackColor = System::Drawing::Color::LightSlateGray;
 			this->button5->Enabled = false;
-			this->button5->Location = System::Drawing::Point(1136, 246);
+			this->button5->Location = System::Drawing::Point(1132, 326);
 			this->button5->Name = L"button5";
 			this->button5->Size = System::Drawing::Size(50, 204);
 			this->button5->TabIndex = 5;
@@ -165,25 +177,15 @@ namespace TechProg4Kuleshov {
 			// 
 			this->button6->BackColor = System::Drawing::Color::LightSlateGray;
 			this->button6->Enabled = false;
-			this->button6->Location = System::Drawing::Point(967, 246);
+			this->button6->Location = System::Drawing::Point(931, 327);
 			this->button6->Name = L"button6";
 			this->button6->Size = System::Drawing::Size(50, 204);
 			this->button6->TabIndex = 6;
 			this->button6->UseVisualStyleBackColor = false;
 			// 
-			// button7
-			// 
-			this->button7->BackColor = System::Drawing::Color::LightSlateGray;
-			this->button7->Enabled = false;
-			this->button7->Location = System::Drawing::Point(199, 323);
-			this->button7->Name = L"button7";
-			this->button7->Size = System::Drawing::Size(50, 302);
-			this->button7->TabIndex = 7;
-			this->button7->UseVisualStyleBackColor = false;
-			// 
 			// left_VPP
 			// 
-			this->left_VPP->Location = System::Drawing::Point(101, 135);
+			this->left_VPP->Location = System::Drawing::Point(101, 189);
 			this->left_VPP->Name = L"left_VPP";
 			this->left_VPP->Size = System::Drawing::Size(10, 10);
 			this->left_VPP->TabIndex = 8;
@@ -193,7 +195,7 @@ namespace TechProg4Kuleshov {
 			// 
 			// right_VPP
 			// 
-			this->right_VPP->Location = System::Drawing::Point(1176, 135);
+			this->right_VPP->Location = System::Drawing::Point(1274, 189);
 			this->right_VPP->Name = L"right_VPP";
 			this->right_VPP->Size = System::Drawing::Size(10, 10);
 			this->right_VPP->TabIndex = 9;
@@ -203,7 +205,7 @@ namespace TechProg4Kuleshov {
 			// 
 			// left_down
 			// 
-			this->left_down->Location = System::Drawing::Point(101, 343);
+			this->left_down->Location = System::Drawing::Point(101, 423);
 			this->left_down->Name = L"left_down";
 			this->left_down->Size = System::Drawing::Size(10, 10);
 			this->left_down->TabIndex = 10;
@@ -213,7 +215,7 @@ namespace TechProg4Kuleshov {
 			// 
 			// hung_cross1
 			// 
-			this->hung_cross1->Location = System::Drawing::Point(985, 343);
+			this->hung_cross1->Location = System::Drawing::Point(949, 424);
 			this->hung_cross1->Name = L"hung_cross1";
 			this->hung_cross1->Size = System::Drawing::Size(10, 10);
 			this->hung_cross1->TabIndex = 11;
@@ -223,7 +225,7 @@ namespace TechProg4Kuleshov {
 			// 
 			// hung_cross2
 			// 
-			this->hung_cross2->Location = System::Drawing::Point(1155, 343);
+			this->hung_cross2->Location = System::Drawing::Point(1151, 423);
 			this->hung_cross2->Name = L"hung_cross2";
 			this->hung_cross2->Size = System::Drawing::Size(10, 10);
 			this->hung_cross2->TabIndex = 12;
@@ -235,7 +237,7 @@ namespace TechProg4Kuleshov {
 			// 
 			this->button8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button8->Location = System::Drawing::Point(305, 457);
+			this->button8->Location = System::Drawing::Point(801, 616);
 			this->button8->Name = L"button8";
 			this->button8->Size = System::Drawing::Size(75, 29);
 			this->button8->TabIndex = 13;
@@ -247,7 +249,7 @@ namespace TechProg4Kuleshov {
 			// 
 			this->button9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button9->Location = System::Drawing::Point(305, 535);
+			this->button9->Location = System::Drawing::Point(801, 675);
 			this->button9->Name = L"button9";
 			this->button9->Size = System::Drawing::Size(75, 33);
 			this->button9->TabIndex = 14;
@@ -260,7 +262,7 @@ namespace TechProg4Kuleshov {
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label1->Location = System::Drawing::Point(327, 498);
+			this->label1->Location = System::Drawing::Point(831, 648);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(20, 24);
 			this->label1->TabIndex = 15;
@@ -268,7 +270,7 @@ namespace TechProg4Kuleshov {
 			// 
 			// hung_0
 			// 
-			this->hung_0->Location = System::Drawing::Point(985, 269);
+			this->hung_0->Location = System::Drawing::Point(949, 350);
 			this->hung_0->Name = L"hung_0";
 			this->hung_0->Size = System::Drawing::Size(10, 10);
 			this->hung_0->TabIndex = 16;
@@ -278,7 +280,7 @@ namespace TechProg4Kuleshov {
 			// 
 			// hung_1
 			// 
-			this->hung_1->Location = System::Drawing::Point(985, 423);
+			this->hung_1->Location = System::Drawing::Point(949, 504);
 			this->hung_1->Name = L"hung_1";
 			this->hung_1->Size = System::Drawing::Size(10, 10);
 			this->hung_1->TabIndex = 17;
@@ -288,7 +290,7 @@ namespace TechProg4Kuleshov {
 			// 
 			// hung_2
 			// 
-			this->hung_2->Location = System::Drawing::Point(1155, 269);
+			this->hung_2->Location = System::Drawing::Point(1151, 349);
 			this->hung_2->Name = L"hung_2";
 			this->hung_2->Size = System::Drawing::Size(10, 10);
 			this->hung_2->TabIndex = 18;
@@ -298,7 +300,7 @@ namespace TechProg4Kuleshov {
 			// 
 			// hung_3
 			// 
-			this->hung_3->Location = System::Drawing::Point(1155, 423);
+			this->hung_3->Location = System::Drawing::Point(1151, 503);
 			this->hung_3->Name = L"hung_3";
 			this->hung_3->Size = System::Drawing::Size(10, 10);
 			this->hung_3->TabIndex = 19;
@@ -311,17 +313,83 @@ namespace TechProg4Kuleshov {
 			this->label2->AutoSize = true;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label2->Location = System::Drawing::Point(255, 430);
+			this->label2->Location = System::Drawing::Point(759, 589);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(200, 24);
 			this->label2->TabIndex = 20;
 			this->label2->Text = L"—корость —имул€ции";
 			// 
+			// button10
+			// 
+			this->button10->BackColor = System::Drawing::Color::LightSlateGray;
+			this->button10->Enabled = false;
+			this->button10->Location = System::Drawing::Point(-26, 552);
+			this->button10->Name = L"button10";
+			this->button10->Size = System::Drawing::Size(383, 50);
+			this->button10->TabIndex = 21;
+			this->button10->UseVisualStyleBackColor = false;
+			// 
+			// button11
+			// 
+			this->button11->BackColor = System::Drawing::Color::LightSlateGray;
+			this->button11->Enabled = false;
+			this->button11->Location = System::Drawing::Point(307, 404);
+			this->button11->Name = L"button11";
+			this->button11->Size = System::Drawing::Size(50, 430);
+			this->button11->TabIndex = 22;
+			this->button11->UseVisualStyleBackColor = false;
+			// 
+			// human_cross
+			// 
+			this->human_cross->Location = System::Drawing::Point(325, 424);
+			this->human_cross->Name = L"human_cross";
+			this->human_cross->Size = System::Drawing::Size(10, 10);
+			this->human_cross->TabIndex = 23;
+			this->human_cross->Text = L"button8";
+			this->human_cross->UseVisualStyleBackColor = true;
+			this->human_cross->Visible = false;
+			// 
+			// cargo_cross
+			// 
+			this->cargo_cross->Location = System::Drawing::Point(325, 572);
+			this->cargo_cross->Name = L"cargo_cross";
+			this->cargo_cross->Size = System::Drawing::Size(10, 10);
+			this->cargo_cross->TabIndex = 24;
+			this->cargo_cross->Text = L"button8";
+			this->cargo_cross->UseVisualStyleBackColor = true;
+			this->cargo_cross->Visible = false;
+			// 
+			// bus_stop
+			// 
+			this->bus_stop->Location = System::Drawing::Point(325, 800);
+			this->bus_stop->Name = L"bus_stop";
+			this->bus_stop->Size = System::Drawing::Size(10, 10);
+			this->bus_stop->TabIndex = 25;
+			this->bus_stop->Text = L"button8";
+			this->bus_stop->UseVisualStyleBackColor = true;
+			this->bus_stop->Visible = false;
+			// 
+			// bus_plane_stop
+			// 
+			this->bus_plane_stop->Location = System::Drawing::Point(325, 488);
+			this->bus_plane_stop->Name = L"bus_plane_stop";
+			this->bus_plane_stop->Size = System::Drawing::Size(10, 10);
+			this->bus_plane_stop->TabIndex = 26;
+			this->bus_plane_stop->Text = L"button8";
+			this->bus_plane_stop->UseVisualStyleBackColor = true;
+			this->bus_plane_stop->Visible = false;
+			// 
 			// BeeBehaviourTestForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1220, 677);
+			this->ClientSize = System::Drawing::Size(1296, 703);
+			this->Controls->Add(this->bus_plane_stop);
+			this->Controls->Add(this->bus_stop);
+			this->Controls->Add(this->cargo_cross);
+			this->Controls->Add(this->human_cross);
+			this->Controls->Add(this->button11);
+			this->Controls->Add(this->button10);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->hung_3);
 			this->Controls->Add(this->hung_2);
@@ -335,7 +403,6 @@ namespace TechProg4Kuleshov {
 			this->Controls->Add(this->left_down);
 			this->Controls->Add(this->right_VPP);
 			this->Controls->Add(this->left_VPP);
-			this->Controls->Add(this->button7);
 			this->Controls->Add(this->button6);
 			this->Controls->Add(this->button5);
 			this->Controls->Add(this->button4);
@@ -366,7 +433,13 @@ namespace TechProg4Kuleshov {
 		List<Point>^ Movement_path1 = gcnew List<Point>;
 		List<Point>^ Movement_path2 = gcnew List<Point>;
 		List<Point>^ Movement_path3 = gcnew List<Point>;
+
+		List<Point>^ Movement_path_bus = gcnew List<Point>;
+
 		Random^ rnd = gcnew Random();
+
+		Bus^ Buss;
+
 	private: System::Void BeeBehaviourTestForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		
 		clock_intervals[0] = 5;
@@ -376,6 +449,12 @@ namespace TechProg4Kuleshov {
 		clock_intervals[4] = 100;
 		clock_intervals[5] = 200;
 		
+		Buss = gcnew Bus(this, bus_stop->Location, 600);
+		Buss->BringToFront();
+
+		Movement_path_bus->Add(bus_stop->Location); 
+		Movement_path_bus->Add(bus_plane_stop->Location);
+		Buss->Movement_path = Movement_path_bus;
 
 		Movement_path0->Add(hung_0->Location);
 		Movement_path0->Add(hung_cross1->Location);
@@ -389,17 +468,23 @@ namespace TechProg4Kuleshov {
 		Movement_path3->Add(hung_3->Location);
 		Movement_path3->Add(hung_cross2->Location);
 
+		Movement_path0->Add(human_cross->Location);
 		Movement_path0->Add(left_down->Location);
 		Movement_path0->Add(left_VPP->Location);
 
+		Movement_path1->Add(human_cross->Location);
 		Movement_path1->Add(left_down->Location);
 		Movement_path1->Add(left_VPP->Location);
+		
 
+		Movement_path2->Add(human_cross->Location);
 		Movement_path2->Add(left_down->Location);
 		Movement_path2->Add(left_VPP->Location);
-
+		
+		Movement_path3->Add(human_cross->Location);
 		Movement_path3->Add(left_down->Location);
 		Movement_path3->Add(left_VPP->Location);
+		
 
 		NextPlane();
 	}
@@ -424,8 +509,8 @@ namespace TechProg4Kuleshov {
 				current_plane = i;
 				generate_path();
 
-				Point in_sky = Movement_path[Movement_path->Count - 1];
-				in_sky.X += 900;
+				Point in_sky = left_VPP->Location;
+				in_sky.X += 1300;
 				in_sky.Y -= 100;
 				planes[i] = (gcnew Plane(this, in_sky, 100));
 
@@ -437,7 +522,7 @@ namespace TechProg4Kuleshov {
 
 			generate_path();
 
-			Point in_sky = Movement_path[Movement_path->Count - 1];
+			Point in_sky = left_VPP->Location;
 			in_sky.X += 1300;
 			in_sky.Y -= 100;
 			planes.Add(gcnew Plane(this, in_sky, 100));
@@ -507,7 +592,13 @@ namespace TechProg4Kuleshov {
 	}
 
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
-		planes[current_plane]->tick();
+		Plane::Callback clb = planes[current_plane]->tick();
+		if (clb == Plane::Callback::Default) return;
+		if (clb == Plane::Callback::Bus) {
+			
+			Bus::Callback clbb = Buss->tick();
+			if (clbb == Bus::Callback::Delivered) planes[current_plane]->loaded ^= 1;
+		}
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		timer1->Enabled = !timer1->Enabled;
