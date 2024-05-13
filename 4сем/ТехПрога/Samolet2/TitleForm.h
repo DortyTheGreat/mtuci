@@ -121,13 +121,7 @@ namespace TechProg4Kuleshov {
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(543, 140);
 			this->label1->TabIndex = 4;
-			this->label1->Text = L"МИНИСТЕРСТВО ЦИФРОВОГО РАЗВИТИЯ, СВЯЗИ И МАССОВЫХ\r\n\
-				КОММУНИКАЦИЙ РОССИЙСКОЙ ФЕДЕРАЦИИ\r\n\
-				Ордена Трудового Красного Знамени федеральное государственное\r\n\
-				бюджетное образовательное учреждение высшего образования\r\n\
-				«Московский технический университет связи и информатики»\r\n\
-				\r\n\
-				Кафедра \"Информатика\"";
+			this->label1->Text = resources->GetString(L"label1.Text");
 			this->label1->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
 			// button1
@@ -155,7 +149,7 @@ namespace TechProg4Kuleshov {
 			this->Controls->Add(this->button2);
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"TitleForm";
-			this->Text = L"MovementTest";
+			this->Text = L"Титульная Страница";
 			this->Load += gcnew System::EventHandler(this, &TitleForm::TitleForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();

@@ -425,7 +425,7 @@ namespace TechProg4Kuleshov {
 			this->Controls->Add(this->button2);
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"PlaneSimulator";
-			this->Text = L"PlaneSimulator";
+			this->Text = L"Симулятор Взлёта и Посадки";
 			this->Load += gcnew System::EventHandler(this, &PlaneSimulator::PlaneSimulator_Load);
 			this->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &PlaneSimulator::PlaneSimulator_MouseClick);
 			this->ResumeLayout(false);
