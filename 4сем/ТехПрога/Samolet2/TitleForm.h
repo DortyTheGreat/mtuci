@@ -1,6 +1,6 @@
 #pragma once
 #include "AllClasses.h"
-#include "BeeBehaviourTestForm.h"
+#include "PlaneSimulator.h"
 
 namespace TechProg4Kuleshov {
 
@@ -40,6 +40,10 @@ namespace TechProg4Kuleshov {
 
 	private: System::Windows::Forms::Timer^ timer1;
 	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::Label^ label3;
+	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Button^ button1;
 	private: System::ComponentModel::IContainer^ components;
 
 	protected:
@@ -58,8 +62,13 @@ namespace TechProg4Kuleshov {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(TitleForm::typeid));
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// timer1
@@ -71,8 +80,8 @@ namespace TechProg4Kuleshov {
 			// 
 			this->button2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button2->Location = System::Drawing::Point(902, 495);
-			this->button2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button2->Location = System::Drawing::Point(902, 527);
+			this->button2->Margin = System::Windows::Forms::Padding(2);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(150, 54);
 			this->button2->TabIndex = 1;
@@ -80,17 +89,76 @@ namespace TechProg4Kuleshov {
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &TitleForm::button2_Click);
 			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label3->Location = System::Drawing::Point(872, 435);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(263, 36);
+			this->label3->TabIndex = 6;
+			this->label3->Text = L"Выполнил: Кулешов А.С. БЭИ2202\r\nПроверил: к.п.н. доцент Волков А.И.";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label2->Location = System::Drawing::Point(389, 166);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(226, 40);
+			this->label2->TabIndex = 5;
+			this->label2->Text = L"Курсовая работа по теме \r\n\"Взлёт и посадка самолёта\"";
+			this->label2->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label1->Location = System::Drawing::Point(233, 9);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(543, 140);
+			this->label1->TabIndex = 4;
+			this->label1->Text = L"МИНИСТЕРСТВО ЦИФРОВОГО РАЗВИТИЯ, СВЯЗИ И МАССОВЫХ\r\n\
+				КОММУНИКАЦИЙ РОССИЙСКОЙ ФЕДЕРАЦИИ\r\n\
+				Ордена Трудового Красного Знамени федеральное государственное\r\n\
+				бюджетное образовательное учреждение высшего образования\r\n\
+				«Московский технический университет связи и информатики»\r\n\
+				\r\n\
+				Кафедра \"Информатика\"";
+			this->label1->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// button1
+			// 
+			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->button1->Location = System::Drawing::Point(11, 596);
+			this->button1->Margin = System::Windows::Forms::Padding(2);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(150, 54);
+			this->button1->TabIndex = 7;
+			this->button1->Text = L"Выход";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &TitleForm::button1_Click_1);
+			// 
 			// TitleForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1147, 786);
+			this->ClientSize = System::Drawing::Size(1147, 661);
+			this->Controls->Add(this->button1);
+			this->Controls->Add(this->label3);
+			this->Controls->Add(this->label2);
+			this->Controls->Add(this->label1);
 			this->Controls->Add(this->button2);
-			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"TitleForm";
 			this->Text = L"MovementTest";
 			this->Load += gcnew System::EventHandler(this, &TitleForm::TitleForm_Load);
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
@@ -106,7 +174,10 @@ namespace TechProg4Kuleshov {
 	}
 
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		(gcnew BeeBehaviourTestForm())->Show();
+		(gcnew PlaneSimulator())->Show();
+	}
+	private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
+		Application::Exit();
 	}
 };
 }

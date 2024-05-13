@@ -168,6 +168,8 @@ namespace Creatures {
 
 	public delegate void FlewAwayHandler();
 	public delegate void LandedHandler();
+	public delegate void WaitingForCargoHandler();
+
 
 	public ref class Plane : PlanedMovementObject {
 		
@@ -191,6 +193,7 @@ namespace Creatures {
 			List<Point>^ LandingMovement_path;
 			event FlewAwayHandler^ FlewAway;
 			event LandedHandler^ Landed;
+			event WaitingForCargoHandler^ WaitingForCargo;
 			String^ state = "Idle3";
 			bool loaded = true;
 			bool airport_is_busy = true;
@@ -264,11 +267,11 @@ namespace Creatures {
 
 				if (state == "moving_to_hung" && isFinished()) { state = "Idle"; Console::WriteLine("H3"); Landed(); return Callback::Default; }
 				if (state == "moving_to_hung" && (!isMidPoint() || !loaded)) { move(); Console::WriteLine("H4"); return Callback::Default; }
-				if (state == "moving_to_hung") { Console::WriteLine("cargo"); return Callback::Bus; }
+				if (state == "moving_to_hung") { Console::WriteLine("cargo"); WaitingForCargo(); return Callback::Bus; }
 
 				if ((state == "moving_to_VPP" || state == "flying") && isFinished()) { state = "flying"; Fly_VPP(); Rotate(Direction::Right); Console::WriteLine("H5"); return Callback::Default; };
 				if (state == "moving_to_VPP" && (!isMidPoint() || loaded)) { move(); Console::WriteLine("H6"); return Callback::Default; }
-				if (state == "moving_to_VPP") { Console::WriteLine("cargo"); return Callback::Bus; }
+				if (state == "moving_to_VPP") { Console::WriteLine("cargo"); WaitingForCargo(); return Callback::Bus; }
 				
 			}
 

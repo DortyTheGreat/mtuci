@@ -119,13 +119,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BeeBehaviourTestForm.cpp" />
+    <ClCompile Include="PlaneSimulator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TitleForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllClasses.h" />
-    <ClInclude Include="BeeBehaviourTestForm.h">
+    <ClInclude Include="PlaneSimulator.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="TitleForm.h">
@@ -133,8 +133,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BeeBehaviourTestForm.resx">
-      <DependentUpon>BeeBehaviourTestForm.h</DependentUpon>
+    <EmbeddedResource Include="PlaneSimulator.resx">
+      <DependentUpon>PlaneSimulator.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TitleForm.resx">
       <DependentUpon>TitleForm.h</DependentUpon>
