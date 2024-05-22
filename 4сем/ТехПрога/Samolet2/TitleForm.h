@@ -42,8 +42,9 @@ namespace TechProg4Kuleshov {
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::Label^ label1;
+
 	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Label^ label4;
 	private: System::ComponentModel::IContainer^ components;
 
 	protected:
@@ -62,13 +63,12 @@ namespace TechProg4Kuleshov {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
-			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(TitleForm::typeid));
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// timer1
@@ -80,7 +80,7 @@ namespace TechProg4Kuleshov {
 			// 
 			this->button2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button2->Location = System::Drawing::Point(902, 527);
+			this->button2->Location = System::Drawing::Point(986, 596);
 			this->button2->Margin = System::Windows::Forms::Padding(2);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(150, 54);
@@ -112,18 +112,6 @@ namespace TechProg4Kuleshov {
 			this->label2->Text = L"Курсовая работа по теме \r\n\"Взлёт и посадка самолёта\"";
 			this->label2->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->label1->Location = System::Drawing::Point(233, 9);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(543, 140);
-			this->label1->TabIndex = 4;
-			this->label1->Text = resources->GetString(L"label1.Text");
-			this->label1->TextAlign = System::Drawing::ContentAlignment::TopCenter;
-			// 
 			// button1
 			// 
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -137,15 +125,27 @@ namespace TechProg4Kuleshov {
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &TitleForm::button1_Click_1);
 			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+			this->label4->Location = System::Drawing::Point(240, 9);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(62, 20);
+			this->label4->TabIndex = 8;
+			this->label4->Text = L"preview";
+			this->label4->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			this->label4->Click += gcnew System::EventHandler(this, &TitleForm::label4_Click);
+			// 
 			// TitleForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1147, 661);
+			this->Controls->Add(this->label4);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
-			this->Controls->Add(this->label1);
 			this->Controls->Add(this->button2);
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"TitleForm";
@@ -157,6 +157,7 @@ namespace TechProg4Kuleshov {
 		}
 #pragma endregion
 	private: System::Void TitleForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		this->label4->Text = L"МИНИСТЕРСТВО ЦИФРОВОГО РАЗВИТИЯ, СВЯЗИ И МАССОВЫХ\r\nКОММУНИКАЦИЙ РОССИЙСКОЙ ФЕДЕРАЦИИ\r\nОрдена Трудового Красного Знамени федеральное государственное\r\nбюджетное образовательное учреждение высшего образования\r\n«Московский технический университет связи и информатики»\r\nКафедра \"Информатика\"";
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		//bug->Fly(Insect::Direction::Up);
@@ -173,5 +174,7 @@ namespace TechProg4Kuleshov {
 	private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
 		Application::Exit();
 	}
+private: System::Void label4_Click(System::Object^ sender, System::EventArgs^ e) {
+}
 };
 }
