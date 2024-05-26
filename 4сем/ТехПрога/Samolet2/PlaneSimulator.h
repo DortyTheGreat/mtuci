@@ -435,10 +435,10 @@ namespace TechProg4Kuleshov {
 #pragma endregion
 
 
-		int* clock_intervals = new int[6];
-		int clock_carr = 3;
+	int* clock_intervals = new int[6];
+	int clock_carr = 3;
 
-		Plane^ p;
+	Plane^ p;
 
 		List<Plane^> planes;
 		int current_plane = -1;
@@ -460,7 +460,8 @@ namespace TechProg4Kuleshov {
 		CargoCar^ CargoCarr;
 		Point in_sky;
 
-	private: System::Void PlaneSimulator_Load(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void PlaneSimulator_Load(System::Object^ sender, System::EventArgs^ e) 
+	{
 		
 		clock_intervals[0] = 5;
 		clock_intervals[1] = 10;
@@ -475,7 +476,8 @@ namespace TechProg4Kuleshov {
 
 		const int points_discretion = 60;
 		const int radius = 500;
-		for (int i = 0; i <= points_discretion; ++i) {
+		for (int i = 0; i <= points_discretion; ++i) 
+		{
 			Elipse->Add(Point(in_sky.X - radius + radius * Math::Cos(i * 2 * Math::PI / points_discretion), in_sky.Y + radius / 8 * Math::Sin(i * 2 * Math::PI / points_discretion)));
 		}
 
@@ -535,19 +537,23 @@ namespace TechProg4Kuleshov {
 	
 	List<Point>^ Movement_path;
 
-	List<Point>^ generate_path(int index) {
+	List<Point>^ generate_path(int index) 
+	{
 		if (index == 0) return Movement_path = Movement_path0;
 		if (index == 1) return Movement_path = Movement_path1;
 		if (index == 2) return Movement_path = Movement_path2;
 		if (index == 3) return Movement_path = Movement_path3;
 	}
 
-	void LandPlane() {
+	void LandPlane() 
+	{
 		Console::WriteLine("LandPlane");
 		current_plane = -1;
 
-		for (int i = 0; i < 4; ++i) {
-			if (planes[i] == nullptr) {
+		for (int i = 0; i < 4; ++i) 
+		{
+			if (planes[i] == nullptr) 
+			{
 				current_plane = i;
 
 				planes[i] = get_plane();
@@ -565,12 +571,14 @@ namespace TechProg4Kuleshov {
 
 	}
 
-	void FlyPlane() {
+	void FlyPlane() 
+	{
 		Console::WriteLine("FlyPlane");
 
 		current_plane = -1;
 		int there_is_plane = -1;
-		for (int i = 0; i < 4; ++i) {
+		for (int i = 0; i < 4; ++i) 
+		{
 			if (planes[i] == nullptr) continue;
 			there_is_plane = i;
 			if (rnd->Next() < 0.3) current_plane = i;
@@ -583,18 +591,21 @@ namespace TechProg4Kuleshov {
 		//planes[current_plane]->FlewAway += gcnew FlewAwayHandler(this, &PlaneSimulator::NextPlane);
 	}
 
-	void NextPlane() {
+	void NextPlane() 
+	{
 		Thread::Sleep(100);
 		Console::WriteLine("NextPlane");
 		clear_missing_planes();
 
 		int real_count = 0;
 
-		for (int i = 0; i < 4; ++i) {
+		for (int i = 0; i < 4; ++i) 
+		{
 			if (planes[i] != nullptr) ++real_count;
 		}
 
-		if (waiting_plane != -1) {
+		if (waiting_plane != -1) 
+		{
 
 			current_plane = waiting_plane;
 			waiting_plane = -1;
@@ -603,33 +614,44 @@ namespace TechProg4Kuleshov {
 			return;
 		}
 
-		if (real_count == 0) { LandPlane(); return; }
-		if (real_count == 4) { FlyPlane(); return; }
+		if (real_count == 0) 
+		{ 
+			LandPlane(); return; 
+		}
+		if (real_count == 4) { 
+			FlyPlane(); return; 
+		}
 
 		
 
-		if (rnd->NextDouble() < 0.5) {
+		if (rnd->NextDouble() < 0.5) 
+		{
 			LandPlane();
 		}
-		else {
+		else 
+		{
 			FlyPlane();
 		}
 
 	}
 
-	void bus_tick() {
+	void bus_tick() 
+	{
 		Console::WriteLine("123");
-		if (planes[current_plane]->isCargo) {
+		if (planes[current_plane]->isCargo) 
+		{
 			Bus::Callback clbb = CargoCarr->tick();
 			if (clbb == Bus::Callback::Delivered) planes[current_plane]->loaded ^= 1;
 		}
-		else {
+		else 
+		{
 			Bus::Callback clbb = Buss->tick();
 			if (clbb == Bus::Callback::Delivered) planes[current_plane]->loaded ^= 1;
 		}
 	}
 
-	Plane^ get_plane() {
+	Plane^ get_plane() 
+	{
 		Plane^ ret;
 		if (rnd->NextDouble() < 0.5) ret = gcnew Plane(this, in_sky, 85);
 		else ret = gcnew CargoPlane(this, in_sky, 100);
@@ -640,12 +662,13 @@ namespace TechProg4Kuleshov {
 		return ret;
 	}
 
-	void add_to_wait() {
+	void add_to_wait() 
+	{
 		if (waiting_plane != -1) return; 
 
-
 		int there_is_plane = -1;
-		for (int i = 0; i < 4; ++i) {
+		for (int i = 0; i < 4; ++i) 
+		{
 			if (planes[i] != nullptr) continue;
 			there_is_plane = i;
 			if (rnd->Next() < 0.3) waiting_plane = i;
@@ -653,9 +676,6 @@ namespace TechProg4Kuleshov {
 
 		if (waiting_plane == -1) waiting_plane = there_is_plane;
 		if (waiting_plane == -1) return;
-
-		
-		
 
 		planes[waiting_plane] = get_plane();
 		planes[waiting_plane]->Rotate(RotationalObject::Direction::Left);
@@ -666,59 +686,49 @@ namespace TechProg4Kuleshov {
 		//planes[waiting_plane]->Landed += gcnew LandedHandler(this, &PlaneSimulator::NextPlane);
 	}
 
-	void clear_missing_planes() {
+	void clear_missing_planes() 
+	{
 		for (int i = 0; i < 4; ++i) {
 			if (planes[i] == nullptr) continue;
 
-			if (planes[i]->state == "flewaway") {
+			if (planes[i]->state == "flewaway") 
+			{
 				planes[i] = nullptr;
 			}
-			
 		}
-
 	}
 
-	void main_tick() {
+	void main_tick() 
+	{
 		Plane::Callback clb = planes[current_plane]->tick();
 		if (clb == Plane::Callback::Default) return;
-		
-		/*if (clb == Plane::Callback::Bus) {
-			if (planes[current_plane]->isCargo) {
-				Bus::Callback clbb = CargoCarr->tick();
-				if (clbb == Bus::Callback::Delivered) planes[current_plane]->loaded ^= 1;
-			}
-			else {
-				Bus::Callback clbb = Buss->tick();
-				if (clbb == Bus::Callback::Delivered) planes[current_plane]->loaded ^= 1;
-			}
-			
-		}
-		*/
 	}
 
-	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) 
+	{
 		main_tick();
-
 		if (rnd->NextDouble() < 1.0 / 1000.0) add_to_wait();
-
 		if (waiting_plane != -1) planes[waiting_plane]->tick();
 	}
-	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
 		timer1->Enabled = !timer1->Enabled;
 		if (!timer1->Enabled) button1->Text = "«апустить симул€цию";
 		else button1->Text = "ќстановить симул€цию";
 	}
-	private: System::Void PlaneSimulator_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	private: System::Void PlaneSimulator_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
+	{
 		add_to_wait();
 	}
 
-	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) {
-
+	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
 		if (++clock_carr > 5) clock_carr = 5;
 		timer1->Interval = clock_intervals[clock_carr];
 		label1->Text = ( 6 - clock_carr).ToString();
 	}
-	private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
 		if (--clock_carr < 0) clock_carr = 0;
 		timer1->Interval = clock_intervals[clock_carr];
 		label1->Text = ( 6 - clock_carr).ToString();
