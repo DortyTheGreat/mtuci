@@ -1,0 +1,33 @@
+С одной стороны s0, с другой s1, s0 > s1
+
+b = (s0 + s1) / 2
+
+s(t) = c_1 e^((sqrt(g) t)/sqrt(b)) + c_2 e^(-(sqrt(g) t)/sqrt(b)) + b.
+
+
+Известные данные об изначальных точках:
+(1) t = t0 = 0, s = s0
+(2) t = t0 = 0, s'(0) = 0
+
+
+(1)
+
+c_1 * 1 + c_2 * 1 + b = s0
+
+c_1 + c_2 = s0 - b
+
+
+
+(2)
+
+derivative of ( c_1 e^((sqrt(g) t)/sqrt(b)) + c_2 e^(-(sqrt(g) t)/sqrt(b)) + b) by t
+(sqrt(g) (c_1 e^((sqrt(g) t)/sqrt(b)) - c_2 e^(-(sqrt(g) t)/sqrt(b))))/sqrt(b)
+
+При t = 0
+s'(0) = ((c_1 - c_2) sqrt(g))/sqrt(b) = 0
+=> c_1 = c_2
+
+
+(1) + (2)
+
+c_1 = c_2 = (s0 - b)/2
