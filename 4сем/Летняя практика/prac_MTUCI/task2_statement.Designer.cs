@@ -28,16 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(task2_statement));
             this.to_main = new System.Windows.Forms.Button();
-            this.to_task = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // to_main
             // 
+            this.to_main.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.to_main.Location = new System.Drawing.Point(330, 12);
             this.to_main.Name = "to_main";
             this.to_main.Size = new System.Drawing.Size(101, 41);
@@ -46,59 +45,64 @@
             this.to_main.UseVisualStyleBackColor = true;
             this.to_main.Click += new System.EventHandler(this.to_main_Click);
             // 
-            // to_task
+            // comboBox1
             // 
-            this.to_task.Location = new System.Drawing.Point(330, 397);
-            this.to_task.Name = "to_task";
-            this.to_task.Size = new System.Drawing.Size(101, 41);
-            this.to_task.TabIndex = 3;
-            this.to_task.Text = "К Заданию";
-            this.to_task.UseVisualStyleBackColor = true;
-            this.to_task.Click += new System.EventHandler(this.to_task_Click);
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Белый",
+            "Голубой",
+            "Серый"});
+            this.comboBox1.Location = new System.Drawing.Point(271, 121);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 26);
+            this.comboBox1.TabIndex = 3;
             // 
-            // label1
+            // button1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(266, 147);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(239, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Создать программу для выполнения задания";
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.button1.Location = new System.Drawing.Point(134, 113);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(131, 41);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Поменять Фон";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // pictureBox1
+            // button2
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.ImageLocation = "";
-            this.pictureBox1.Location = new System.Drawing.Point(12, 163);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(760, 135);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 6;
-            this.pictureBox1.TabStop = false;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.button2.Location = new System.Drawing.Point(515, 109);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(135, 49);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Включить Музыку";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // task2_statement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(784, 461);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.to_task);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.to_main);
             this.Name = "task2_statement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Условие Второго Задания";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Text = "Настройки";
+            this.Load += new System.EventHandler(this.task2_statement_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button to_main;
-        private System.Windows.Forms.Button to_task;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

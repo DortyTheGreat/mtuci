@@ -30,5 +30,10 @@ namespace prac_MTUCI
             this.Hide();
             f.ShowDialog();
         }
+
+        private void task1_statement_Load(object sender, EventArgs e)
+        {
+            this.BackColor = prac_MTUCI.main.Back_Color;
+        }
     }
 }

@@ -93,7 +93,8 @@
             this.Controls.Add(this.to_main);
             this.Name = "task1_statement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Условие Первого Задания";
+            this.Text = "Условие";
+            this.Load += new System.EventHandler(this.task1_statement_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

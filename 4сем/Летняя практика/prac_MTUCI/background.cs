@@ -11,10 +11,6 @@ using System.Windows.Forms;
 using static dll_for_prac.Class1;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-using static prac_MTUCI.main;
-using System.Runtime.Remoting.Messaging;
-using System.IO;
-
 namespace prac_MTUCI
 {
     public partial class task1 : Form
@@ -36,7 +32,7 @@ namespace prac_MTUCI
             }
         }
 
-        double g = 9.8;
+        const double g = 9.8;
 
         double s1 = 8;
         double s0 = 10;
@@ -57,14 +53,13 @@ namespace prac_MTUCI
             return (s(t + eps) - s(t))/ eps;
         }
 
-        public unsafe double[] diff_solve_arr(double h, int it, double s0, double s1)
+        public unsafe double[] diff_solve_arr(double t0, double h, int it, double s0, double s1)
         {
-            double t = 0;
             double[] arr = new double[it];
             for(int i =0; i < it; ++i)
             {
-                arr[i] = s(t);
-                t += h;
+                arr[i] = s(t0);
+                t0 += h;
             }
             return arr;
         }
@@ -93,34 +88,34 @@ namespace prac_MTUCI
 
             double ans1, ans2, ans3 = 0;
             final_content = "Задание №1\n\n";
-            if (Input(g_txtBox, out g, errorProvider1, "В поля для ввода данных допускается лишь ввод числовых значений с плавающей точкой"))
-                final_content += "g = " + g + '\n';
-            else
-                return;
+            if (Input(t0_txtBox, out t0, errorProvider1, "В поля для ввода данных допускается лишь ввод числовых значений с плавающей точкой"))
+            {  
+                final_content += "t0 = " + t0 + '\n';
+            }
 
             if (Input(s0_txtBox, out s0, errorProvider1, "В поля для ввода данных допускается лишь ввод числовых значений с плавающей точкой"))
+            {
                 final_content += "s0 = " + s0 + '\n';
-            else
-                return;
+            }
 
             if (Input(s1_txtBox, out s1, errorProvider1, "В поля для ввода данных допускается лишь ввод числовых значений с плавающей точкой"))
+            {
                 final_content += "s1 = " + s1 + '\n' + '\n';
-            else
-                return;
+            }
 
             if (Input(h_txtBox, out h, errorProvider1, "В поля для ввода данных допускается лишь ввод числовых значений с плавающей точкой"))
+            {
                 final_content += "h = " + h + '\n';
-            else
-                return;
+            }
 
             if (Input(it_txtBox, out it, errorProvider1, "В поля для ввода данных допускается лишь ввод числовых значений с плавающей точкой"))
+            {
                 final_content += "it = " + it + '\n' + '\n';
-            else
-                return;
+            }
 
             animate();
 
-            output_mas(diff_solve_arr(h, Int32.Parse(it.ToString()), s0, s1), Int32.Parse(it.ToString()), dataGridView2, h);
+            output_mas(diff_solve_arr(t0, h, Int32.Parse(it.ToString()), s0, s1), Int32.Parse(it.ToString()), dataGridView2, h);
 
             t_last = binary_search();
 
@@ -135,7 +130,6 @@ namespace prac_MTUCI
 
         private void task1_Load(object sender, EventArgs e)
         {
-            this.BackColor = prac_MTUCI.main.Back_Color;
             animate();
         }
 
@@ -148,12 +142,12 @@ namespace prac_MTUCI
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //NumberLimiter(e, s0_txtBox);
+            NumberLimiter(e, s0_txtBox);
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //NumberLimiter(e, g_txtBox);
+            NumberLimiter(e, t0_txtBox);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -176,7 +170,7 @@ namespace prac_MTUCI
             }
             else
             {
-                button2.Text = "Анимировать";
+                button2.Text = "Аимировать";
             }
         }
 
@@ -213,22 +207,6 @@ namespace prac_MTUCI
         private void button1_Click(object sender, EventArgs e)
         {
             System.IO.File.WriteAllText("task1.txt", final_content);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            var reader = new StreamReader("input.txt");
-            string line;
-
-            int cou = 0;
-            while ((line = reader.ReadLine()) != null)
-            {
-                
-                if (cou == 0) g_txtBox.Text = line;
-                if (cou == 1) s0_txtBox.Text = line;
-                if (cou == 2) s1_txtBox.Text = line;
-                cou++;
-            }
         }
     }
 }

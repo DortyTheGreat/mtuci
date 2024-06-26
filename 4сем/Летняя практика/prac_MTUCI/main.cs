@@ -10,8 +10,10 @@ using System.Windows.Forms;
 
 namespace prac_MTUCI
 {
+    
     public partial class main : Form
     {
+        public static Color Back_Color = SystemColors.Control;
         public main()
         {
             InitializeComponent();
@@ -46,6 +48,18 @@ namespace prac_MTUCI
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            task2_statement f = new task2_statement();
+            this.Hide();
+            f.ShowDialog();
+        }
+
+        private void main_Load(object sender, EventArgs e)
+        {
+            this.BackColor = prac_MTUCI.main.Back_Color;
         }
     }
 }
