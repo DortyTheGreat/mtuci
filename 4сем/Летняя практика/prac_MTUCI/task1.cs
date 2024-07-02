@@ -119,8 +119,7 @@ namespace prac_MTUCI
                 return;
 
             animate();
-
-            output_mas(diff_solve_arr(h, Int32.Parse(it.ToString()), s0, s1), Int32.Parse(it.ToString()), dataGridView2, h);
+            output_mas(diff_solve_arr(h, (int)(it), s0, s1), (int)(it), dataGridView2, h);
 
             t_last = binary_search();
 
