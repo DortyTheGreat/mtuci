@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1725810221 source:c:\users\saha2\desktop\mtuci\5сем\ТСиСА\2 лаба\simplex-method\main.cpp
+	<iostream>
+	<vector>
+	<iomanip>
+
