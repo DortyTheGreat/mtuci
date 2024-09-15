@@ -63,10 +63,7 @@ pair<sf::Vector2f, sf::Vector2f> get_Line_from_equ(long double a, long double b,
 vector<vector<long double>> equations_input;
 
 vector<long double> target_function; /// 2x1 + 5x2 -> max
-vector<sf::RectangleShape> allowed_area;
 
-
-long double F_value = 0;
 
 sfLine get_line(const vector<long double>& equation, sf::Color clr = sf::Color::Red){
     auto p = get_Line_from_equ(equation[0], equation[1], -equation[2]);
@@ -74,36 +71,10 @@ sfLine get_line(const vector<long double>& equation, sf::Color clr = sf::Color::
     return sfLine (p.first, p.second, clr, 0.25); /// 2x1 + 5x2 -> max <=>
 }
 
-sfLine get_contour_line(sf::Color clr = sf::Color::Red){
+sfLine get_contour_line(double F_value, sf::Color clr = sf::Color::Red){
     auto p = get_Line_from_equ(target_function[0], target_function[1], -F_value);
 
-    return sfLine (p.first, p.second, clr, 0.25); /// 2x1 + 5x2 -> max <=>
-}
-
-void populate_area(){
-    allowed_area.clear();
-
-    long double size = 0.2;
-    for(long double x = 0; x < 10; x += size){
-        for(long double y = 0; y < 10; y += size){
-            bool ok = true;
-
-            for(auto equation : equations_input){
-                if (!(x * equation[0] + y * equation[1] <= equation[2])){
-                    ok = false;
-                    break;
-                }
-            }
-
-            if (ok){
-                sf::RectangleShape rectangle;
-                rectangle.setSize(sf::Vector2f(size, size));
-                rectangle.setPosition(x - size / 2, -y - size / 2);
-                rectangle.setFillColor(sf::Color::Green);
-                allowed_area.push_back(rectangle);
-            }
-        }
-    }
+    return sfLine (p.first, p.second, clr, 0.15); /// 2x1 + 5x2 -> max <=>
 }
 
 
@@ -113,7 +84,7 @@ double dist(double x1, double y1, double x2, double y2){
 
 
 // LINE/LINE
-bool lineLine(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
+pair<bool, sf::Vector2f> lineLine(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
 
     // calculate the direction of the lines
     float uA = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1));
@@ -126,79 +97,227 @@ bool lineLine(float x1, float y1, float x2, float y2, float x3, float y3, float 
         float intersectionX = x1 + (uA * (x2-x1));
         float intersectionY = y1 + (uA * (y2-y1));
 
-        return true;
+        return {true, {intersectionX, intersectionY}};
     }
-    return false;
+    return {false, {-1,-1}};
 }
 
-bool lineRect(float x1, float y1, float x2, float y2, float rx, float ry, float rw, float rh) {
+struct geom_line{
+    long double x1, y1, x2, y2;
+};
 
-    // check if the line has hit any of the rectangle's sides
-    // uses the Line/Line function below
-    bool left =   lineLine(x1,y1,x2,y2, rx,ry,rx, ry+rh);
-    bool right =  lineLine(x1,y1,x2,y2, rx+rw,ry, rx+rw,ry+rh);
-    bool top =    lineLine(x1,y1,x2,y2, rx,ry, rx+rw,ry);
-    bool bottom = lineLine(x1,y1,x2,y2, rx,ry+rh, rx+rw,ry+rh);
+long double min_ = 1e10; sf::Vector2f min_point = {-1,-1};
+long double max_ = -1e10; sf::Vector2f max_point = {-1,-1};
 
-    // if ANY of the above are true, the line
-    // has hit the rectangle
-    if (left || right || top || bottom) {
-        return true;
-    }
-    return false;
-}
+vector<sf::Vector2f> convex_points;
 
-pair<bool, sf::Vector2f> check_collision(){
-    //cout << "h1" << endl;
-    auto p = get_Line_from_equ(target_function[0], target_function[1], -F_value);
+bool check_point(const sf::Vector2f& point){
 
-    //cout << "h2" << endl;
-    int cou = 0;
-    for(auto shape : allowed_area){
-        if (lineRect(p.first.x, p.first.y, p.second.x, p.second.y,
-            shape.getPosition().x, shape.getPosition().y, shape.getSize().x, shape.getSize().y ) ){
-                sf::Vector2f pos = shape.getPosition() - sf::Vector2f(shape.getSize().x / 2, shape.getSize().y / 2);
-                pos.y *= -1;
-                return {1,pos};
+    long double value = point.x * target_function[0] + point.y * target_function[1];
+
+    for(auto equation : equations_input){
+        long double check_value = point.x * equation[0] + point.y * equation[1];
+        if (!(check_value - 0.001 <= equation[2]) || point.x < 0 || point.y < 0 ){
+            return false;
         }
-
     }
-    return {false, sf::Vector2f(-1,-1)};
 
+    if (value < min_){
+        min_ = value;
+        min_point = point;
+    }
+
+    if (value > max_){
+        max_ = value;
+        max_point = point;
+    }
+
+    convex_points.push_back(point);
+
+    return true;
 }
+
+
+int orientation(sf::Vector2f a, sf::Vector2f b, sf::Vector2f c) {
+    double v = a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y);
+    if (v < 0) return -1; // clockwise
+    if (v > 0) return +1; // counter-clockwise
+    return 0;
+}
+
+bool cw(sf::Vector2f a, sf::Vector2f b, sf::Vector2f c, bool include_collinear) {
+    int o = orientation(a, b, c);
+    return o < 0 || (include_collinear && o == 0);
+}
+bool collinear(sf::Vector2f a, sf::Vector2f b, sf::Vector2f c) { return orientation(a, b, c) == 0; }
+
+void convex_hull(vector<sf::Vector2f>& a, bool include_collinear = false) {
+    sf::Vector2f p0 = *min_element(a.begin(), a.end(), [](sf::Vector2f a, sf::Vector2f b) {
+        return make_pair(a.y, a.x) < make_pair(b.y, b.x);
+    });
+    sort(a.begin(), a.end(), [&p0](const sf::Vector2f& a, const sf::Vector2f& b) {
+        int o = orientation(p0, a, b);
+        if (o == 0)
+            return (p0.x-a.x)*(p0.x-a.x) + (p0.y-a.y)*(p0.y-a.y)
+                < (p0.x-b.x)*(p0.x-b.x) + (p0.y-b.y)*(p0.y-b.y);
+        return o < 0;
+    });
+    if (include_collinear) {
+        int i = (int)a.size()-1;
+        while (i >= 0 && collinear(p0, a[i], a.back())) i--;
+        reverse(a.begin()+i+1, a.end());
+    }
+
+    vector<sf::Vector2f> st;
+    for (int i = 0; i < (int)a.size(); i++) {
+        while (st.size() > 1 && !cw(st[st.size()-2], st.back(), a[i], include_collinear))
+            st.pop_back();
+        st.push_back(a[i]);
+    }
+
+    if (include_collinear == false && st.size() == 2 && st[0] == st[1])
+        st.pop_back();
+
+    a = st;
+}
+
+
 
 int main() {
 
-    target_function = {2,5,0};
+    /**
+    /// Задание a (Вариант 16)
+    target_function = {2,5};
     equations_input.push_back({1,2,8});
     equations_input.push_back({1,1,6});
     equations_input.push_back({-1,-3,-3});
+    */
+
+    /**
+    /// Вариант 16, б
+    target_function = {1,3};
+
+    equations_input.push_back({1,1,8});
+    equations_input.push_back({1,3,6});
+    equations_input.push_back({-1,-3,-3});
+    */
+
+    /**
+    /// Вариант 16, в
+    target_function = {1,3};
+
+    equations_input.push_back({-1,-2,-9});
+    equations_input.push_back({-1,-4,-8});
+    equations_input.push_back({-2,-1,-3});
+    */
 
 
-    populate_area();
+    /// Вариант 16, г
+    target_function = {-5,3};
+
+    equations_input.push_back({1,2,10});
+    equations_input.push_back({3,1,6});
+    equations_input.push_back({-1,-1,-16});
+
+
+    vector<geom_line> lines;
+
+
+
+    for(auto equation : equations_input){
+        auto p = get_Line_from_equ(equation[0], equation[1], -equation[2]);
+        lines.push_back({p.first.x, -p.first.y, p.second.x, -p.second.y});
+
+    }
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Plot");
 
     sfLine Oy({0,1e10}, {0,-1e10}, sf::Color::Black, 0.25);
     sfLine Ox({1e10,0}, {-1e10,0}, sf::Color::Black, 0.25);
 
+    lines.push_back({0,1e10,0,-1e10});
+    lines.push_back({1e10,0,-1e10,0});
+
+    vector<sf::Vector2f> intersec_points;
+
+    for(int i = 0; i < lines.size(); ++i){
+        for(int j = i + 1; j < lines.size(); ++j){
+            auto collision_res = lineLine(lines[i].x1,lines[i].y1,lines[i].x2,lines[i].y2,lines[j].x1,lines[j].y1,lines[j].x2,lines[j].y2);
+            if (collision_res.first){
+                intersec_points.push_back(collision_res.second);
+            }
+        }
+    }
+
+    bool is_there_solution = false;
+    for(auto point : intersec_points){
+        is_there_solution |= check_point(point);
+    }
+
+    if (!is_there_solution){
+        cout << "Solution does not exist" << endl;
+    }
+
+    long double min_pre = min_;
+    long double max_pre = max_;
+
+    for(auto equation : equations_input){
+        auto p = get_Line_from_equ(equation[0], equation[1], -equation[2]);
+        check_point(p.first);
+        check_point(p.second);
+    }
+
+    check_point({0,1e10});
+    check_point({0,-1e10});
+    check_point({1e10,0});
+    check_point({-1e10,0});
+
+
+
+    bool unbound_min = false;
+    bool unbound_max = false;
+
+    if (min_pre != min_){
+        cout << "Solution isn't bounded to min" << endl;
+        unbound_min = true;
+    }
+
+    if (max_pre != max_){
+        cout << "Solution isn't bounded to max" << endl;
+        unbound_max = true;
+    }
+
+    if (!unbound_min && is_there_solution){
+        cout << fixed << setprecision(3) << "F_min: " << min_ << " at (" << min_point.x << " " << min_point.y << ")" << endl;
+    }
+
+    if (!unbound_max && is_there_solution){
+        cout << fixed << setprecision(3) << "F_max: " << max_ << " at (" << max_point.x << " " << max_point.y << ")" << endl;
+    }
+
+    sf::ConvexShape Polygon;
+
+    Polygon.setPointCount(convex_points.size());
+    Polygon.setFillColor(sf::Color::Green);
+    if (convex_points.size() >= 3){
+
+        convex_hull(convex_points, false);
+
+        Polygon.setPointCount(convex_points.size());
+
+        int cou = 0;
+        for(auto point : convex_points){
+            Polygon.setPoint(cou++, sf::Vector2f(point.x, -point.y));
+        }
+    }
+
+
+
+
+
     sf::View view(sf::Vector2f(4.f, -4.f), sf::Vector2f(10.f, 10.f));
     window.setView(view);
     window.setFramerateLimit(20);
-
-    cout << "h0" << endl;
-
-    long double min_ = 1e10; sf::Vector2f min_point = {-1,-1};
-    long double max_ = -1e10; sf::Vector2f max_point = {-1,-1};
-
-    long double start = -10;
-    long double end = 50;
-
-    long double step = 1;
-    long double calculations_per_frame = 100;
-    bool finished_calculations = false;
-
-    F_value = start;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -220,56 +339,39 @@ int main() {
             }
         }
 
-        //cout << "h0.5" << endl;
 
+        int dx = 0;
+        int dy = 0;
+        if (sf::Keyboard::isKeyPressed( sf::Keyboard::Key::W)) dy -= 1;
+        if (sf::Keyboard::isKeyPressed( sf::Keyboard::Key::S)) dy += 1;
 
+        if (sf::Keyboard::isKeyPressed( sf::Keyboard::Key::A)) dx -= 1;
+        if (sf::Keyboard::isKeyPressed( sf::Keyboard::Key::D)) dx += 1;
 
-        if (F_value < end){
-            for(int calculations = 0; calculations < calculations_per_frame; ++calculations){
-                F_value += step / calculations_per_frame;
-                if (check_collision().first){
-                    if (F_value < min_){
-                        min_ = F_value;
-                        min_point = check_collision().second;
-                    }
-
-                    if (F_value > max_){
-                        max_ = F_value;
-                        max_point = check_collision().second;
-                    }
-                }
-            }
-        }else{
-            if (!finished_calculations){
-
-                long double new_min = target_function[0] * min_point.x + target_function[1] * min_point.y;
-                long double new_max = target_function[0] * max_point.x + target_function[1] * max_point.y;
-
-
-                cout << fixed << setprecision(3) << "F_min: " << new_min << " at " << min_point.x << " " << min_point.y << endl;
-                cout << fixed << setprecision(3) << "F_max: " << new_max << " at " << max_point.x << " " << max_point.y << endl;
-                finished_calculations = true;
-            }
-
-        }
-
-
-
-
+        view.setCenter(view.getCenter() + sf::Vector2f(dx,dy) * (view.getSize().x) * 0.03f );
+        window.setView(view);
 
         window.clear(sf::Color::White);
 
-        for(auto circle : allowed_area){
-            window.draw(circle);
-        }
+        window.draw(Polygon);
 
         window.draw(Ox);
         window.draw(Oy);
-        window.draw(get_contour_line());
+        //window.draw(get_contour_line());
 
         for(auto equation : equations_input){
             window.draw(get_line(equation, sf::Color::Blue));
         }
+
+        if (!unbound_max && is_there_solution){
+            window.draw(get_contour_line(max_, sf::Color::Red));
+        }
+
+        if (!unbound_min && is_there_solution){
+            window.draw(get_contour_line(min_, sf::Color::Magenta));
+        }
+
+
 
         window.display();
     }
