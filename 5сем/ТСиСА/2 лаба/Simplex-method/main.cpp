@@ -56,9 +56,6 @@ void print(const vector< vector<long double> >& equations, const vector<long dou
 
 const long double eps = 0.001;
 
-/**
-Возвращает -1, если оптимум достигнут
-*/
 int get_collumn(const vector<long double>& F){
 
     int index = -1;
@@ -188,12 +185,18 @@ void solve(vector< vector<long double> >& equations, vector<long double>& F){
             }
         }
 
+        if (col == equations.size()) {
+            cout << fixed << setprecision(3) << "F = " << *F.rbegin() << endl << endl;
+        }
+
         if (index >= 0 )
-            cout << "x_" << col+1 << " = " << *equations[index].rbegin()  / equations[index][col] << endl;
+            cout << fixed << setprecision(3) <<"x_" << col+1 << " = " << *equations[index].rbegin()  / equations[index][col] << endl;
+        else
+            cout << fixed << setprecision(3) <<"x_" << col+1 << " = " << (long double) (0) << endl;
 
     }
 
-    cout << "F_max = " << *F.rbegin();
+
 
 }
 
@@ -212,7 +215,7 @@ int main()
     vector<long double> F_input;
 
 
-    /** Пример из видео на ютубе
+    /** Пример из видео на ютубе (НЕ ТОГО КОТОРОГО ПОКАЗЫВАЛИ НА ПАРЕ!!!)
     F_input = {-3,-4}; /// F = 3*x1 + 4*x2 -> max
 
     int n_input = 2; /// число переменных
@@ -220,6 +223,31 @@ int main()
 
     equations_input.push_back({4,1,8}); /// 4x1 + x2 <= 8
     equations_input.push_back({-1,1,3}); /// -x1 + x2 <= 3
+    */
+
+    /**
+    ///Пример 1, Нулевой вариант
+    F_input = {-2,-1};
+
+    int m_input = 4; /// число уравнений
+
+    equations_input.push_back({-4,-6,-20});
+    equations_input.push_back({-2,5,27});
+    equations_input.push_back({7,6,63});
+    equations_input.push_back({3,-2,23});
+    */
+
+
+    /**
+    /// Нулевый вариант, задание 2
+    F_input = {2,1};
+
+    int m_input = 4; /// число уравнений
+
+    equations_input.push_back({-4,-6,-20});
+    equations_input.push_back({-2,5,27});
+    equations_input.push_back({7,6,63});
+    equations_input.push_back({3,-2,23});
     */
 
 
@@ -256,6 +284,7 @@ int main()
     equations_input.push_back({-2,-1,-3});
     */
 
+    /**
     /// Вариант 16, г
     F_input = {-5,3};
 
@@ -264,6 +293,18 @@ int main()
     equations_input.push_back({1,2,10});
     equations_input.push_back({3,1,6});
     equations_input.push_back({-1,-1,-16});
+    */
+
+    /**
+    /// Задание из видео (2.2)
+    F_input = {-7,-8,-6,-5};
+
+    int m_input = 3; /// число уравнений
+
+    equations_input.push_back({1,3,5,3,40});
+    equations_input.push_back({2,6,1,0,50});
+    equations_input.push_back({2,3,2,5,30});
+    */
 
     vector<long double> F = F_input;
 
