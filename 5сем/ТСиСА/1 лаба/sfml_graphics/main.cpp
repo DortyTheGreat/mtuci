@@ -37,7 +37,7 @@ public:
     sf::Color color;
 };
 
-/// ax + by + c = 0 <=> sfLine (-y, т.к. в sfml Oy перевёрнута)
+/// ax + by + c = 0 <=> sfLine (-y, ГІ.ГЄ. Гў sfml Oy ГЇГҐГ°ГҐГўВёГ°Г­ГіГІГ )
 pair<sf::Vector2f, sf::Vector2f> get_Line_from_equ(long double a, long double b, long double c){
 
     long double  pseudo_inf = 1e5;
@@ -186,7 +186,7 @@ void convex_hull(vector<sf::Vector2f>& a, bool include_collinear = false) {
 int main() {
 
     /**
-    /// Задание a (Вариант 16)
+    /// Г‡Г Г¤Г Г­ГЁГҐ a (Г‚Г Г°ГЁГ Г­ГІ 16)
     target_function = {2,5};
     equations_input.push_back({1,2,8});
     equations_input.push_back({1,1,6});
@@ -194,7 +194,7 @@ int main() {
     */
 
     /**
-    /// Вариант 16, б
+    /// Г‚Г Г°ГЁГ Г­ГІ 16, ГЎ
     target_function = {1,3};
 
     equations_input.push_back({1,1,8});
@@ -203,7 +203,7 @@ int main() {
     */
 
     /**
-    /// Вариант 16, в
+    /// Г‚Г Г°ГЁГ Г­ГІ 16, Гў
     target_function = {1,3};
 
     equations_input.push_back({-1,-2,-9});
@@ -212,7 +212,7 @@ int main() {
     */
 
 
-    /// Вариант 16, г
+    /// Г‚Г Г°ГЁГ Г­ГІ 16, ГЈ
     target_function = {-5,3};
 
     equations_input.push_back({1,2,10});
@@ -263,8 +263,8 @@ int main() {
 
     for(auto equation : equations_input){
         auto p = get_Line_from_equ(equation[0], equation[1], -equation[2]);
-        check_point(p.first);
-        check_point(p.second);
+        check_point({p.first.x, -p.first.y});
+        check_point({p.second.x, -p.second.y});
     }
 
     check_point({0,1e10});
