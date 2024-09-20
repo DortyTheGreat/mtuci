@@ -80,7 +80,7 @@ bool optimize2(const vector<pair<int,int> >& elements, vector<vector<long> >& pl
 
 int main()
 {
-    /**
+
     /// Задание 1 (нулевое)
     vector<vector<long> > matrix = {
     {0, 50, 100, 50, 50},
@@ -89,7 +89,7 @@ int main()
     {60,  4, 5, 4, 3},
     {100, 5, 2, 3, 4}
     };
-    */
+
 
     /**
     /// Задание 2 (индивидуальное)
@@ -102,7 +102,7 @@ int main()
     };
     */
 
-
+    /**
     /// Задание 3 (последнее)
     vector<vector<long> > matrix = {
     {0, 15, 35, 100, 75, 125, 100},
@@ -112,7 +112,7 @@ int main()
     {125,  3, 5, 6, 2, 3, 2},
     {25,   3, 2, 4, 6, 2, 6}
     };
-
+    */
 
 
     long sum1 = 0;
