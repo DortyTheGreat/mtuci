@@ -1,7 +1,13 @@
+#define SFML_STATIC
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
 #include <iomanip>
+
+
+
+
+
 using namespace std;
 
 class sfLine : public sf::Drawable
@@ -221,6 +227,7 @@ int main() {
 
 
     vector<geom_line> lines;
+
 
 
 

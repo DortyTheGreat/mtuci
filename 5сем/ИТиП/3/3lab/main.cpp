@@ -138,6 +138,15 @@ void task1(){
     for(auto elem : g_fw[start]){
         cout << elem << " ";
     }
+
+    cout << endl << endl << "FloyWarshall(entire matrix): " << endl;
+
+    for(auto elem : g_fw){
+        for(auto e2 : elem){
+            cout << e2 << " ";
+        }
+        cout << endl;
+    }
 }
 
 void task2(){
@@ -160,9 +169,9 @@ void task2(){
 
     auto [ans, vec] = TSP(to_adjacency_matrix(g),start);
 
-    cout << endl << ans << endl;
+    cout << endl << "Distance: " << ans << endl;
 
-    cout << start+1 << " ";
+    cout << "Path: " <<start+1 << " ";
     for(auto elem : vec){
         cout << elem+1 << " ";
     }
