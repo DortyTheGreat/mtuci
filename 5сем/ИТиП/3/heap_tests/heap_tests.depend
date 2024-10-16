@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1728039180 source:c:\users\hitech-3\desktop\githubstuff\mtuci\5ñåì\ÈÒèÏ\3\heap_tests\main.cpp
+	<iostream>
+	<chrono>
+	<random>
+	<set>
+	<fstream>
+	<cstdint>
+	<iostream>
+	<tuple>
+	<vector>
+	<map>
+	<algorithm>
+	<sstream>
+
