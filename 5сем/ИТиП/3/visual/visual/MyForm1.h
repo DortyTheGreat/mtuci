@@ -1,6 +1,6 @@
 #pragma once
 #include "Algorithms.h"
-#include "MyForm2.h"
+#include "MyForm.h"
 #include <string>
 namespace visual {
 
@@ -45,7 +45,7 @@ namespace visual {
 
 
 	private: System::Windows::Forms::Button^ button2;
-	private: System::Windows::Forms::Button^ button3;
+
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Label^ label4;
 
@@ -71,7 +71,6 @@ namespace visual {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -124,17 +123,6 @@ namespace visual {
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &MyForm1::button2_Click);
 			// 
-			// button3
-			// 
-			this->button3->Location = System::Drawing::Point(13, 574);
-			this->button3->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(156, 69);
-			this->button3->TabIndex = 26;
-			this->button3->Text = L"Назад";
-			this->button3->UseVisualStyleBackColor = true;
-			this->button3->Click += gcnew System::EventHandler(this, &MyForm1::button3_Click);
-			// 
 			// label3
 			// 
 			this->label3->AutoSize = true;
@@ -166,7 +154,6 @@ namespace visual {
 			this->ClientSize = System::Drawing::Size(1260, 705);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label4);
-			this->Controls->Add(this->button3);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
@@ -174,7 +161,8 @@ namespace visual {
 			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"MyForm1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"Лабораторная работа №3(2)";
+			this->Text = L"Лабораторная работа №3(условие)";
+			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -182,15 +170,21 @@ namespace visual {
 		}
 #pragma endregion
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
-		MyForm2^ f = gcnew MyForm2();
-		f->Owner = this;
-		f->Show();
-		this->Hide();
+		
 	}
 private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-	Application::Exit();
+	MyForm^ f = gcnew MyForm();
+	f->Owner = this;
+	f->Show();
+	this->Hide();
 }
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+	MyForm^ f = gcnew MyForm();
+	f->Owner = this;
+	f->Show();
+	this->Hide();
+	
 	/*
 	const int inf = 1001 * 1001;
 

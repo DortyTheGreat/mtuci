@@ -82,7 +82,7 @@ vector<vector<int>> floydWarshall(vector<vector<int>> g) {
 }
 
 
-pair<int, vector<int>> masha(int start, const std::vector<std::vector<int>>& graph) {
+pair<int, vector<int>> olya(int start, const std::vector<std::vector<int>>& graph) {
     int n = graph.size();
 
     int bits_for_index = 1;

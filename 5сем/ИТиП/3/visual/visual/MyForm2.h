@@ -386,7 +386,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	int start_city = Convert::ToInt32(comboBox1->SelectedItem->ToString()) - 1;
 
 
-	auto masha_ans = masha(start_city, graph);
+	auto masha_ans = olya(start_city, graph);
 
 	long long min_distance = masha_ans.first;
 	std::vector<int> path = masha_ans.second;

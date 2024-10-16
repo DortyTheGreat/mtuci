@@ -1,4 +1,4 @@
-#include "MyForm.h"
+#include "MyForm1.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -7,7 +7,7 @@ using namespace visual;
 void main(array<String^>^ args) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-	visual::MyForm form;
+	visual::MyForm1 form;
 	Application::Run(% form);
 }
 
