@@ -4,7 +4,7 @@
 
 
 
-namespace rofl {
+namespace visual {
 
 	using namespace System;
 	using namespace System::ComponentModel;

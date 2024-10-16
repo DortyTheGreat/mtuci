@@ -2,12 +2,12 @@
 
 using namespace System;
 using namespace System::Windows::Forms;
-using namespace rofl;
+using namespace visual;
 [STAThread]
 void main(array<String^>^ args) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-	rofl::MyForm form;
+	visual::MyForm form;
 	Application::Run(% form);
 }
 
