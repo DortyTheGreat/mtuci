@@ -48,6 +48,7 @@ namespace visual {
 
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Label^ label4;
+	private: System::Windows::Forms::PictureBox^ pictureBox2;
 
 
 
@@ -73,14 +74,16 @@ namespace visual {
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// pictureBox1
 			// 
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
 			this->pictureBox1->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.InitialImage")));
-			this->pictureBox1->Location = System::Drawing::Point(955, 85);
+			this->pictureBox1->Location = System::Drawing::Point(752, 338);
 			this->pictureBox1->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(278, 320);
@@ -93,19 +96,21 @@ namespace visual {
 			this->label2->AutoSize = true;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label2->Location = System::Drawing::Point(18, 315);
+			this->label2->Location = System::Drawing::Point(16, 401);
 			this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(898, 231);
+			this->label2->Size = System::Drawing::Size(843, 198);
 			this->label2->TabIndex = 19;
-			this->label2->Text = resources->GetString(L"label2.Text");
+			this->label2->Text = L"Написать программу для:\r\nа) поиска оптимального назначения,\r\nминимизирующее сумма"
+				L"рную\r\nстоимость назначений.\r\nб) поиска оптимального назначение, максимизирующее "
+				L"суммарную\r\nэффективность назначений.";
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label1->Location = System::Drawing::Point(16, 266);
+			this->label1->Location = System::Drawing::Point(16, 368);
 			this->label1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(143, 33);
@@ -131,7 +136,7 @@ namespace visual {
 			this->label3->Location = System::Drawing::Point(16, 85);
 			this->label3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(916, 165);
+			this->label3->Size = System::Drawing::Size(935, 264);
 			this->label3->TabIndex = 28;
 			this->label3->Text = resources->GetString(L"label3.Text");
 			// 
@@ -147,11 +152,24 @@ namespace visual {
 			this->label4->TabIndex = 27;
 			this->label4->Text = L"Задание:";
 			// 
+			// pictureBox2
+			// 
+			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
+			this->pictureBox2->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.InitialImage")));
+			this->pictureBox2->Location = System::Drawing::Point(716, 96);
+			this->pictureBox2->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->pictureBox2->Name = L"pictureBox2";
+			this->pictureBox2->Size = System::Drawing::Size(531, 150);
+			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox2->TabIndex = 29;
+			this->pictureBox2->TabStop = false;
+			// 
 			// MyForm1
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->ClientSize = System::Drawing::Size(1260, 705);
+			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->button2);
@@ -161,9 +179,10 @@ namespace visual {
 			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"MyForm1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"Лабораторная работа №3(условие)";
+			this->Text = L"Лабораторная работа №4(условие)";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

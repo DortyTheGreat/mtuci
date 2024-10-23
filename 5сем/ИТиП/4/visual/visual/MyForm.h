@@ -49,7 +49,8 @@ namespace visual {
 
 	private: System::Windows::Forms::GroupBox^ groupBox2;
 	private: System::Windows::Forms::Label^ olya_dist_label;
-	private: System::Windows::Forms::TextBox^ olya_dist;
+	private: System::Windows::Forms::TextBox^ min_cost;
+
 
 
 
@@ -68,14 +69,17 @@ namespace visual {
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::ComboBox^ comboBox1;
 	private: System::Windows::Forms::Label^ label3;
-	private: System::Windows::Forms::TextBox^ olya_path;
+	private: System::Windows::Forms::TextBox^ min_shuffle;
+
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::ComboBox^ comboBox2;
 	private: System::Windows::Forms::TextBox^ min;
 	private: System::Windows::Forms::Label^ label5;
-	private: System::Windows::Forms::TextBox^ textBox2;
+	private: System::Windows::Forms::TextBox^ max_shuffle;
+
 	private: System::Windows::Forms::Label^ label7;
-	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::TextBox^ max_cost;
+
 
 
 
@@ -115,9 +119,12 @@ namespace visual {
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->olya_path = (gcnew System::Windows::Forms::TextBox());
+			this->max_shuffle = (gcnew System::Windows::Forms::TextBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->max_cost = (gcnew System::Windows::Forms::TextBox());
+			this->min_shuffle = (gcnew System::Windows::Forms::TextBox());
 			this->olya_dist_label = (gcnew System::Windows::Forms::Label());
-			this->olya_dist = (gcnew System::Windows::Forms::TextBox());
+			this->min_cost = (gcnew System::Windows::Forms::TextBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->olya_path_label = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -131,9 +138,6 @@ namespace visual {
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->label7 = (gcnew System::Windows::Forms::Label());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->groupBox3->SuspendLayout();
 			this->groupBox2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
@@ -193,13 +197,13 @@ namespace visual {
 			// 
 			// groupBox2
 			// 
-			this->groupBox2->Controls->Add(this->textBox2);
+			this->groupBox2->Controls->Add(this->max_shuffle);
 			this->groupBox2->Controls->Add(this->label7);
-			this->groupBox2->Controls->Add(this->textBox1);
-			this->groupBox2->Controls->Add(this->olya_path);
+			this->groupBox2->Controls->Add(this->max_cost);
+			this->groupBox2->Controls->Add(this->min_shuffle);
 			this->groupBox2->Controls->Add(this->label2);
 			this->groupBox2->Controls->Add(this->olya_dist_label);
-			this->groupBox2->Controls->Add(this->olya_dist);
+			this->groupBox2->Controls->Add(this->min_cost);
 			this->groupBox2->Controls->Add(this->label6);
 			this->groupBox2->Controls->Add(this->olya_path_label);
 			this->groupBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11));
@@ -210,14 +214,42 @@ namespace visual {
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Задача Распределения";
 			// 
-			// olya_path
+			// max_shuffle
 			// 
-			this->olya_path->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8));
-			this->olya_path->Location = System::Drawing::Point(205, 110);
-			this->olya_path->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
-			this->olya_path->Name = L"olya_path";
-			this->olya_path->Size = System::Drawing::Size(217, 26);
-			this->olya_path->TabIndex = 35;
+			this->max_shuffle->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11));
+			this->max_shuffle->Location = System::Drawing::Point(205, 190);
+			this->max_shuffle->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->max_shuffle->Name = L"max_shuffle";
+			this->max_shuffle->Size = System::Drawing::Size(217, 32);
+			this->max_shuffle->TabIndex = 38;
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Location = System::Drawing::Point(25, 187);
+			this->label7->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(178, 26);
+			this->label7->TabIndex = 37;
+			this->label7->Text = L"Распределение:";
+			// 
+			// max_cost
+			// 
+			this->max_cost->Location = System::Drawing::Point(274, 148);
+			this->max_cost->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->max_cost->Name = L"max_cost";
+			this->max_cost->Size = System::Drawing::Size(148, 32);
+			this->max_cost->TabIndex = 36;
+			// 
+			// min_shuffle
+			// 
+			this->min_shuffle->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->min_shuffle->Location = System::Drawing::Point(205, 110);
+			this->min_shuffle->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->min_shuffle->Name = L"min_shuffle";
+			this->min_shuffle->Size = System::Drawing::Size(217, 32);
+			this->min_shuffle->TabIndex = 35;
 			// 
 			// olya_dist_label
 			// 
@@ -229,13 +261,13 @@ namespace visual {
 			this->olya_dist_label->TabIndex = 23;
 			this->olya_dist_label->Text = L"Мин стоимость:";
 			// 
-			// olya_dist
+			// min_cost
 			// 
-			this->olya_dist->Location = System::Drawing::Point(205, 57);
-			this->olya_dist->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
-			this->olya_dist->Name = L"olya_dist";
-			this->olya_dist->Size = System::Drawing::Size(148, 32);
-			this->olya_dist->TabIndex = 24;
+			this->min_cost->Location = System::Drawing::Point(274, 57);
+			this->min_cost->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->min_cost->Name = L"min_cost";
+			this->min_cost->Size = System::Drawing::Size(148, 32);
+			this->min_cost->TabIndex = 24;
 			// 
 			// label6
 			// 
@@ -384,33 +416,6 @@ namespace visual {
 			this->comboBox2->Size = System::Drawing::Size(180, 34);
 			this->comboBox2->TabIndex = 41;
 			// 
-			// textBox1
-			// 
-			this->textBox1->Location = System::Drawing::Point(274, 148);
-			this->textBox1->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(148, 32);
-			this->textBox1->TabIndex = 36;
-			// 
-			// label7
-			// 
-			this->label7->AutoSize = true;
-			this->label7->Location = System::Drawing::Point(25, 187);
-			this->label7->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(178, 26);
-			this->label7->TabIndex = 37;
-			this->label7->Text = L"Распределение:";
-			// 
-			// textBox2
-			// 
-			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8));
-			this->textBox2->Location = System::Drawing::Point(205, 190);
-			this->textBox2->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(217, 26);
-			this->textBox2->TabIndex = 38;
-			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
@@ -429,7 +434,7 @@ namespace visual {
 			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"MyForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"Лабораторная работа №3(выполнение)";
+			this->Text = L"Лабораторная работа №4(выполнение)";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			this->groupBox3->ResumeLayout(false);
 			this->groupBox3->PerformLayout();
@@ -524,6 +529,55 @@ private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^
 	}
 	
 
+	std::vector<std::vector<int>> costMatrix = {
+		{45, 39, 41, 38, 42},
+		{54, 48, 52, 49, 55},
+		{35, 26, 30, 27, 33},
+		{48, 36, 42, 37, 39},
+		{51, 49, 50, 46, 52}
+	};
+
+	auto h1 = hungarianMethod(costMatrix);
+	int min_value = 0;
+	for (int i = 0; i < 5; i++) {
+		int value = costMatrix[i][h1[i]];
+		min_value += value;
+	}
+
+	min_cost->Text = min_value.ToString();
+
+	String^ s1 = "";
+
+	for (int i = 0; i < 5; ++i) {
+		s1 += (h1[i]+1) + " ";
+	}
+
+	min_shuffle->Text = s1;
+
+
+	for (int i = 0; i < 5; ++i) {
+		for (int j = 0; j < 5; ++j) {
+			costMatrix[i][j] *= -1;
+		}
+	}
+
+
+	auto h2 = hungarianMethod(costMatrix);
+	int max_value = 0;
+	for (int i = 0; i < 5; i++) {
+		int value = costMatrix[i][h2[i]];
+		max_value -= value;
+	}
+
+	max_cost->Text = max_value.ToString();
+
+	String^ s2 = "";
+
+	for (int i = 0; i < 5; ++i) {
+		s2 += (h2[i] + 1) + " ";
+	}
+
+	max_shuffle->Text = s2;
 
 	
 }
