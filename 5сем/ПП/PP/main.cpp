@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include <iomanip>
-
+#include <set>
 
 
 
@@ -44,7 +44,7 @@ public:
     sf::Color color;
 };
 
-/// ax + by + c = 0 <=> sfLine (-y, ò.ê. â sfml Oy ïåðåâ¸ðíóòà)
+
 pair<sf::Vector2f, sf::Vector2f> get_Line_from_equ(long double a, long double b, long double c){
 
     long double  pseudo_inf = 1e5;
@@ -87,6 +87,10 @@ sfLine get_contour_line(double F_value, sf::Color clr = sf::Color::Red){
 
 double dist(double x1, double y1, double x2, double y2){
     return sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
+}
+
+double dist(const sf::Vector2f& vec){
+    return dist(0,0, vec.x, vec.y);
 }
 
 
@@ -188,136 +192,60 @@ void convex_hull(vector<sf::Vector2f>& a, bool include_collinear = false) {
     a = st;
 }
 
+const float eps = 0.001;
+class Car : public sf::Drawable{
+public:
 
+    vector<sf::Vector2f> path;
+    int path_progress;
+    sf::Vector2f position = {0,0};
+
+    string update(){
+
+        sf::Vector2f deltaVec = position - path[path_progress];
+        deltaVec.x = min(deltaVec.x, 0.1f);
+        deltaVec.y = min(deltaVec.y, 0.1f);
+
+        position += deltaVec;
+
+        if ( dist(position - path[path_progress]) < eps ){
+            path_progress += 1;
+        }
+
+        if (path_progress == path.size()){
+            return "delete";
+        }
+
+        return "normal";
+    }
+
+private:
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
+        float radius = 1;
+        sf::CircleShape cs(radius);
+        cs.setPosition(position - sf::Vector2f(radius, radius));
+        cs.setFillColor(sf::Color::Red);
+        target.draw(cs);
+    }
+
+};
 
 int main() {
 
-    /**
-    /// Çàäàíèå a (Âàðèàíò 16)
-    target_function = {2,5};
-    equations_input.push_back({1,2,8});
-    equations_input.push_back({1,1,6});
-    equations_input.push_back({-1,-3,-3});
-    */
-
-    /**
-    /// Âàðèàíò 16, á
-    target_function = {1,3};
-
-    equations_input.push_back({1,1,8});
-    equations_input.push_back({1,3,6});
-    equations_input.push_back({-1,-3,-3});
-    */
-
-    /**
-    /// Âàðèàíò 16, â
-    target_function = {1,3};
-
-    equations_input.push_back({-1,-2,-9});
-    equations_input.push_back({-1,-4,-8});
-    equations_input.push_back({-2,-1,-3});
-    */
-
-
-    /// Âàðèàíò 16, ã
-    target_function = {-5,3};
-
-    equations_input.push_back({1,2,10});
-    equations_input.push_back({3,1,6});
-    equations_input.push_back({-1,-1,-16});
-
-
-    vector<geom_line> lines;
+    vector<Car> cars;
 
 
 
 
-    for(auto equation : equations_input){
-        auto p = get_Line_from_equ(equation[0], equation[1], -equation[2]);
-        lines.push_back({p.first.x, -p.first.y, p.second.x, -p.second.y});
-
-    }
-
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Plot");
-
-    sfLine Oy({0,1e10}, {0,-1e10}, sf::Color::Black, 0.25);
-    sfLine Ox({1e10,0}, {-1e10,0}, sf::Color::Black, 0.25);
-
-    lines.push_back({0,1e10,0,-1e10});
-    lines.push_back({1e10,0,-1e10,0});
-
-    vector<sf::Vector2f> intersec_points;
-
-    for(int i = 0; i < lines.size(); ++i){
-        for(int j = i + 1; j < lines.size(); ++j){
-            auto collision_res = lineLine(lines[i].x1,lines[i].y1,lines[i].x2,lines[i].y2,lines[j].x1,lines[j].y1,lines[j].x2,lines[j].y2);
-            if (collision_res.first){
-                intersec_points.push_back(collision_res.second);
-            }
-        }
-    }
-
-    bool is_there_solution = false;
-    for(auto point : intersec_points){
-        is_there_solution |= check_point(point);
-    }
-
-    if (!is_there_solution){
-        cout << "Solution does not exist" << endl;
-    }
-
-    long double min_pre = min_;
-    long double max_pre = max_;
-
-    for(auto equation : equations_input){
-        auto p = get_Line_from_equ(equation[0], equation[1], -equation[2]);
-        check_point({p.first.x, -p.first.y});
-        check_point({p.second.x, -p.second.y});
-    }
-
-    check_point({0,1e10});
-    check_point({0,-1e10});
-    check_point({1e10,0});
-    check_point({-1e10,0});
 
 
+    sf::RenderWindow window(sf::VideoMode(800, 800), "Plot");
 
-    bool unbound_min = false;
-    bool unbound_max = false;
+    sfLine Oy({0,1e10}, {0,-1e10}, sf::Color::Black, 5);
+    sfLine Ox({1e10,0}, {-1e10,0}, sf::Color::Black, 5);
 
-    if (min_pre != min_){
-        cout << "Solution isn't bounded to min" << endl;
-        unbound_min = true;
-    }
 
-    if (max_pre != max_){
-        cout << "Solution isn't bounded to max" << endl;
-        unbound_max = true;
-    }
-
-    if (!unbound_min && is_there_solution){
-        cout << fixed << setprecision(3) << "F_min: " << min_ << " at (" << min_point.x << " " << min_point.y << ")" << endl;
-    }
-
-    if (!unbound_max && is_there_solution){
-        cout << fixed << setprecision(3) << "F_max: " << max_ << " at (" << max_point.x << " " << max_point.y << ")" << endl;
-    }
-
-    sf::ConvexShape Polygon;
-
-    Polygon.setPointCount(convex_points.size());
-    Polygon.setFillColor(sf::Color::Green);
-    if (convex_points.size() >= 3){
-
-        convex_hull(convex_points, false);
-
-        Polygon.setPointCount(convex_points.size());
-
-        int cou = 0;
-        for(auto point : convex_points){
-            Polygon.setPoint(cou++, sf::Vector2f(point.x, -point.y));
-        }
-    }
 
 
 
@@ -327,7 +255,11 @@ int main() {
     window.setView(view);
     window.setFramerateLimit(20);
 
+    int ticks = 0;
     while (window.isOpen()) {
+
+        ticks += 1;
+
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
@@ -361,25 +293,20 @@ int main() {
 
         window.clear(sf::Color::White);
 
-        window.draw(Polygon);
+        if (ticks % 10 == 0){
+            cars.push_back({ { {0,100}, {100,100}, {100,300} }, 0, {0,0}  });
+        }
+
+        for (auto it = cars.begin(); it != cars.end(); ++it){
+            (*it).update();
+        }
 
         window.draw(Ox);
         window.draw(Oy);
-        //window.draw(get_contour_line());
 
-        for(auto equation : equations_input){
-            window.draw(get_line(equation, sf::Color::Blue));
+        for(const Car& car : cars){
+            window.draw(car);
         }
-
-        if (!unbound_max && is_there_solution){
-            window.draw(get_contour_line(max_, sf::Color::Red));
-        }
-
-        if (!unbound_min && is_there_solution){
-            window.draw(get_contour_line(min_, sf::Color::Magenta));
-        }
-
-
 
         window.display();
     }

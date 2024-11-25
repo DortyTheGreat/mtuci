@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1732101224 source:c:\users\hitech-3\desktop\githubstuff\mtuci\5сем\ПП\pp\main.cpp
+	<SFML/Graphics.hpp>
+	<cmath>
+	<iostream>
+	<iomanip>
+	<set>
+

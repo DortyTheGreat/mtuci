@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Algorithms.h"
-
-
+#include <iostream>
+#include <iomanip>
 
 namespace visual {
 
@@ -79,6 +79,8 @@ namespace visual {
 
 	private: System::Windows::Forms::Label^ label7;
 	private: System::Windows::Forms::TextBox^ max_cost;
+	private: System::Windows::Forms::PictureBox^ pictureBox1;
+	private: System::Windows::Forms::PictureBox^ pictureBox2;
 
 
 
@@ -113,6 +115,7 @@ namespace visual {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
 			this->min = (gcnew System::Windows::Forms::TextBox());
@@ -138,10 +141,14 @@ namespace visual {
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->groupBox3->SuspendLayout();
 			this->groupBox2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->groupBox1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// listBox1
@@ -345,10 +352,10 @@ namespace visual {
 			// button2
 			// 
 			this->button2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11));
-			this->button2->Location = System::Drawing::Point(1112, 910);
+			this->button2->Location = System::Drawing::Point(1108, 910);
 			this->button2->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(112, 35);
+			this->button2->Size = System::Drawing::Size(109, 35);
 			this->button2->TabIndex = 35;
 			this->button2->Text = L"Выход";
 			this->button2->UseVisualStyleBackColor = true;
@@ -416,11 +423,37 @@ namespace visual {
 			this->comboBox2->Size = System::Drawing::Size(180, 34);
 			this->comboBox2->TabIndex = 41;
 			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			this->pictureBox1->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.InitialImage")));
+			this->pictureBox1->Location = System::Drawing::Point(1231, 49);
+			this->pictureBox1->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(500, 500);
+			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox1->TabIndex = 42;
+			this->pictureBox1->TabStop = false;
+			// 
+			// pictureBox2
+			// 
+			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
+			this->pictureBox2->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.InitialImage")));
+			this->pictureBox2->Location = System::Drawing::Point(1231, 598);
+			this->pictureBox2->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->pictureBox2->Name = L"pictureBox2";
+			this->pictureBox2->Size = System::Drawing::Size(278, 320);
+			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox2->TabIndex = 43;
+			this->pictureBox2->TabStop = false;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1246, 963);
+			this->Controls->Add(this->pictureBox2);
+			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->comboBox2);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->groupBox3);
@@ -443,6 +476,8 @@ namespace visual {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -505,7 +540,23 @@ private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^
 	auto ff = fordFulkerson(graph_adj_list, src, sink);
 
 	max->Text = ff.first.ToString();
-
+	for (int i = 0; i < 10; ++i) {
+		std::cout << i <<  " ";
+		for (int j = 0; j < 9; ++j) {
+			if (i == 0) {
+				std::cout << std::setw(3) << j + 1 << " ";
+			}
+			else {
+				auto val = ff.second[i - 1][j] - graph[i - 1][j];
+				if (val == -1001 * 1001 * 1001)
+					std::cout << std::setw(3) << "37" << " ";
+				else
+					std::cout << std::setw(3) << ff.second[i - 1][j] - graph[i-1][j] << " ";
+			}
+			
+		}
+		std::cout << std::endl;
+	}
 	
 	dataGridView1->ColumnCount = ff.second.size();
 	dataGridView1->RowCount = ff.second.size();
