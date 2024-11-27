@@ -192,6 +192,23 @@ void convex_hull(vector<sf::Vector2f>& a, bool include_collinear = false) {
     a = st;
 }
 
+
+
+class Car;
+
+vector<Car> cars;
+
+bool CircleToManyCircle(vector<sf::Vector2f> poses, sf::Vector2f position, float radius){
+
+    int count = 0;
+    for(int i = 0; i < poses.size(); ++i){
+        if (dist( poses[i] - position ) < radius) ++count ;
+    }
+
+    return count > 1;
+
+}
+
 const float eps = 0.001;
 class Car : public sf::Drawable{
 public:
@@ -199,14 +216,35 @@ public:
     vector<sf::Vector2f> path;
     int path_progress;
     sf::Vector2f position = {0,0};
+    float Speed;
+    sf::Color color;
+    float radius = 1;
+
+    Car(vector<sf::Vector2f> _path, sf::Vector2f _position, float _Speed = 1, sf::Color _color = sf::Color::Red){
+        path = _path;
+        position = _position;
+        path_progress = 0;
+        Speed = _Speed;
+        color = _color;
+    }
 
     string update(){
 
-        sf::Vector2f deltaVec = position - path[path_progress];
-        deltaVec.x = min(deltaVec.x, 0.1f);
-        deltaVec.y = min(deltaVec.y, 0.1f);
+        sf::Vector2f deltaVec = -position + path[path_progress];
+        deltaVec.x = max(-Speed, min(deltaVec.x, Speed));
+        deltaVec.y = max(-Speed, min(deltaVec.y, Speed));
 
-        position += deltaVec;
+        sf::Vector2f new_position = position + deltaVec;
+
+        vector<sf::Vector2f> poses;
+
+        for(int i = 0; i < cars.size(); ++i){
+            poses.push_back(cars[i].position);
+        } // this is bad
+
+        if (CircleToManyCircle(poses, new_position, 3*radius)) return "brake";
+
+        position = new_position;
 
         if ( dist(position - path[path_progress]) < eps ){
             path_progress += 1;
@@ -222,28 +260,25 @@ public:
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        float radius = 1;
         sf::CircleShape cs(radius);
         cs.setPosition(position - sf::Vector2f(radius, radius));
-        cs.setFillColor(sf::Color::Red);
+        cs.setFillColor(color);
         target.draw(cs);
     }
 
 };
 
+
+
 int main() {
-
-    vector<Car> cars;
-
-
-
-
 
 
     sf::RenderWindow window(sf::VideoMode(800, 800), "Plot");
 
-    sfLine Oy({0,1e10}, {0,-1e10}, sf::Color::Black, 5);
-    sfLine Ox({1e10,0}, {-1e10,0}, sf::Color::Black, 5);
+    sfLine O1({0,0}, {0,10 + 2.5}, sf::Color::Black, 5);
+    sfLine O2({0,10}, {10 + 2.5,10}, sf::Color::Black, 5);
+    sfLine O3({10,10}, {10,30}, sf::Color::Black, 5);
+
 
 
 
@@ -294,15 +329,29 @@ int main() {
         window.clear(sf::Color::White);
 
         if (ticks % 10 == 0){
-            cars.push_back({ { {0,100}, {100,100}, {100,300} }, 0, {0,0}  });
+
+            if (rand() % 10 == 0){
+                cars.push_back(Car({ {0,10}, {10,10}, {10,30} }, {0,0}, 0.5, sf::Color::Blue  ));
+            }else{
+                cars.push_back(Car({ {0,10}, {10,10}, {10,30} }, {0,0}  ));
+            }
+        }
+        cout << "sz " << cars.size() << endl;;
+
+
+        vector<Car> cars2;
+        for (int i = 0; i < cars.size(); ++i){
+            string ret_code = cars[i].update();
+            if (ret_code != "delete"){
+                cars2.push_back(cars[i]);
+            }
         }
 
-        for (auto it = cars.begin(); it != cars.end(); ++it){
-            (*it).update();
-        }
+        cars = cars2;
 
-        window.draw(Ox);
-        window.draw(Oy);
+        window.draw(O1);
+        window.draw(O2);
+        window.draw(O3);
 
         for(const Car& car : cars){
             window.draw(car);
