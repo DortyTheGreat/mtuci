@@ -35,9 +35,11 @@ bool LoadXML(const std::string& fileName, XMLDocument& doc);
 
 bool SaveXML(const std::string& fileName, XMLDocument& doc);
 
-int get_static_id();
+void checkFile(const std::string& fileName, XMLDocument& doc);
 
-int update_static_id();
+int get_static_id(XMLDocument& doc);
+
+int update_static_id(tinyxml2::XMLDocument& doc);
 
 class DBObject {
 public:
@@ -46,12 +48,12 @@ public:
     virtual void SetAttributes(tinyxml2::XMLDocument& doc, tinyxml2::XMLElement* elem) = 0;
 
     void SetDefaultAttributes(tinyxml2::XMLDocument& doc, tinyxml2::XMLElement* elem) {
-        id = update_static_id();
+        id = update_static_id(doc);
         elem->SetAttribute("id", id);
     }
 };
 
-void AddObject(XMLDocument& doc, DBObject* obj);
+void AddObject(XMLDocument& doc, DBObject* obj, const std::string& table);
 
 class Pet : public DBObject {
 public:
@@ -115,3 +117,4 @@ public:
         elem->SetAttribute("date", date.c_str());
     }
 };
+

@@ -287,6 +287,7 @@ std::vector<int> hungarianMethod(const std::vector<std::vector<int>>& costMatrix
 // Функция для загрузки XML файла
 bool LoadXML(const std::string& fileName, XMLDocument& doc) {
     XMLError eResult = doc.LoadFile(fileName.c_str());
+    cout << eResult << endl;
     if (eResult != XML_SUCCESS) {
         std::cerr << "Error loading file: " << fileName << std::endl;
         return false;
@@ -306,54 +307,63 @@ bool SaveXML(const std::string& fileName, XMLDocument& doc) {
 
 
 
-int get_static_id() {
+int get_static_id(XMLDocument& doc) {
     using namespace tinyxml2;
 
-    XMLDocument doc;
-    std::string fileName = "static.xml";
-
-    // Если файл не существует, создаем новый документ
-    if (!LoadXML(fileName, doc)) {
-        XMLElement* root = doc.NewElement("static_id");
-        root->SetAttribute("id_counter", 1);
-        doc.InsertFirstChild(root);
-        SaveXML(fileName, doc);
-        return 1;
-    }
-
-    XMLElement* root = doc.RootElement();
+    XMLElement* root = doc.FirstChildElement("Static");
     auto attr = root->FindAttribute("id_counter");
     std::cout << "retrieved static_id " << attr->IntValue() << std::endl;
     return attr->IntValue();
 }
 
-int static_id = get_static_id();
 
-int update_static_id() {
-    static_id = get_static_id() + 1;
 
-    XMLDocument doc;
-    std::string fileName = "static.xml";
+int update_static_id(XMLDocument& doc) {
+    int static_id = get_static_id(doc) + 1;
 
-    LoadXML(fileName, doc);
-
-    XMLElement* root = doc.RootElement();
+    XMLElement* root = doc.FirstChildElement("Static");
     root->SetAttribute("id_counter", static_id);
 
-    SaveXML(fileName, doc);
+    cout << root->FindAttribute("id_counter")->IntValue() << endl;
 
     return static_id;
 }
 
 
-void AddObject(XMLDocument& doc, DBObject* obj) {
-    XMLElement* root = doc.RootElement();
+void AddObject(XMLDocument& doc, DBObject* obj, const std::string& table) {
+    XMLElement* root = doc.FirstChildElement(table.c_str());
     XMLElement* newObject = doc.NewElement("Object");
 
     obj->SetDefaultAttributes(doc, newObject);
     obj->SetAttributes(doc, newObject);
 
+    
+
     root->InsertEndChild(newObject);
 }
+void checkFile(const std::string& fileName, XMLDocument& doc) {
+    // Если файл не существует, создаем новый документ
+    
+    if (!LoadXML(fileName, doc)) {
+        XMLElement* root = doc.NewElement("Pets");
+        doc.InsertEndChild(root);
 
+        root = doc.NewElement("Owners");
+        doc.InsertEndChild(root);
 
+        root = doc.NewElement("Breeds");
+        doc.InsertEndChild(root);
+
+        root = doc.NewElement("Vaccines");
+        doc.InsertEndChild(root);
+
+        root = doc.NewElement("PetVaccines");
+        doc.InsertEndChild(root);
+
+        root = doc.NewElement("Static");
+        root->SetAttribute("id_counter", 1);
+        doc.InsertEndChild(root);
+
+        SaveXML(fileName, doc);
+    }
+}

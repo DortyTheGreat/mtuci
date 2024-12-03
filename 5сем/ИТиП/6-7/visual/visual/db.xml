@@ -1,4 +1,4 @@
-<Root>
+<Pets>
     <Object id="2" breedCode="0" name="" birthDate="" ownerCode="0"/>
     <Object id="3" breedCode="0" name="" birthDate="" ownerCode="0"/>
     <Object id="4" breedCode="0" name="" birthDate="" ownerCode="0"/>
@@ -6,4 +6,17 @@
     <Object id="6" breedCode="0" name="" birthDate="" ownerCode="0"/>
     <Object id="7" breedCode="0" name="" birthDate="" ownerCode="0"/>
     <Object id="8" breedCode="0" name="" birthDate="" ownerCode="0"/>
-</Root>
+    <Object id="9" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="10" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="11" breedCode="0" name="" birthDate="" ownerCode="0"/>
+</Pets>
+
+<Owners/>
+
+<Breeds/>
+
+<Vaccines/>
+
+<PetVaccines/>
+
+<Static id_counter="11"/>
