@@ -195,8 +195,55 @@ void convex_hull(vector<sf::Vector2f>& a, bool include_collinear = false) {
 
 
 class Car;
+class TrafficLight{
+public:
+
+    sf::Rect<float> area = sf::Rect<float>(0-5,20-5,10,10);
+    int ticks_cycle = 100;
+    int ticks = 0;
+
+
+    string state = "red";
+
+    int green1_start = 0;
+    int green1_end = 30;
+
+    int green2_start = 50;
+    int green2_end = 80;
+
+    void update(){
+        ticks = (ticks + 1) % ticks_cycle;
+    }
+
+    bool allowed1(){
+        return ticks > green1_start && ticks < green1_end;
+    }
+
+    bool allowed2(){
+        return ticks > green2_start && ticks < green2_end;
+    }
+
+    bool allowed(int type){
+        if (type == 1) return allowed1();
+        if (type == 2) return allowed2();
+        return false;
+    }
+
+
+    friend bool operator<(const TrafficLight& one, const TrafficLight& other){
+        if (one.area.height != other.area.height) return one.area.height < other.area.height;
+        if (one.area.width != other.area.width) return one.area.width < other.area.width;
+        if (one.area.top != other.area.top) return one.area.top < other.area.top;
+        if (one.area.left != other.area.left) return one.area.left < other.area.left;
+        return false;
+    }
+
+};
+
 
 vector<Car> cars;
+vector<TrafficLight> traffics;
+
 
 bool CircleToManyCircle(vector<sf::Vector2f> poses, sf::Vector2f position, float radius){
 
@@ -209,23 +256,35 @@ bool CircleToManyCircle(vector<sf::Vector2f> poses, sf::Vector2f position, float
 
 }
 
+bool RectToPoint(sf::Rect<float> r, sf::Vector2f point){
+    return (point.x >= r.left && point.x <= r.left+r.width &&
+        point.y >= r.top && point.y <= r.top+r.height);
+
+}
+
 const float eps = 0.001;
 class Car : public sf::Drawable{
 public:
 
     vector<sf::Vector2f> path;
-    int path_progress;
     sf::Vector2f position = {0,0};
-    float Speed;
+    float Speed = 1;
     sf::Color color;
     float radius = 1;
+    int current_road_type = 1;
 
-    Car(vector<sf::Vector2f> _path, sf::Vector2f _position, float _Speed = 1, sf::Color _color = sf::Color::Red){
+    int path_progress;
+    set<TrafficLight> ignore_list;
+
+
+    Car(vector<sf::Vector2f> _path, sf::Vector2f _position, float _Speed = 1,
+    sf::Color _color = sf::Color::Red, int _current_road_type = 1){
         path = _path;
         position = _position;
         path_progress = 0;
         Speed = _Speed;
         color = _color;
+        current_road_type = _current_road_type;
     }
 
     string update(){
@@ -242,7 +301,23 @@ public:
             poses.push_back(cars[i].position);
         } // this is bad
 
-        if (CircleToManyCircle(poses, new_position, 3*radius)) return "brake";
+        if (CircleToManyCircle(poses, new_position, 3*radius)) return "next_car_brake";
+
+        for(int i = 0; i < traffics.size(); ++i){
+
+            if ( RectToPoint(traffics[i].area, new_position)){
+
+                if (ignore_list.find(traffics[i]) != ignore_list.end() ){
+                    continue;
+                }
+
+                if (traffics[i].allowed(current_road_type)){
+                    ignore_list.insert(traffics[i]);
+                }else{
+                    return "brake_traffic";
+                }
+            }
+        }
 
         position = new_position;
 
@@ -275,10 +350,14 @@ int main() {
 
     sf::RenderWindow window(sf::VideoMode(800, 800), "Plot");
 
-    sfLine O1({0,0}, {0,10 + 2.5}, sf::Color::Black, 5);
-    sfLine O2({0,10}, {10 + 2.5,10}, sf::Color::Black, 5);
-    sfLine O3({10,10}, {10,30}, sf::Color::Black, 5);
+    ///sfLine O1({0,0}, {0,10 + 2.5}, sf::Color::Black, 5);
+    ///sfLine O2({0,10}, {10 + 2.5,10}, sf::Color::Black, 5);
+    ///sfLine O3({10,10}, {10,30}, sf::Color::Black, 5);
 
+    sfLine O1({0,0}, {0,40}, sf::Color::Black, 5);
+    sfLine O2({0,0}, {0,40}, sf::Color::Black, 5);
+    sfLine O3({20,20}, {-20,20}, sf::Color::Black, 5);
+    traffics.push_back(TrafficLight());
 
 
 
@@ -330,10 +409,10 @@ int main() {
 
         if (ticks % 10 == 0){
 
-            if (rand() % 10 == 0){
-                cars.push_back(Car({ {0,10}, {10,10}, {10,30} }, {0,0}, 0.5, sf::Color::Blue  ));
+            if (rand() % 10 < 5){
+                cars.push_back(Car({ {0,40} }, {0,0}, 0.5, sf::Color::Blue, 2  ));
             }else{
-                cars.push_back(Car({ {0,10}, {10,10}, {10,30} }, {0,0}  ));
+                cars.push_back(Car({ {20,20} }, {-20,20}  ));
             }
         }
         cout << "sz " << cars.size() << endl;;
@@ -345,6 +424,10 @@ int main() {
             if (ret_code != "delete"){
                 cars2.push_back(cars[i]);
             }
+        }
+
+        for(int i = 0; i < traffics.size(); ++i){
+            traffics[i].update();
         }
 
         cars = cars2;
