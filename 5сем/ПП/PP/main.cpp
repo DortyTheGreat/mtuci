@@ -195,15 +195,27 @@ void convex_hull(vector<sf::Vector2f>& a, bool include_collinear = false) {
 
 
 class Car;
-class TrafficLight{
+class TrafficLight : public sf::Drawable{
 public:
 
-    sf::Rect<float> area = sf::Rect<float>(0-5,20-5,10,10);
+    sf::RectangleShape area = sf::RectangleShape({10,10});
     int ticks_cycle = 100;
     int ticks = 0;
 
+    bool isSmart = false;
+    int registered1 = 0;
+    int registered2 = 0;
+
+
+    TrafficLight(const sf::Vector2f& pos = {100,100}, bool _isSmart = false){
+        area.setPosition(pos.x-5,pos.y-5);
+        isSmart = _isSmart;
+    }
 
     string state = "red";
+
+    int road1_proportion = 30; /// 10-50
+
 
     int green1_start = 0;
     int green1_end = 30;
@@ -211,16 +223,73 @@ public:
     int green2_start = 50;
     int green2_end = 80;
 
+    void register_car(int type){
+        if (type == 1) ++registered1;
+        if (type == 2) ++registered2;
+    }
+
     void update(){
         ticks = (ticks + 1) % ticks_cycle;
+
+        if (ticks == 99 && isSmart){
+            /// recalculate timings;
+            double density1 = (double)(registered1) / (road1_proportion + 15);
+            double density2 = (double)(registered2) / (60 - road1_proportion + 15 );
+
+            if (density2 / 1.1 > density1){
+                road1_proportion -= 5;
+            }
+
+            if (density2 / 1.4 > density1){
+                road1_proportion -= 5;
+            }
+
+            if (density2 / 1.7 > density1){
+                road1_proportion -= 5;
+            }
+
+            if (density1 / 1.1 > density2){
+                road1_proportion += 5;
+            }
+
+            if (density1 / 1.4 > density2){
+                road1_proportion += 5;
+            }
+
+            if (density1 / 1.7 > density2){
+                road1_proportion += 5;
+            }
+
+            road1_proportion = max(10, road1_proportion);
+            road1_proportion = min(50, road1_proportion);
+            cout << "New proportion " << road1_proportion << endl;
+
+            registered1 = 0;
+            registered2 = 0;
+        }
+
+        sf::Color clr = sf::Color::White;
+
+
+        if (allowed1()){
+            clr = sf::Color::Green;
+        }
+
+        if (allowed2()){
+            clr = sf::Color::Red;
+        }
+
+        clr.a = 40;
+
+        area.setFillColor(clr);
     }
 
     bool allowed1(){
-        return ticks > green1_start && ticks < green1_end;
+        return ticks > green1_start && ticks < road1_proportion;
     }
 
     bool allowed2(){
-        return ticks > green2_start && ticks < green2_end;
+        return ticks > road1_proportion + 20 && ticks < green2_end;
     }
 
     bool allowed(int type){
@@ -231,13 +300,21 @@ public:
 
 
     friend bool operator<(const TrafficLight& one, const TrafficLight& other){
-        if (one.area.height != other.area.height) return one.area.height < other.area.height;
-        if (one.area.width != other.area.width) return one.area.width < other.area.width;
-        if (one.area.top != other.area.top) return one.area.top < other.area.top;
-        if (one.area.left != other.area.left) return one.area.left < other.area.left;
+        if (one.area.getSize().x != other.area.getSize().x) return one.area.getSize().x < other.area.getSize().x;
+        if (one.area.getSize().y != other.area.getSize().y) return one.area.getSize().y < other.area.getSize().y;
+        if (one.area.getPosition().x != other.area.getPosition().x) return one.area.getPosition().x < other.area.getPosition().x;
+        if (one.area.getPosition().y != other.area.getPosition().y) return one.area.getPosition().y < other.area.getPosition().y;
         return false;
     }
 
+
+private:
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
+
+
+        target.draw(area);
+    }
 };
 
 
@@ -256,10 +333,9 @@ bool CircleToManyCircle(vector<sf::Vector2f> poses, sf::Vector2f position, float
 
 }
 
-bool RectToPoint(sf::Rect<float> r, sf::Vector2f point){
-    return (point.x >= r.left && point.x <= r.left+r.width &&
-        point.y >= r.top && point.y <= r.top+r.height);
-
+bool RectToPoint(sf::RectangleShape r, sf::Vector2f point){
+    return (point.x >= r.getPosition().x && point.x <= r.getPosition().x+r.getSize().x &&
+        point.y >= r.getPosition().y && point.y <= r.getPosition().y+r.getSize().y);
 }
 
 const float eps = 0.001;
@@ -313,6 +389,7 @@ public:
 
                 if (traffics[i].allowed(current_road_type)){
                     ignore_list.insert(traffics[i]);
+                    traffics[i].register_car(current_road_type);
                 }else{
                     return "brake_traffic";
                 }
@@ -354,22 +431,27 @@ int main() {
     ///sfLine O2({0,10}, {10 + 2.5,10}, sf::Color::Black, 5);
     ///sfLine O3({10,10}, {10,30}, sf::Color::Black, 5);
 
-    sfLine O1({0,0}, {0,40}, sf::Color::Black, 5);
-    sfLine O2({0,0}, {0,40}, sf::Color::Black, 5);
-    sfLine O3({20,20}, {-20,20}, sf::Color::Black, 5);
-    traffics.push_back(TrafficLight());
+    sfLine O1({100,0}, {100,200}, sf::Color::Black, 5);
+    sfLine O2({0,100}, {200,100}, sf::Color::Black, 5);
+
+    sfLine O3({400,0}, {400,200}, sf::Color::Black, 5);
+    sfLine O4({300,100}, {500,100}, sf::Color::Black, 5);
+
+    traffics.push_back(TrafficLight({100,100}, false));
+    traffics.push_back(TrafficLight({400,100}, true));
 
 
 
 
 
 
-
-    sf::View view(sf::Vector2f(4.f, -4.f), sf::Vector2f(10.f, 10.f));
+    sf::View view(sf::Vector2f(100.f, 100.f), sf::Vector2f(100.f, 100.f));
     window.setView(view);
-    window.setFramerateLimit(20);
+    window.setFramerateLimit(120);
 
     int ticks = 0;
+    int road_density = 7;
+
     while (window.isOpen()) {
 
         ticks += 1;
@@ -407,15 +489,37 @@ int main() {
 
         window.clear(sf::Color::White);
 
+
+        if (ticks % 1000 == 0){
+            road_density = 10 - road_density;
+            cout << "New road density " << road_density << endl;
+        }
+
         if (ticks % 10 == 0){
 
-            if (rand() % 10 < 5){
-                cars.push_back(Car({ {0,40} }, {0,0}, 0.5, sf::Color::Blue, 2  ));
+            vector<sf::Vector2f> poses;
+
+            for(int i = 0; i < cars.size(); ++i){
+                poses.push_back(cars[i].position);
+            } // this is bad
+
+            if (rand() % 10 < road_density){
+                //cars.push_back(Car({ {0,40} }, {0,0}, 0.5, sf::Color::Blue, 2  ));
+
+                if (!CircleToManyCircle(poses, {100,0}, 5*1))
+                    cars.push_back(Car({ {100,200} }, {100,0}, 0.5,  sf::Color::Blue, 2  ));
+
+                if (!CircleToManyCircle(poses, {400,0}, 5*1))
+                    cars.push_back(Car({ {400,200} }, {400,0}, 0.5,  sf::Color::Blue, 2  ));
             }else{
-                cars.push_back(Car({ {20,20} }, {-20,20}  ));
+                if (!CircleToManyCircle(poses, {0,100}, 5*1))
+                    cars.push_back(Car({ {200,100} }, {0,100}  ));
+
+                if (!CircleToManyCircle(poses, {300,100}, 5*1))
+                    cars.push_back(Car({ {500,100} }, {300,100}  ));
             }
         }
-        cout << "sz " << cars.size() << endl;;
+        ///cout << "sz " << cars.size() << endl;;
 
 
         vector<Car> cars2;
@@ -435,9 +539,14 @@ int main() {
         window.draw(O1);
         window.draw(O2);
         window.draw(O3);
+        window.draw(O4);
 
         for(const Car& car : cars){
             window.draw(car);
+        }
+
+        for(const TrafficLight& traf : traffics){
+            window.draw(traf);
         }
 
         window.display();
