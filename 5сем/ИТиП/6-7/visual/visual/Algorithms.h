@@ -51,6 +51,9 @@ public:
         id = update_static_id(doc);
         elem->SetAttribute("id", id);
     }
+
+    static std::vector<std::string> get_description();
+    //virtual std::vector<std::string> get_data() = 0;
 };
 
 void AddObject(XMLDocument& doc, DBObject* obj, const std::string& table);
@@ -69,9 +72,20 @@ public:
         elem->SetAttribute("birthDate", birthDate.c_str());
         elem->SetAttribute("ownerCode", ownerCode);
     }
+    Pet() = default;
+    Pet(const std::string& s1, const std::string& s2, const std::string& s3, const std::string& s4) {
+        breedCode = atoi(s1.c_str());
+        name = s2;
+        birthDate = s3;
+        ownerCode = atoi(s4.c_str());
+    }
+
+    static std::vector<std::string> get_description() {
+        return { "breedCode", "name", "birthDate", "ownerCode" };
+    }
 };
 
-class Owner : public DBObject {
+class Ownerw : public DBObject {
 public:
     std::string fullName;
     std::string address;
@@ -80,6 +94,15 @@ public:
         elem->SetAttribute("fullName", fullName.c_str());
         elem->SetAttribute("address", address.c_str());
 
+    }
+    Ownerw() = default;
+    Ownerw(const std::string& s1, const std::string& s2) {
+        fullName = s1;
+        address = s2;
+    }
+
+    static std::vector<std::string> get_description() {
+        return { "fullName", "address" };
     }
 };
 
@@ -90,6 +113,14 @@ public:
     void SetAttributes(tinyxml2::XMLDocument& doc, tinyxml2::XMLElement* elem) override {
         elem->SetAttribute("breedName", breedName.c_str());
 
+    }
+    Breed() = default;
+    Breed(const std::string& s1) {
+        breedName = s1;
+    }
+
+    static std::vector<std::string> get_description() {
+        return { "breedName" };
     }
 };
 
@@ -103,6 +134,16 @@ public:
         elem->SetAttribute("comment", comment.c_str());
 
     }
+
+    Vaccine() = default;
+    Vaccine(const std::string& s1, const std::string& s2) {
+        vaccineName = s1;
+        comment = s2;
+    }
+
+    static std::vector<std::string> get_description() {
+        return { "vaccineName", "comment"};
+    }
 };
 
 class PetVaccine : public DBObject {
@@ -115,6 +156,17 @@ public:
         elem->SetAttribute("petCode", petCode);
         elem->SetAttribute("vaccineCode", vaccineCode);
         elem->SetAttribute("date", date.c_str());
+    }
+
+    PetVaccine() = default;
+    PetVaccine(const std::string& s1, const std::string& s2, const std::string& s3) {
+        petCode = atoi(s1.c_str());
+        vaccineCode = atoi(s2.c_str());
+        date = s3;
+    }
+
+    static std::vector<std::string> get_description() {
+        return { "petCode", "vaccineCode", "date"};
     }
 };
 
