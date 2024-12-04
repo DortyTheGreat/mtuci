@@ -1,0 +1,33 @@
+<Pets>
+    <Object id="2" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="3" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="4" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="5" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="6" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="7" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="8" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="9" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="10" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="11" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="12" breedCode="0" name="Имя" birthDate="Дата Рождения" ownerCode="0"/>
+    <Object id="13" breedCode="123" name="1" birthDate="12" ownerCode="1234"/>
+    <Object id="14" breedCode="1" name="2" birthDate="3" ownerCode="4"/>
+</Pets>
+
+<Owners>
+    <Object id="15" fullName="1" address="2"/>
+</Owners>
+
+<Breeds>
+    <Object id="16" breedName="1"/>
+</Breeds>
+
+<Vaccines>
+    <Object id="17" vaccineName="1" comment="2"/>
+</Vaccines>
+
+<PetVaccines>
+    <Object id="18" petCode="1" vaccineCode="2" date="3"/>
+</PetVaccines>
+
+<Static id_counter="18"/>
