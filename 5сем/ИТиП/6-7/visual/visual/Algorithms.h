@@ -41,6 +41,8 @@ int get_static_id(XMLDocument& doc);
 
 int update_static_id(tinyxml2::XMLDocument& doc);
 
+std::string get_table_name(int val);
+
 class DBObject {
 public:
     int id;
@@ -52,7 +54,7 @@ public:
         elem->SetAttribute("id", id);
     }
 
-    static std::vector<std::string> get_description();
+    virtual std::vector<std::string> get_description() = 0;
     //virtual std::vector<std::string> get_data() = 0;
 };
 
@@ -80,7 +82,7 @@ public:
         ownerCode = atoi(s4.c_str());
     }
 
-    static std::vector<std::string> get_description() {
+    std::vector<std::string> get_description() override {
         return { "breedCode", "name", "birthDate", "ownerCode" };
     }
 };
@@ -101,7 +103,7 @@ public:
         address = s2;
     }
 
-    static std::vector<std::string> get_description() {
+    std::vector<std::string> get_description() override {
         return { "fullName", "address" };
     }
 };
@@ -119,7 +121,7 @@ public:
         breedName = s1;
     }
 
-    static std::vector<std::string> get_description() {
+    std::vector<std::string> get_description() override {
         return { "breedName" };
     }
 };
@@ -141,7 +143,7 @@ public:
         comment = s2;
     }
 
-    static std::vector<std::string> get_description() {
+    std::vector<std::string> get_description() override {
         return { "vaccineName", "comment"};
     }
 };
@@ -165,8 +167,9 @@ public:
         date = s3;
     }
 
-    static std::vector<std::string> get_description() {
+    std::vector<std::string> get_description() override {
         return { "petCode", "vaccineCode", "date"};
     }
 };
 
+DBObject* get_class(int val);

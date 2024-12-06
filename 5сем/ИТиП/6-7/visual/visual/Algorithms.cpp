@@ -316,6 +316,10 @@ int get_static_id(XMLDocument& doc) {
     return attr->IntValue();
 }
 
+std::string get_table_name(int val) {
+    vector<std::string> vc = { "Pets", "Owners", "Breeds", "Vaccines", "PetVaccines" };
+    return vc[val];
+}
 
 
 int update_static_id(XMLDocument& doc) {
@@ -366,4 +370,13 @@ void checkFile(const std::string& fileName, XMLDocument& doc) {
 
         SaveXML(fileName, doc);
     }
+}
+
+
+DBObject* get_class(int val) {
+    if (val == 0) return new Pet();
+    if (val == 1) return new Ownerw();
+    if (val == 2) return new Breed();
+    if (val == 3) return new Vaccine();
+    if (val == 4) return new PetVaccine();
 }
