@@ -11,6 +11,17 @@
 
 using namespace std;
 
+#include <sstream>
+
+template <typename T>
+std::wstring NumberToString ( T Number )
+{
+    std::ostringstream ss;
+    ss << Number;
+    std::wstring wsTmp(ss.str().begin(), ss.str().end());
+    return wsTmp;
+}
+
 class sfLine : public sf::Drawable
 {
 public:
@@ -352,15 +363,17 @@ public:
     int path_progress;
     set<TrafficLight> ignore_list;
 
+    string extraInfo = "None";
 
     Car(vector<sf::Vector2f> _path, sf::Vector2f _position, float _Speed = 1,
-    sf::Color _color = sf::Color::Red, int _current_road_type = 1){
+    sf::Color _color = sf::Color::Red, int _current_road_type = 1, string _extraInfo = "None"){
         path = _path;
         position = _position;
         path_progress = 0;
         Speed = _Speed;
         color = _color;
         current_road_type = _current_road_type;
+        extraInfo = _extraInfo;
     }
 
     string update(){
@@ -427,10 +440,6 @@ int main() {
 
     sf::RenderWindow window(sf::VideoMode(800, 800), "Plot");
 
-    ///sfLine O1({0,0}, {0,10 + 2.5}, sf::Color::Black, 5);
-    ///sfLine O2({0,10}, {10 + 2.5,10}, sf::Color::Black, 5);
-    ///sfLine O3({10,10}, {10,30}, sf::Color::Black, 5);
-
     sfLine O1({100,0}, {100,200}, sf::Color::Black, 5);
     sfLine O2({0,100}, {200,100}, sf::Color::Black, 5);
 
@@ -441,7 +450,15 @@ int main() {
     traffics.push_back(TrafficLight({400,100}, true));
 
 
+    sf::Font font;
+    if (!font.loadFromFile("C:/Windows/Fonts/times.ttf")) {
+        std::cerr << "Ошибка загрузки шрифта" << std::endl;
+        return 0;
+    }
 
+    sf::Text analys("txt", font, 30);
+    analys.setFillColor(sf::Color::Black);
+    analys.setPosition(0, 250);
 
 
 
@@ -451,6 +468,14 @@ int main() {
 
     int ticks = 0;
     int road_density = 7;
+
+    int Cross1CarsExited = 0;
+    int Cross1CarsIn = 0;
+    int Time1 = 0;
+
+    int Cross2CarsExited = 0;
+    int Cross2CarsIn = 0;
+    int Time2 = 0;
 
     while (window.isOpen()) {
 
@@ -490,7 +515,7 @@ int main() {
         window.clear(sf::Color::White);
 
 
-        if (ticks % 1000 == 0){
+        if (ticks % 2000 == 0){
             road_density = 10 - road_density;
             cout << "New road density " << road_density << endl;
         }
@@ -506,17 +531,25 @@ int main() {
             if (rand() % 10 < road_density){
                 //cars.push_back(Car({ {0,40} }, {0,0}, 0.5, sf::Color::Blue, 2  ));
 
-                if (!CircleToManyCircle(poses, {100,0}, 5*1))
-                    cars.push_back(Car({ {100,200} }, {100,0}, 0.5,  sf::Color::Blue, 2  ));
+                if (!CircleToManyCircle(poses, {100,0}, 5*1)){
+                    cars.push_back(Car({ {100,200} }, {100,0}, 0.5,  sf::Color::Blue, 2, "Cross1"  ));
+                    Cross1CarsIn++;
+                }
 
-                if (!CircleToManyCircle(poses, {400,0}, 5*1))
-                    cars.push_back(Car({ {400,200} }, {400,0}, 0.5,  sf::Color::Blue, 2  ));
+                if (!CircleToManyCircle(poses, {400,0}, 5*1)){
+                    cars.push_back(Car({ {400,200} }, {400,0}, 0.5,  sf::Color::Blue, 2, "Cross2"  ));
+                    Cross2CarsIn++;
+                }
             }else{
-                if (!CircleToManyCircle(poses, {0,100}, 5*1))
-                    cars.push_back(Car({ {200,100} }, {0,100}  ));
+                if (!CircleToManyCircle(poses, {0,100}, 5*1)){
+                    cars.push_back(Car({ {200,100} }, {0,100}, 1, sf::Color::Red, 1, "Cross1"  ));
+                    Cross1CarsIn++;
+                }
 
-                if (!CircleToManyCircle(poses, {300,100}, 5*1))
-                    cars.push_back(Car({ {500,100} }, {300,100}  ));
+                if (!CircleToManyCircle(poses, {300,100}, 5*1)){
+                    cars.push_back(Car({ {500,100} }, {300,100}, 1, sf::Color::Red, 1, "Cross2"  ));
+                    Cross2CarsIn++;
+                }
             }
         }
         ///cout << "sz " << cars.size() << endl;;
@@ -527,8 +560,19 @@ int main() {
             string ret_code = cars[i].update();
             if (ret_code != "delete"){
                 cars2.push_back(cars[i]);
+            }else{
+                if (cars[i].extraInfo == "Cross2"){
+                    Cross2CarsExited++;
+                }
+
+                if (cars[i].extraInfo == "Cross1"){
+                    Cross1CarsExited++;
+                }
             }
         }
+
+        Time1 += (Cross1CarsIn - Cross1CarsExited);
+        Time2 += (Cross2CarsIn - Cross2CarsExited);
 
         for(int i = 0; i < traffics.size(); ++i){
             traffics[i].update();
@@ -541,6 +585,22 @@ int main() {
         window.draw(O3);
         window.draw(O4);
 
+
+        auto display =  \
+        wstring( L"Магистраль #1\n") + \
+        L"Вошло: " + to_wstring(Cross1CarsIn) + L"\n" +\
+        L"Вышло: " + to_wstring(Cross1CarsExited) + L"\n"+\
+        L"Осталось: " + to_wstring(Cross1CarsIn - Cross1CarsExited) + L"\n"+\
+        L"Среднее время в пути: " + ((Cross1CarsExited > 10) ? to_wstring(double(Time1)/ Cross1CarsExited) : L"Расчитывается...")  + L"\n\n"+\
+        wstring( L"Магистраль #2\n") + \
+        L"Вошло: " + to_wstring(Cross2CarsIn) + L"\n" +\
+        L"Вышло: " + to_wstring(Cross2CarsExited) + L"\n"+\
+        L"Осталось: " + to_wstring(Cross2CarsIn - Cross2CarsExited) + L"\n"+\
+        L"Среднее время в пути: " + ((Cross2CarsExited > 10) ? to_wstring(double(Time2)/ Cross2CarsExited) : L"Расчитывается...")  + L"\n";
+        if (ticks % 120  == 0){
+            analys.setString(display);
+        }
+        window.draw(analys);
         for(const Car& car : cars){
             window.draw(car);
         }
