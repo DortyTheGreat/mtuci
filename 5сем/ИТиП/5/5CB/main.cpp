@@ -836,7 +836,7 @@ void drawRedBlackTreeWindow(BPlusNode* root) {
     button2.setPosition(1700, 900);
     button2.setFillColor(sf::Color::Red);
 
-    sf::Text buttonText2("Exit", font, 30);
+    sf::Text buttonText2(L"Выход", font, 30);
     buttonText2.setFillColor(sf::Color::Black);
     buttonText2.setPosition(1770, 930);
 
@@ -882,7 +882,7 @@ void drawBPlusTreeWindow(Node* root) {
     button2.setPosition(1700, 900);
     button2.setFillColor(sf::Color::Green);
 
-    sf::Text buttonText2("Next", font, 30);
+    sf::Text buttonText2(L"Далее", font, 30);
     buttonText2.setFillColor(sf::Color::White);
     buttonText2.setPosition(1770, 930);
 
@@ -975,7 +975,7 @@ void drawRemoveMinVertexWindow(Node* root) {
     button2.setPosition(1700, 900); // Позиция кнопки
     button2.setFillColor(sf::Color::Green);
 
-    sf::Text buttonText2("Next", font, 30);
+    sf::Text buttonText2(L"Далее", font, 30);
     buttonText2.setFillColor(sf::Color::White);
     buttonText2.setPosition(1770, 930); // Позиция текста (по центру кнопки)
 
@@ -1031,7 +1031,7 @@ void drawBalanceTreeWindow(Node* root) {
     button2.setPosition(1700, 900); // Позиция кнопки
     button2.setFillColor(sf::Color::Green);
 
-    sf::Text buttonText2("Next", font, 30);
+    sf::Text buttonText2(L"Далее", font, 30);
     buttonText2.setFillColor(sf::Color::White);
     buttonText2.setPosition(1770, 930); // Позиция текста (по центру кнопки)
 
@@ -1130,7 +1130,7 @@ void drawResultsWindow(Node* root) {
     button2.setPosition(1700, 900); // Позиция кнопки
     button2.setFillColor(sf::Color::Green);
 
-    sf::Text buttonText2("Next", font, 30);
+    sf::Text buttonText2(L"Далее", font, 30);
     buttonText2.setFillColor(sf::Color::White);
     buttonText2.setPosition(1770, 930); // Позиция текста (по центру кнопки)
 
@@ -1400,7 +1400,7 @@ int main() {
         std::cerr << "Ошибка загрузки шрифта" << std::endl;
         return -1;
     }
-    sf::Text buttonText("Next", font, 30);
+    sf::Text buttonText(L"Далее", font, 30);
     buttonText.setFillColor(sf::Color::White);
     buttonText.setPosition(1770, 930); // Позиция текста (по центру кнопки)
 
