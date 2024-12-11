@@ -1117,7 +1117,7 @@ void drawResultsWindow(Node* root) {
     std::vector<int> nodesWithUnequalHeights;
     findNodesWithUnequalHeights(root, nodesWithUnequalHeights);
 
-    int x = 15;
+    int x = 47;
     int occurrencesOfX = countOccurrences(root, x);
 
     int maxElement = INT_MIN, maxCount = 0;
