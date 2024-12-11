@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1733911322 source:c:\users\saha2\desktop\mtuci\5ñåì\ÈÒèÏ\5\5cb\main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<set>
+	<map>
+	<queue>
+	<limits>
+	<numeric>
+	<algorithm>
+	<vector>
+	<sstream>
+
