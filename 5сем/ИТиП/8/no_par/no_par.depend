@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1733905129 source:c:\users\saha2\desktop\mtuci\5ñåì\ÈÒèÏ\8\no_par\main.cpp
+	<iostream>
+	<vector>
+	<random>
+	<omp.h>
+
