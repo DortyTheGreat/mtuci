@@ -1,0 +1,23 @@
+<Pets>
+    <Object id="1" breedCode="5" name="Барсик" birthDate="03.12.2024" ownerCode="3"/>
+    <Object id="9" breedCode="1" name="Клюковка" birthDate="11.11.2024" ownerCode="3"/>
+</Pets>
+
+<Owners>
+    <Object id="3" fullName="Александр Сергеевич Кулешов" address="г. Москва"/>
+    <Object id="4" fullName="Александра Сергеевна Кулешова" address="г. Санкт-Питербург"/>
+</Owners>
+
+<Breeds>
+    <Object id="5" breedName="Мейн-Кун"/>
+</Breeds>
+
+<Vaccines>
+    <Object id="6" vaccineName="Феливак" comment="Защита кошек от вирусного ринотрахеита"/>
+</Vaccines>
+
+<PetVaccines>
+    <Object id="7" petCode="1" vaccineCode="6" date="04.12.2024"/>
+</PetVaccines>
+
+<Static id_counter="9"/>

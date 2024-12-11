@@ -380,3 +380,71 @@ DBObject* get_class(int val) {
     if (val == 3) return new Vaccine();
     if (val == 4) return new PetVaccine();
 }
+
+/*
+void convertXMLtoSQL(const char* xmlFile, const char* sqlFile) {
+    XMLDocument doc;
+    if (doc.LoadFile(xmlFile) != XML_SUCCESS) {
+        std::cerr << "Failed to load XML file" << std::endl;
+        return;
+    }
+
+    std::ofstream outFile(sqlFile);
+    if (!outFile.is_open()) {
+        std::cerr << "Failed to open SQL file" << std::endl;
+        return;
+    }
+
+    XMLElement* database = doc.FirstChildElement("database");
+    if (!database) {
+        std::cerr << "No <database> element found" << std::endl;
+        return;
+    }
+
+    for (XMLElement* table = database->FirstChildElement("table"); table; table = table->NextSiblingElement("table")) {
+        const char* tableName = table->Attribute("name");
+        if (!tableName) {
+            std::cerr << "Table name missing" << std::endl;
+            continue;
+        }
+
+        outFile << "CREATE TABLE " << tableName << " (\n";
+
+        // Extract column names
+        XMLElement* firstRow = table->FirstChildElement("row");
+        if (!firstRow) {
+            std::cerr << "No <row> elements found in table " << tableName << std::endl;
+            continue;
+        }
+
+        for (XMLElement* column = firstRow->FirstChildElement("column"); column; column = column->NextSiblingElement("column")) {
+            const char* columnName = column->Attribute("name");
+            if (columnName) {
+                outFile << "    " << columnName << " TEXT";
+                if (column->NextSiblingElement("column")) {
+                    outFile << ",";
+                }
+                outFile << "\n";
+            }
+        }
+
+        outFile << ");\n\n";
+
+        for (XMLElement* row = table->FirstChildElement("row"); row; row = row->NextSiblingElement("row")) {
+            outFile << "INSERT INTO " << tableName << " VALUES (";
+            for (XMLElement* column = row->FirstChildElement("column"); column; column = column->NextSiblingElement("column")) {
+                outFile << "'" << column->GetText() << "'";
+                if (column->NextSiblingElement("column")) {
+                    outFile << ", ";
+                }
+            }
+            outFile << ");\n";
+        }
+
+        outFile << "\n";
+    }
+
+    outFile.close();
+    std::cout << "SQL file generated successfully" << std::endl;
+}
+*/
