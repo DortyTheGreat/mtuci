@@ -49,6 +49,35 @@ int sumElements(Node* node) {
     return node->key + sumElements(node->left) + sumElements(node->right);
 }
 
+template <typename T>
+std::vector<T> operator+(const std::vector<T>& vec1, const std::vector<T>& vec2) {
+    std::vector<T> result = vec1;  // Start with a copy of vec1
+    result.insert(result.end(), vec2.begin(), vec2.end());  // Append vec2 to result
+    return result;  // Return the concatenated vector
+}
+
+std::vector<int> listElements(Node* node) {
+    if (!node)
+        return {};
+    std::vector<int> vc;
+    vc.push_back(node->key);
+    return vc + listElements(node->left) + listElements(node->right);
+}
+
+void resizeToPowerOfTwoMinusOne(std::vector<int>& vec) {
+    size_t original_size = vec.size();
+
+    // Find the largest k such that 2^k - 1 <= original_size
+    size_t new_size = 1;
+    while (new_size * 2 - 1 <= original_size) {
+        new_size *= 2;
+    }
+    new_size -= 1; // We need 2^k - 1
+
+    // Resize the vector to this new size
+    vec.resize(new_size);
+}
+
 int64_t productOfMultiplesOfThree(Node* node) {
     if (!node)
         return 1;
@@ -980,7 +1009,18 @@ void drawRemoveMinVertexWindow(Node* root) {
     buttonText2.setPosition(1770, 930); // Позиция текста (по центру кнопки)
 
     Node* transformedTree = copyTree(root);
-    transformedTree = transformToStrictlyBinary(transformedTree);
+    std::vector<int> lst = listElements(transformedTree);
+    std::cout << lst.size() << std::endl;
+
+    std::sort(lst.begin(), lst.end(), std::greater<int>());
+
+    resizeToPowerOfTwoMinusOne(lst);
+    std::cout << lst.size() << std::endl;
+
+    transformedTree = buildBalancedTree(lst, 0, lst.size() - 1);
+
+
+    //transformedTree = transformToStrictlyBinary(transformedTree);
 
     transformToStrictlyBinary(transformedTree);
 
