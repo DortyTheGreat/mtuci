@@ -65,8 +65,8 @@ void compute_C(const std::vector<std::vector<double>>& A, const std::vector<std:
 int main() {
     ios::sync_with_stdio(0); cin.tie(0);
     int n = 300;
-    int m = 300;
-    omp_set_num_threads(1);
+    int m = 100;
+    omp_set_num_threads(256);
 
     std::vector<std::vector<double>> A(n, std::vector<double>(m));
     std::vector<std::vector<double>> B(n, std::vector<double>(m));
@@ -76,9 +76,9 @@ int main() {
     initialize_matrix(B, n, m);
 
     std::cout << "Matrix A:" << std::endl;
-    print_matrix(A);
+    //print_matrix(A);
     std::cout << "Matrix B:" << std::endl;
-    print_matrix(B);
+    //print_matrix(B);
 
     double startTime = omp_get_wtime();
     compute_C(A, B, C);
@@ -91,7 +91,7 @@ int main() {
 
     std::cout << "Matrix C = (B - A) + A^2:" << std::endl;
 
-    print_matrix(C);
+    //print_matrix(C);
 
     std::cout << std::endl << "Elapsed time: " << endTime - startTime << " seconds" << "\n";
 

@@ -1,3 +1,4 @@
+#define SFML_STATIC
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cstdlib>
@@ -405,6 +406,7 @@ void postOrderTraversal(Node* root, std::wostringstream& oss) {
     oss << root->key << " ";
 }
 
+
 void preOrderTraversal(Node* root, std::wostringstream& oss) {
     if (!root) return;
     oss << root->key << " ";
@@ -570,6 +572,7 @@ void insertBinaryTreeKeysToBPlus(Node* root, BPlusTree& tree) {
 }
 
 void drawNodeBPlusTree(sf::RenderWindow& window, sf::Font& font, BPlusNode* node, float x, float y, float offsetX, float offsetY) {
+
     sf::RectangleShape rect;
     rect.setSize(sf::Vector2f(70 * node->keys.size(), 40));
     rect.setOutlineThickness(2);

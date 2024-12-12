@@ -1,10 +1,11 @@
 # depslib dependency file v1.0
-1732716267 source:c:\users\hitech-3\desktop\githubstuff\mtuci\5сем\ПП\pp\main.cpp
+1733924004 source:c:\users\hitech-3\desktop\githubstuff\mtuci\5сем\ПП\pp\main.cpp
 	<SFML/Graphics.hpp>
 	<cmath>
 	<iostream>
 	<iomanip>
 	<set>
+	<sstream>
 
 1733914837 source:c:\users\saha2\desktop\mtuci\5сем\ПП\pp\main.cpp
 	<SFML/Graphics.hpp>
