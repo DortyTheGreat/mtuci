@@ -323,6 +323,7 @@ int main() {
 
 
 
+
     sf::View view(sf::Vector2f(4.f, -4.f), sf::Vector2f(10.f, 10.f));
     window.setView(view);
     window.setFramerateLimit(20);

@@ -1,0 +1,27 @@
+mysqld --user=mysql --init-file="C:\Users\HITECH-3\Desktop\GitHubStuff\mtuci\5сем\ИТиП\6-7\sql\mysql-init.txt"
+
+
+
+SHOW GLOBAL VARIABLES LIKE 'local_infile';
+
+SET GLOBAL local_infile = true;
+
+
+
+// god bless this post
+https://stackoverflow.com/questions/63361962/error-2068-hy000-load-data-local-infile-file-request-rejected-due-to-restrict
+
+
+(xml -> sql, somewhat agile)
+mysql -e "LOAD XML LOCAL INFILE 'person.xml' INTO TABLE itip.person ROWS IDENTIFIED BY '<person>'" -u root -p
+
+
+(sql -> xml)
+mysql --xml -e "SELECT * FROM itip.person" -u root -p
+
+
+
+
+
+
+i12hejkqdbiHN!Hqkhe12 (root pass)
