@@ -1,9 +1,7 @@
 <Pets statement="SELECT * FROM itip.Pets
 " xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <Pet id="1" breedCode="1" name="Laika" birthDate="17.12.2024" ownerCode="1"/>
-    <Pet id="2" breedCode="1" name="Bobbik" birthDate="17.12.2024" ownerCode="1"/>
-    <Pet id="3" breedCode="1" name="Snowy" birthDate="17.12.2024" ownerCode="1"/>
-    <Pet id="4" breedCode="1" name="Wolfie" birthDate="17.12.2024" ownerCode="1"/>
+    <Pet id="1" breedCode="1" name="Bobbik" birthDate="17.12.2024" ownerCode="1"/>
+    <Pet id="2" breedCode="1" name="Snowy" birthDate="17.12.2024" ownerCode="1"/>
 </Pets>
 
 <Owners statement="SELECT * FROM itip.Owners
@@ -24,8 +22,4 @@
 </Vaccines>
 
 <PetVaccines statement="SELECT * FROM itip.PetVaccines
-" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <PetVaccine id="1" petCode="1" vaccineCode="1" date="17.12.2024"/>
-    <PetVaccine id="2" petCode="2" vaccineCode="1" date="16.12.2024"/>
-    <PetVaccine id="3" petCode="2" vaccineCode="1" date="15.12.2024"/>
-</PetVaccines>
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>

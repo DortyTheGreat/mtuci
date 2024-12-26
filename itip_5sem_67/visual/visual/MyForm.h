@@ -218,9 +218,8 @@ namespace visual {
 			this->EA_L4->Location = System::Drawing::Point(242, 146);
 			this->EA_L4->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->EA_L4->Name = L"EA_L4";
-			this->EA_L4->Size = System::Drawing::Size(101, 26);
+			this->EA_L4->Size = System::Drawing::Size(0, 26);
 			this->EA_L4->TabIndex = 45;
-			this->EA_L4->Text = L"Порода4";
 			// 
 			// EA_L3
 			// 
@@ -229,9 +228,8 @@ namespace visual {
 			this->EA_L3->Location = System::Drawing::Point(242, 51);
 			this->EA_L3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->EA_L3->Name = L"EA_L3";
-			this->EA_L3->Size = System::Drawing::Size(101, 26);
+			this->EA_L3->Size = System::Drawing::Size(0, 26);
 			this->EA_L3->TabIndex = 44;
-			this->EA_L3->Text = L"Порода3";
 			// 
 			// EA_L2
 			// 
@@ -240,9 +238,8 @@ namespace visual {
 			this->EA_L2->Location = System::Drawing::Point(8, 146);
 			this->EA_L2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->EA_L2->Name = L"EA_L2";
-			this->EA_L2->Size = System::Drawing::Size(101, 26);
+			this->EA_L2->Size = System::Drawing::Size(0, 26);
 			this->EA_L2->TabIndex = 43;
-			this->EA_L2->Text = L"Порода2";
 			// 
 			// EA_L1
 			// 
@@ -251,9 +248,8 @@ namespace visual {
 			this->EA_L1->Location = System::Drawing::Point(8, 51);
 			this->EA_L1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->EA_L1->Name = L"EA_L1";
-			this->EA_L1->Size = System::Drawing::Size(101, 26);
+			this->EA_L1->Size = System::Drawing::Size(0, 26);
 			this->EA_L1->TabIndex = 42;
-			this->EA_L1->Text = L"Порода1";
 			// 
 			// EA_TB4
 			// 
@@ -591,7 +587,7 @@ namespace visual {
 			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"MyForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"Лабораторная работа №4(выполнение)";
+			this->Text = L"Лабораторная работа №6-7(выполнение)";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			this->groupBox3->ResumeLayout(false);
 			this->groupBox3->PerformLayout();
@@ -827,7 +823,7 @@ private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e
 	}
 	
 
-	if (vc.size() < 1) return;
+	//if (vc.size() < 1) return;
 
 	dataGridView1->ColumnCount = fields_to_read.size();
 	dataGridView1->RowCount = vc.size() + 1;

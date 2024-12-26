@@ -131,13 +131,24 @@
 Таблицы организовать внутри программы
  как классы. И главное таблицы связанны
  между собой.
-</value>
+
+Добавить в Ваше клиентское приложение выполненное в прошлом
+задании, следующие пункты меню:
+- специальное меню: с добавлением поля с указанием формата и типа
+поля, с удалением поля и редактирование поля с указанием формата и типа
+поля. Необходимо выбирать все таблицы вашего варианта. Главное чтобы
+таблица формируется как новая с помощью вашего меню, или если файл
+существует, структура считывается из файла.
+- экспорт таблиц данных в СУБД MySQL, с сопоставлением всех
+возможных типов данных и форматов представления и их длины.
+- импорт таблиц данных из СУБД MySQL с учетом всех изменений,
+которые могли произойти в СУБД MySQL.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAnAAAACXCAYAAACVzWawAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAApXRJREFUeF7t3XmwLVdVP/BUKSqUVllY+AcypBKGEEKmlzySlzkhCSSADBGZRGUQ
+        wgAADsIBFShKgAAApXRJREFUeF7t3XmwLVdVP/BUKSqUVllY+AcypBKGEEKmlzySlzkhCSSADBGZRGUQ
         EBAQmQeZhMgg8+SAzEFAlEFBUEBkkkkQFRUBBRXFgUFxwOH8fp9tvq92On2Ge9899/a7b32rTt17Tnfv
         vfZaa6/17dXduw+bdfj5n//52Q/90A/N/v3f/332b//2b/VZ4fOXf/mXTWe/9mu/VnqrT33qU5/6HDQf
         OeslL3nJ7Ed/9Edn//RP/zS6T3127sM+d7/73WdPecpTLmdpV8QVCNwv/dIvzY4++ui280//9E/XZ8nn

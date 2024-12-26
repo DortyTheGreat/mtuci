@@ -94,7 +94,7 @@ namespace visual {
 			this->label3->Location = System::Drawing::Point(16, 85);
 			this->label3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(388, 273);
+			this->label3->Size = System::Drawing::Size(933, 825);
 			this->label3->TabIndex = 28;
 			this->label3->Text = resources->GetString(L"label3.Text");
 			// 
@@ -106,7 +106,7 @@ namespace visual {
 			this->label4->Location = System::Drawing::Point(15, 35);
 			this->label4->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(78, 21);
+			this->label4->Size = System::Drawing::Size(122, 33);
 			this->label4->TabIndex = 27;
 			this->label4->Text = L"Задание:";
 			// 
@@ -134,7 +134,7 @@ namespace visual {
 			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"MyForm1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"Лабораторная работа №4(условие)";
+			this->Text = L"Лабораторная работа №6-7(условие)";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			this->ResumeLayout(false);

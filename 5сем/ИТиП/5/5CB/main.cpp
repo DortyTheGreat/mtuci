@@ -1013,12 +1013,10 @@ void drawRemoveMinVertexWindow(Node* root) {
 
     Node* transformedTree = copyTree(root);
     std::vector<int> lst = listElements(transformedTree);
-    std::cout << lst.size() << std::endl;
 
     std::sort(lst.begin(), lst.end(), std::greater<int>());
 
     resizeToPowerOfTwoMinusOne(lst);
-    std::cout << lst.size() << std::endl;
 
     transformedTree = buildBalancedTree(lst, 0, lst.size() - 1);
 
@@ -1474,3 +1472,8 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
