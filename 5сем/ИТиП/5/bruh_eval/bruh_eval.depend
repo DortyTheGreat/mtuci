@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1735018008 source:c:\users\saha2\desktop\mtuci\5ñåì\ÈÒèÏ\5\bruh_eval\main.cpp
+	<iostream>
+	<string>
+	<sstream>
+	<fstream>
+	<cstdlib>
+	<iostream>
+
