@@ -1,0 +1,117 @@
+USE test;
+
+CREATE TABLE Pets (
+    id INT NOT NULL PRIMARY KEY auto_increment,
+    breedCode VARCHAR(40) NULL,
+    name VARCHAR(40) NULL,
+    birthDate VARCHAR(40) NULL,
+    ownerCode VARCHAR(40) NULL
+);
+
+CREATE TABLE Owners (
+    id INT NOT NULL PRIMARY KEY auto_increment,
+    fullName VARCHAR(40) NULL,
+    address VARCHAR(40) NULL
+);
+
+CREATE TABLE Breeds (
+    id INT NOT NULL PRIMARY KEY auto_increment,
+    breedName VARCHAR(40) NULL
+);
+
+CREATE TABLE Vaccines (
+    id INT NOT NULL PRIMARY KEY auto_increment,
+    vaccineName VARCHAR(40) NULL,
+    comment VARCHAR(100) NULL
+);
+
+CREATE TABLE PetVaccines (
+    id INT NOT NULL PRIMARY KEY auto_increment,
+    petCode VARCHAR(40) NULL,
+    vaccineCode VARCHAR(100) NULL,
+    date VARCHAR(100) NULL
+);
+
+select * from Pets;
+select * from Owners;
+select * from Breeds;
+select * from Vaccines;
+select * from PetVaccines;
+
+truncate table Pets;
+truncate table Owners;
+truncate table Breeds;
+truncate table Vaccines;
+truncate table PetVaccines;
+
+insert into Pets(breedCode, name, birthDate, ownerCode) values
+(1, "Laika", "17.12.2024", 1),
+(1, "Bobbik", "17.12.2024", 1),
+(1, "Snowy", "17.12.2024", 1);
+
+insert into Owners(fullName, address) values
+("Kuleshov Alexander Sergeevich", "Moscow, Aviamotornaya st."),
+("Kuleshov Sergey Alexandrovich", "Moscow, Narodnaya st.");
+
+insert into Breeds(breedName) values
+("Shepherd"),
+("Retriever");
+
+insert into Vaccines(vaccineName, comment) values
+("Velivak", "For dog anti-virus treating");
+
+insert into PetVaccines(petCode, vaccineCode, date) values
+(1, 1, "17.12.2024"),
+(2, 1, "16.12.2024"),
+(2, 1, "15.12.2024");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE person (
+    person_id INT NOT NULL PRIMARY KEY,
+    fname VARCHAR(40) NULL,
+    lname VARCHAR(40) NULL,
+    created TIMESTAMP
+);
+
+-- C:/Users/HITECH-3/Desktop/GitHubStuff/mtuci/5сем/ИТиП/6-7/sql/
+LOAD XML LOCAL INFILE 'person.xml'
+INTO TABLE person
+ROWS IDENTIFIED BY '<person>';
+
+GRANT FILE ON *.* TO 'username'@'localhost';
+FLUSH PRIVILEGES;
+
+
+
+create table rent(
+	auto_id integer,
+    client_id integer,
+    receive_date date,
+    return_date date,
+    return_state varchar(20),
+    job_id integer
+);
+
+-- '2022-04-14' сегодня
+insert into rent(auto_id, client_id, receive_date, return_date, return_state, job_id) values
+(1,1, '2022-04-12', '2022-04-28', 'используется', 5),
+(2,3, '2022-04-01', '2022-04-8', 'возвращена', 1),
+(2,3, '2022-04-12', '2022-04-14', 'обслуживание', 1),
+(3,4, '2022-04-11', '2022-04-19', 'неизвестно', 2),
+(3,5, '2022-04-22', '2022-04-25', 'запланировано', 4),
+(4,2, '2022-04-11', '2022-04-29', 'используется', 3);
+select * from rent;

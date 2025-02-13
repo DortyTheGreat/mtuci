@@ -1,0 +1,45 @@
+<Pets statement="SELECT * FROM itip.Pets
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <row>
+        <field name="id">1</field>
+        <field name="breedCode">1</field>
+        <field name="name">Лайка</field>
+        <field name="birthDate">17.12.2024</field>
+        <field name="ownerCode">1</field>
+    </row>
+    <row>
+        <field name="id">2</field>
+        <field name="breedCode">1</field>
+        <field name="name">Лайка</field>
+        <field name="birthDate">17.12.2024</field>
+        <field name="ownerCode">1</field>
+    </row>
+    <row>
+        <field name="id">3</field>
+        <field name="breedCode">1</field>
+        <field name="name">Бобик</field>
+        <field name="birthDate">17.12.2024</field>
+        <field name="ownerCode">1</field>
+    </row>
+    <row>
+        <field name="id">4</field>
+        <field name="breedCode">1</field>
+        <field name="name">Снежок</field>
+        <field name="birthDate">17.12.2024</field>
+        <field name="ownerCode">1</field>
+    </row>
+</Pets>
+
+<Owners statement="SELECT * FROM itip.Owners
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <row>
+        <field name="id">1</field>
+        <field name="fullName">Кулешов Александр Сергеевич</field>
+        <field name="address">г. Москва, ул. Авиамоторная, д.12</field>
+    </row>
+    <row>
+        <field name="id">2</field>
+        <field name="fullName">Кулешов Сергей Александрович</field>
+        <field name="address">г. Москва, ул. Обычная, д.11</field>
+    </row>
+</Owners>

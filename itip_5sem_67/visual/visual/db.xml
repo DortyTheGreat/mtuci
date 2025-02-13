@@ -1,0 +1,25 @@
+<Pets statement="SELECT * FROM itip.Pets
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Pet id="1" breedCode="1" name="Bobbik" birthDate="17.12.2024" ownerCode="1"/>
+    <Pet id="2" breedCode="1" name="Snowy" birthDate="17.12.2024" ownerCode="1"/>
+</Pets>
+
+<Owners statement="SELECT * FROM itip.Owners
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Owner id="1" fullName="Kuleshov Alexander Sergeevich" address="Moscow, Aviamotornaya st."/>
+    <Owner id="2" fullName="Kuleshov Sergey Alexandrovich" address="Moscow, Narodnaya st."/>
+</Owners>
+
+<Breeds statement="SELECT * FROM itip.Breeds
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Breed id="1" breedName="Shepherd"/>
+    <Breed id="2" breedName="Retriever"/>
+</Breeds>
+
+<Vaccines statement="SELECT * FROM itip.Vaccines
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Vaccine id="1" vaccineName="Velivak" comment="For dog anti-virus treating"/>
+</Vaccines>
+
+<PetVaccines statement="SELECT * FROM itip.PetVaccines
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>

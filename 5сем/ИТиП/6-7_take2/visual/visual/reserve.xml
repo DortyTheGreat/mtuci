@@ -1,0 +1,49 @@
+<Pets>
+    <Object id="2" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="2" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="2" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="2" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="2" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+    <Object id="101" breedCode="0" name="" birthDate="" ownerCode="0"/>
+</Pets>
+
+<Owners/>
+
+<Breeds/>
+
+<Vaccines/>
+
+<PetVaccines/>
+
+<Static id_counter="101" 345="345"/>

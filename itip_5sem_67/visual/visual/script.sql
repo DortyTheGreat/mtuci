@@ -1,0 +1,1 @@
+LOAD XML LOCAL INFILE 'table1.xml' INTO TABLE table1 
