@@ -319,6 +319,7 @@ public:
     }
 
 
+
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
@@ -535,22 +536,22 @@ int main() {
 
                 if (rand() % 100 < turn_probability){
 
-                    if (!CircleToManyCircle(poses, {100,0}, 5*1)){
+                    if (!CircleToManyCircle(poses, {100,0}, 2*1)){
                         cars.push_back(Car({ {100,100}, {0, 100} }, {100,0}, 0.5,  sf::Color::Blue, 2, "Cross1"  ));
                         Cross1CarsIn++;
                     }
 
-                    if (!CircleToManyCircle(poses, {104,200}, 5*1)){
+                    if (!CircleToManyCircle(poses, {104,200}, 2*1)){
                         cars.push_back(Car({ {104,104}, {200, 104} }, {104,200}, 0.5,  sf::Color::Blue, 2, "Cross1"  ));
                         Cross1CarsIn++;
                     }
 
-                    if (!CircleToManyCircle(poses, {400,0}, 5*1)){
+                    if (!CircleToManyCircle(poses, {400,0}, 2*1)){
                         cars.push_back(Car({ {400,100}, {300, 100} }, {400,0}, 0.5,  sf::Color::Blue, 2, "Cross2"  ));
                         Cross2CarsIn++;
                     }
 
-                    if (!CircleToManyCircle(poses, {404,200}, 5*1)){
+                    if (!CircleToManyCircle(poses, {404,200}, 2*1)){
                         cars.push_back(Car({ {404,104}, {500, 104} }, {404,200}, 0.5,  sf::Color::Blue, 2, "Cross2"  ));
                         Cross2CarsIn++;
                     }
@@ -695,3 +696,4 @@ int main() {
 
     return 0;
 }
+
