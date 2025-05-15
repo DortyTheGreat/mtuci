@@ -334,14 +334,14 @@ vector<Car> cars;
 vector<TrafficLight> traffics;
 
 
-bool CircleToManyCircle(vector<sf::Vector2f> poses, sf::Vector2f position, float radius){
+bool CircleToManyCircle(vector<sf::Vector2f> poses, sf::Vector2f position, float radius, int thresh = 0){
 
     int count = 0;
     for(int i = 0; i < poses.size(); ++i){
         if (dist( poses[i] - position ) < radius) ++count ;
     }
 
-    return count > 1;
+    return count > thresh;
 
 }
 
@@ -391,7 +391,7 @@ public:
             poses.push_back(cars[i].position);
         } // this is bad
 
-        if (CircleToManyCircle(poses, new_position, 3*radius)) return "next_car_brake";
+        if (CircleToManyCircle(poses, new_position, 3*radius, 1)) return "next_car_brake";
 
         for(int i = 0; i < traffics.size(); ++i){
 
@@ -465,7 +465,7 @@ int main() {
 
     sf::View view(sf::Vector2f(100.f, 100.f), sf::Vector2f(100.f, 100.f));
     window.setView(view);
-    window.setFramerateLimit(120);
+    window.setFramerateLimit(1200);
 
     int ticks = 0;
     int road_density = 7;
@@ -516,10 +516,12 @@ int main() {
         window.clear(sf::Color::White);
 
 
-        if (ticks % 2000 == 0){
+        if (ticks % 4000 == 0){
             road_density = 10 - road_density;
             cout << "New road density " << road_density << endl;
         }
+
+        const float collision_radius = 3;
 
         if (ticks % 10 == 0){
 
@@ -536,22 +538,22 @@ int main() {
 
                 if (rand() % 100 < turn_probability){
 
-                    if (!CircleToManyCircle(poses, {100,0}, 2*1)){
+                    if (!CircleToManyCircle(poses, {100,0}, collision_radius)){
                         cars.push_back(Car({ {100,100}, {0, 100} }, {100,0}, 0.5,  sf::Color::Blue, 2, "Cross1"  ));
                         Cross1CarsIn++;
                     }
 
-                    if (!CircleToManyCircle(poses, {104,200}, 2*1)){
+                    if (!CircleToManyCircle(poses, {104,200}, collision_radius)){
                         cars.push_back(Car({ {104,104}, {200, 104} }, {104,200}, 0.5,  sf::Color::Blue, 2, "Cross1"  ));
                         Cross1CarsIn++;
                     }
 
-                    if (!CircleToManyCircle(poses, {400,0}, 2*1)){
+                    if (!CircleToManyCircle(poses, {400,0}, collision_radius)){
                         cars.push_back(Car({ {400,100}, {300, 100} }, {400,0}, 0.5,  sf::Color::Blue, 2, "Cross2"  ));
                         Cross2CarsIn++;
                     }
 
-                    if (!CircleToManyCircle(poses, {404,200}, 2*1)){
+                    if (!CircleToManyCircle(poses, {404,200}, collision_radius)){
                         cars.push_back(Car({ {404,104}, {500, 104} }, {404,200}, 0.5,  sf::Color::Blue, 2, "Cross2"  ));
                         Cross2CarsIn++;
                     }
@@ -559,22 +561,22 @@ int main() {
 
                 }else{
 
-                    if (!CircleToManyCircle(poses, {100,0}, 5*1)){
+                    if (!CircleToManyCircle(poses, {100,0}, collision_radius)){
                         cars.push_back(Car({ {100,200} }, {100,0}, 0.5,  sf::Color::Blue, 2, "Cross1"  ));
                         Cross1CarsIn++;
                     }
 
-                    if (!CircleToManyCircle(poses, {104,200}, 5*1)){
+                    if (!CircleToManyCircle(poses, {104,200}, collision_radius)){
                         cars.push_back(Car({ {104,0} }, {104,200}, 0.5,  sf::Color::Blue, 2, "Cross1"  ));
                         Cross1CarsIn++;
                     }
 
-                    if (!CircleToManyCircle(poses, {400,0}, 5*1)){
+                    if (!CircleToManyCircle(poses, {400,0}, collision_radius)){
                         cars.push_back(Car({ {400,200} }, {400,0}, 0.5,  sf::Color::Blue, 2, "Cross2"  ));
                         Cross2CarsIn++;
                     }
 
-                    if (!CircleToManyCircle(poses, {404,200}, 5*1)){
+                    if (!CircleToManyCircle(poses, {404,200}, collision_radius)){
                         cars.push_back(Car({ {404,0} }, {404,200}, 0.5,  sf::Color::Blue, 2, "Cross2"  ));
                         Cross2CarsIn++;
                     }
@@ -584,23 +586,23 @@ int main() {
 
                 if (rand() % 100 < turn_probability){
 
-                    if (!CircleToManyCircle(poses, {0,104}, 5*1)){
+                    if (!CircleToManyCircle(poses, {0,104}, collision_radius)){
                         cars.push_back(Car({ {100,104}, {100, 200} }, {0,104}, 1, sf::Color::Red, 1, "Cross1"  ));
                         Cross1CarsIn++;
                     }
 
-                    if (!CircleToManyCircle(poses, {200,100}, 5*1)){
+                    if (!CircleToManyCircle(poses, {200,100}, collision_radius)){
                         cars.push_back(Car({ {104,100}, {104,0} }, {200,100}, 1, sf::Color::Red, 1, "Cross1"  ));
                         Cross1CarsIn++;
                     }
 
 
-                    if (!CircleToManyCircle(poses, {300,104}, 5*1)){
+                    if (!CircleToManyCircle(poses, {300,104}, collision_radius)){
                         cars.push_back(Car({ {400,104}, {400, 200} }, {300,104}, 1, sf::Color::Red, 1, "Cross2"  ));
                         Cross2CarsIn++;
                     }
 
-                    if (!CircleToManyCircle(poses, {500,100}, 5*1)){
+                    if (!CircleToManyCircle(poses, {500,100}, collision_radius)){
                         cars.push_back(Car({ {404,100}, {404,0} }, {500,100}, 1, sf::Color::Red, 1, "Cross2"  ));
                         Cross2CarsIn++;
                     }
@@ -609,23 +611,23 @@ int main() {
                 }else{
 
 
-                    if (!CircleToManyCircle(poses, {0,104}, 5*1)){
+                    if (!CircleToManyCircle(poses, {0,104}, collision_radius)){
                         cars.push_back(Car({ {200,104} }, {0,104}, 1, sf::Color::Red, 1, "Cross1"  ));
                         Cross1CarsIn++;
                     }
 
-                    if (!CircleToManyCircle(poses, {200,100}, 5*1)){
+                    if (!CircleToManyCircle(poses, {200,100}, collision_radius)){
                         cars.push_back(Car({ {0,100} }, {200,100}, 1, sf::Color::Red, 1, "Cross1"  ));
                         Cross1CarsIn++;
                     }
 
 
-                    if (!CircleToManyCircle(poses, {300,104}, 5*1)){
+                    if (!CircleToManyCircle(poses, {300,104}, collision_radius)){
                         cars.push_back(Car({ {500,104} }, {300,104}, 1, sf::Color::Red, 1, "Cross2"  ));
                         Cross2CarsIn++;
                     }
 
-                    if (!CircleToManyCircle(poses, {500,100}, 5*1)){
+                    if (!CircleToManyCircle(poses, {500,100}, collision_radius)){
                         cars.push_back(Car({ {300,100} }, {500,100}, 1, sf::Color::Red, 1, "Cross2"  ));
                         Cross2CarsIn++;
                     }
@@ -640,6 +642,9 @@ int main() {
         vector<Car> cars2;
         for (int i = 0; i < cars.size(); ++i){
             string ret_code = cars[i].update();
+
+            //if (ret_code == "")
+
             if (ret_code != "delete"){
                 cars2.push_back(cars[i]);
             }else{
