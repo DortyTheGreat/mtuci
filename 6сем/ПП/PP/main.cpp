@@ -4,14 +4,10 @@
 #include <iostream>
 #include <iomanip>
 #include <set>
-
-
-
+#include <sstream>
 
 
 using namespace std;
-
-#include <sstream>
 
 template <typename T>
 std::wstring NumberToString ( T Number )
@@ -465,7 +461,7 @@ int main() {
 
     sf::View view(sf::Vector2f(100.f, 100.f), sf::Vector2f(100.f, 100.f));
     window.setView(view);
-    window.setFramerateLimit(1200);
+    window.setFramerateLimit(60);
 
     int ticks = 0;
     int road_density = 7;
