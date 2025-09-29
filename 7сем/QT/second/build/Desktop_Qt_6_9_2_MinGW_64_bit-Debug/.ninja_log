@@ -1,0 +1,22 @@
+# ninja log v6
+445	634	7808403419030514	C:/Users/HITECH-3/Documents/second/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/second_autogen/EWIEGA46WW/qrc_resources.cpp	808914fcd3c85c08
+75	443	7808403413629197	second_autogen/timestamp	265613331dac65b3
+75	443	7808403413629197	second_autogen/mocs_compilation.cpp	265613331dac65b3
+635	9120	7808403419240554	CMakeFiles/second.dir/mainwindow.cpp.obj	31bb6ab985a2db3b
+75	443	7808403413629197	C:/Users/HITECH-3/Documents/second/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/second_autogen/timestamp	265613331dac65b3
+75	443	7808403413629197	C:/Users/HITECH-3/Documents/second/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/second_autogen/mocs_compilation.cpp	265613331dac65b3
+2543	14978	7808394454183789	CMakeFiles/second.dir/main.cpp.obj	ca764d5e7c68879a
+9120	9821	7808403504027211	second.exe	158059825ed0e324
+2513	15099	7808394453861069	CMakeFiles/second.dir/second_autogen/mocs_compilation.cpp.obj	e2ef65e1b0c7dd22
+28	2135	7808403918628119	build.ninja	751af86e4538b2aa
+445	634	7808403419030514	second_autogen/EWIEGA46WW/qrc_resources.cpp	808914fcd3c85c08
+646	1017	7808403419340823	CMakeFiles/second.dir/second_autogen/EWIEGA46WW/qrc_resources.cpp.obj	d6daa38d0c690bf6
+86	559	7808403931162819	second_autogen/timestamp	265613331dac65b3
+86	559	7808403931162819	second_autogen/mocs_compilation.cpp	265613331dac65b3
+86	559	7808403931162819	C:/Users/HITECH-3/Documents/second/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/second_autogen/timestamp	265613331dac65b3
+86	559	7808403931162819	C:/Users/HITECH-3/Documents/second/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/second_autogen/mocs_compilation.cpp	265613331dac65b3
+562	750	7808403937552801	second_autogen/EWIEGA46WW/qrc_resources.cpp	808914fcd3c85c08
+562	750	7808403937552801	C:/Users/HITECH-3/Documents/second/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/second_autogen/EWIEGA46WW/qrc_resources.cpp	808914fcd3c85c08
+762	1040	7808403937922860	CMakeFiles/second.dir/second_autogen/EWIEGA46WW/qrc_resources.cpp.obj	d6daa38d0c690bf6
+750	9906	7808403937802822	CMakeFiles/second.dir/mainwindow.cpp.obj	31bb6ab985a2db3b
+9906	10641	7808404029359553	second.exe	158059825ed0e324
