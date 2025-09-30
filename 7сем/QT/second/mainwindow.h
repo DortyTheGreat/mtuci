@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMediaPlayer>
 #include <QStringList>
+#include <QAudioOutput>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,6 +34,7 @@ private:
     Ui::MainWindow *ui;
     QMediaPlayer *player;
     QStringList trackFiles;   // список путей к трекам
+    QAudioOutput *audioOutput;
     int currentIndex;         // индекс текущего трека
 
     void loadDefaultTracks();

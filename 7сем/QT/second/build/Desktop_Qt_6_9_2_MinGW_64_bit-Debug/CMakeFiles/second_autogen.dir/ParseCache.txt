@@ -154,8 +154,10 @@ C:/Users/HITECH-3/Documents/second/mainwindow.h
  mdp:C:/Qt/6.9.2/mingw_64/include/QtGui/qtransform.h
  mdp:C:/Qt/6.9.2/mingw_64/include/QtGui/qwindowdefs.h
  mdp:C:/Qt/6.9.2/mingw_64/include/QtGui/qwindowdefs_win.h
+ mdp:C:/Qt/6.9.2/mingw_64/include/QtMultimedia/QAudioOutput
  mdp:C:/Qt/6.9.2/mingw_64/include/QtMultimedia/QMediaPlayer
  mdp:C:/Qt/6.9.2/mingw_64/include/QtMultimedia/qaudio.h
+ mdp:C:/Qt/6.9.2/mingw_64/include/QtMultimedia/qaudiooutput.h
  mdp:C:/Qt/6.9.2/mingw_64/include/QtMultimedia/qmediaplayer.h
  mdp:C:/Qt/6.9.2/mingw_64/include/QtMultimedia/qtaudio.h
  mdp:C:/Qt/6.9.2/mingw_64/include/QtMultimedia/qtmultimedia-config.h

@@ -153,8 +153,10 @@ C:/Users/HITECH-3/Documents/second/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/sec
   C:/Qt/6.9.2/mingw_64/include/QtGui/qtransform.h \
   C:/Qt/6.9.2/mingw_64/include/QtGui/qwindowdefs.h \
   C:/Qt/6.9.2/mingw_64/include/QtGui/qwindowdefs_win.h \
+  C:/Qt/6.9.2/mingw_64/include/QtMultimedia/QAudioOutput \
   C:/Qt/6.9.2/mingw_64/include/QtMultimedia/QMediaPlayer \
   C:/Qt/6.9.2/mingw_64/include/QtMultimedia/qaudio.h \
+  C:/Qt/6.9.2/mingw_64/include/QtMultimedia/qaudiooutput.h \
   C:/Qt/6.9.2/mingw_64/include/QtMultimedia/qmediaplayer.h \
   C:/Qt/6.9.2/mingw_64/include/QtMultimedia/qtaudio.h \
   C:/Qt/6.9.2/mingw_64/include/QtMultimedia/qtmultimedia-config.h \

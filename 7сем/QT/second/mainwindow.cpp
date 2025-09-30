@@ -9,17 +9,22 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , player(new QMediaPlayer(this))
     , currentIndex(-1)
 {
+
+    audioOutput = new QAudioOutput(this);
+    player = new QMediaPlayer(this);
+    player->setAudioOutput(audioOutput);
+    audioOutput->setVolume(1.0); // громкость от 0.0 до 1.0
+
     ui->setupUi(this);
 
-    connect(ui->addButton, &QPushButton::clicked, this, &MainWindow::on_addButton_clicked);
+    //connect(ui->addButton, &QPushButton::clicked, this, &MainWindow::on_addButton_clicked);
     connect(ui->playButton, &QToolButton::clicked, this, &MainWindow::on_playButton_clicked);
     connect(ui->pauseButton, &QToolButton::clicked, this, &MainWindow::on_pauseButton_clicked);
     connect(ui->stopButton, &QToolButton::clicked, this, &MainWindow::on_stopButton_clicked);
-    connect(ui->nextButton, &QToolButton::clicked, this, &MainWindow::on_nextButton_clicked);
-    connect(ui->prevButton, &QToolButton::clicked, this, &MainWindow::on_prevButton_clicked);
+    //connect(ui->nextButton, &QToolButton::clicked, this, &MainWindow::on_nextButton_clicked);
+    //connect(ui->prevButton, &QToolButton::clicked, this, &MainWindow::on_prevButton_clicked);
     connect(ui->trackList, &QListWidget::doubleClicked, this, &MainWindow::on_trackList_doubleClicked);
 
     connect(player, &QMediaPlayer::positionChanged, this, &MainWindow::positionChanged);
