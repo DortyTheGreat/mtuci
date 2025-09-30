@@ -159,7 +159,9 @@ int modular_factorial(int n){
     return ans;
 }
 
-
+/**
+this algo goes through 1/2 of the ints, then
+*/
 int simple_modular_factorial(int n){
 
     int ans = 1;
@@ -171,7 +173,7 @@ int simple_modular_factorial(int n){
         return ans;
     }
 
-    for(int i = 0; i < )
+    for(int i = 1; i < n / 4; i += 2)
 }
 
 signed main()
