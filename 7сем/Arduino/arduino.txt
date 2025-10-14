@@ -1,0 +1,145 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <Keypad.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// --- Клавиатура ---
+const byte ROWS = 4;
+const byte COLS = 4;
+char keys[ROWS][COLS] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+byte rowPins[ROWS] = {9, 8, 7, 6};
+byte colPins[COLS] = {5, 4, 3, 2};
+
+Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+
+// --- Светодиоды ---
+int leds[4] = {10, 11, 12, 13};
+
+// --- Переменные ---
+String sequence = "";
+bool gameActive = false;
+int level = 1;
+int wins = 0;
+unsigned long startTime;
+
+void setup() {
+  Serial.begin(9600);
+  lcd.init();
+  lcd.backlight();
+  lcd.clear();
+  lcd.print("Memory Game Ready");
+
+  for (int i = 0; i < 4; i++) pinMode(leds[i], OUTPUT);
+}
+
+void loop() {
+  if (Serial.available()) {
+    String cmd = Serial.readStringUntil('\n');
+    cmd.trim();
+    if (cmd == "START") startGame();
+  }
+
+  if (gameActive) {
+    playRound();
+  }
+}
+
+void startGame() {
+  lcd.clear();
+  lcd.print("Game Started!");
+  delay(1000);
+  wins = 0;
+  level = 1;
+  gameActive = true;
+  startTime = millis();
+}
+
+void playRound() {
+  // Генерация последовательности
+  sequence = "";
+  for (int i = 0; i < level; i++) {
+    sequence += String(random(1, 5)); // от 1 до 4
+  }
+
+  // Показ последовательности светодиодами
+  lcd.clear();
+  lcd.print("Watch LEDs!");
+  for (int i = 0; i < sequence.length(); i++) {
+    int idx = sequence[i] - '1';
+    digitalWrite(leds[idx], HIGH);
+    delay(500);
+    digitalWrite(leds[idx], LOW);
+    delay(300);
+  }
+
+  // Ввод пользователя
+  lcd.clear();
+  lcd.print("Repeat!");
+  String input = "";
+
+  while (input.length() < sequence.length()) {
+    char key = keypad.getKey();
+    if (key) {
+      int zone = mapKeyToZone(key);
+      if (zone != 0) {
+        input += String(zone);
+        lcd.setCursor(input.length(), 1);
+        lcd.print(String(zone));
+        //lcd.print("*");
+      }
+    }
+  }
+
+  delay(300);
+  lcd.clear();
+
+  if (input == sequence) {
+    wins++;
+    level++;
+    lcd.print("Correct!");
+    delay(1000);
+    if (wins >= 10) endGame();
+  } else {
+    lcd.print("Wrong!");
+    delay(1000);
+    endGame();
+  }
+}
+
+int mapKeyToZone(char key) {
+  switch (key) {
+    case 'D': case '#': case 'C': case '9': return 1;
+    case '0': case '*': case '8': case '7': return 2;
+    case 'B': case '6': case 'A': case '3': return 3;
+    case '5': case '4': case '2': case '1': return 4;
+    default: return 0;
+  }
+}
+
+void endGame() {
+  unsigned long timeSpent = (millis() - startTime) / 1000;
+  lcd.clear();
+  lcd.print("Game Over");
+  lcd.setCursor(0,1);
+  lcd.print("Wins:");
+  lcd.print(wins);
+  lcd.print(" T:");
+  lcd.print(timeSpent);
+  lcd.print("s");
+
+  Serial.print("RESULT:");
+  Serial.print(wins);
+  Serial.print(",");
+  Serial.println(timeSpent);
+
+  gameActive = false;
+  delay(3000);
+  lcd.clear();
+  lcd.print("Ready for /start");
+}
