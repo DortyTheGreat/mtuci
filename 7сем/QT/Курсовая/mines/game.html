@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Анализатор Сапёра</title>
+<style>
+  body{font-family: Inter, system-ui, Arial; margin:16px; background:#f3f4f6; color:#111}
+  h1{margin:0 0 12px;font-size:20px}
+  .controls{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+  .board-wrap{display:inline-block;padding:8px;background:#fff;border-radius:8px;box-shadow:0 6px 18px rgba(2,6,23,0.08)}
+  .board{display:grid;gap:0px;}
+  .row{display:flex}
+  .cell{width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:transparent;border-radius:4px;cursor:pointer;user-select:none;position:relative;font-weight:600}
+  .covered{width:28px;height:28px;border-radius:4px;background:#60a5fa;box-shadow:inset 0 -2px 0 rgba(0,0,0,0.15);}
+  .tile{width:28px;height:28px;display:block}
+  .cell.flag{background:#fef08a;color:#111}
+  .cell.mine{background:#ef4444;color:#fff}
+  .cell.num-1{color:#1d4ed8}
+  .cell.num-2{color:#065f46}
+  .cell.num-3{color:#b91c1c}
+  .cell.num-4{color:#7c3aed}
+  .cell.num-5{color:#92400e}
+  .cell.num-6{color:#0f172a}
+  .cell.num-7{color:#0f172a}
+  .cell.num-8{color:#0f172a}
+  .prob{position:absolute;bottom:2px;right:2px;font-size:10px;opacity:0.95;background:rgba(255,255,255,0.95);padding:1px 4px;border-radius:4px}
+  .status{margin-top:8px}
+  .small{font-size:13px}
+  button,select,input{padding:6px 8px;border-radius:6px;border:1px solid #cbd5e1;background:#fff}
+  label{display:inline-flex;gap:6px;align-items:center}
+</style>
+</head>
+<body>
+<h1>Анализатор Сапёра</h1>
+<div class="controls">
+  <label>Уровень
+    <select id="preset">
+      <option value="9,9,10">Новичок 9×9, 10 мин</option>
+      <option value="16,16,40">Средний 16×16, 40 мин</option>
+      <option value="30,16,99">Эксперт 30×16, 99 мин</option>
+      <option value="custom">— Пользовательский —</option>
+    </select>
+  </label>
+  <label id="customInputs" style="display:none">R
+    <input id="rows" type="number" min="5" max="60" value="9" style="width:64px" />
+  </label>
+  <label id="customInputsC" style="display:none">C
+    <input id="cols" type="number" min="5" max="60" value="9" style="width:64px" />
+  </label>
+  <label id="customInputsM" style="display:none">M
+    <input id="mines" type="number" min="1" value="10" style="width:84px" />
+  </label>
+  <button id="newGame">Новая игра</button>
+  <label><input type="checkbox" id="enableAnalyzer" checked/> Включить анализатор</label>
+  <label><input type="checkbox" id="autoOpen" /> Авто-открытие безопасных (0%)</label>
+  <button id="showProb">Пересчитать вероятности</button>
+</div>
+<div class="board-wrap">
+  <div id="board" class="board"></div>
+</div>
+<div class="status small" id="status"></div>
+
+<script>
+// Minesweeper + simple constraint solver analyzer in one file
+const preset = document.getElementById('preset');
+const newGameBtn = document.getElementById('newGame');
+const boardEl = document.getElementById('board');
+const statusEl = document.getElementById('status');
+const enableAnalyzerEl = document.getElementById('enableAnalyzer');
+const autoOpenEl = document.getElementById('autoOpen');
+const showProbBtn = document.getElementById('showProb');
+const customInputs = document.getElementById('customInputs');
+const customInputsC = document.getElementById('customInputsC');
+const customInputsM = document.getElementById('customInputsM');
+const rowsInput = document.getElementById('rows');
+const colsInput = document.getElementById('cols');
+const minesInput = document.getElementById('mines');
+
+let rows=9, cols=9, mines=10;
+let board = []; // {mine:boolean,revealed:boolean,flag:boolean,adj:number}
+let started=false, gameOver=false, firstClick=true;
+let remainingFlags=0;
+
+preset.addEventListener('change', ()=>{
+  if(preset.value==='custom'){
+    customInputs.style.display='inline-flex';
+    customInputsC.style.display='inline-flex';
+    customInputsM.style.display='inline-flex';
+  } else {
+    customInputs.style.display='none';
+    customInputsC.style.display='none';
+    customInputsM.style.display='none';
+  }
+});
+
+function setPresetFromDropdown(){
+  if(preset.value!=='custom'){
+    const [r,c,m]=preset.value.split(',').map(Number);
+    rows=r;cols=c;mines=m;
+    rowsInput.value=r;colsInput.value=c;minesInput.value=m;
+  } else {
+    rows = parseInt(rowsInput.value)||9;
+    cols = parseInt(colsInput.value)||9;
+    mines = parseInt(minesInput.value)||10;
+  }
+}
+
+function initBoard(){
+  board=[];
+  for(let r=0;r<rows;r++){
+    const row=[];
+    for(let c=0;c<cols;c++) row.push({mine:false,revealed:false,flag:false,adj:0,r, c});
+    board.push(row);
+  }
+  started=false; gameOver=false; firstClick=true;
+  remainingFlags=mines;
+  renderBoard();
+  status()
+}
+
+function status(text){
+  if(text) statusEl.textContent=text; else statusEl.textContent=`Мин: ${mines} | Осталось флагов: ${remainingFlags}`;
+}
+
+function renderBoard(){
+  boardEl.innerHTML='';
+  // keep grid layout
+  boardEl.style.gridTemplateColumns = `repeat(${cols}, auto)`;
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      const cell=board[r][c];
+      const el = document.createElement('div');
+      el.className='cell';
+      el.dataset.r = r; el.dataset.c = c;
+
+      if(cell.revealed){
+        if(cell.mine){
+          el.innerHTML = '<img src="bomb.png" class="tile" alt="bomb">';
+        } else {
+          const n = cell.adj;
+          el.innerHTML = `<img src="${n}.png" class="tile" alt="${n}">`;
+          if(n>0) el.classList.add('num-'+n);
+        }
+      } else {
+        if(cell.flag){
+          el.innerHTML = '<img src="flagged.png" class="tile" alt="flag">';
+        } else {
+          // covered look (no image provided by user). Use CSS cover tile
+          el.innerHTML = '<img src="covered.png" class="tile" alt="flag">';
+        }
+      }
+
+      // probability overlay
+      const pspan = document.createElement('div'); pspan.className='prob'; pspan.style.display='none';
+      el.appendChild(pspan);
+
+      el.addEventListener('click', onClickCell);
+      el.addEventListener('contextmenu', onRightClick);
+      el.addEventListener('dblclick', onDoubleClick);
+      boardEl.appendChild(el);
+    }
+  }
+}
+
+function placeMines(initR, initC){
+  // place mines avoiding init cell and neighbors
+  const total = rows*cols;
+  const safe = new Set();
+  for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++){
+    const rr=initR+dr, cc=initC+dc; if(inBounds(rr,cc)) safe.add(rr+','+cc);
+  }
+  let placed=0;
+  while(placed<mines){
+    const idx = Math.floor(Math.random()*total);
+    const r=Math.floor(idx/cols), c = idx%cols;
+    if(safe.has(r+','+c)) continue;
+    if(board[r][c].mine) continue;
+    board[r][c].mine=true; placed++;
+  }
+  computeAdjacents();
+}
+
+function computeAdjacents(){
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+    let cnt=0;
+    for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++){
+      if(dr===0&&dc===0) continue; const rr=r+dr, cc=c+dc; if(inBounds(rr,cc)&&board[rr][cc].mine) cnt++;
+    }
+    board[r][c].adj=cnt;
+  }
+}
+
+function inBounds(r,c){return r>=0&&r<rows&&c>=0&&c<cols}
+
+function revealCell(e){
+  const r=+e.dataset.r, c=+e.dataset.c;
+  const cell=board[r][c];
+  if(cell.revealed || cell.flag || gameOver) return;
+  cell.revealed=true;
+  if(cell.mine){ gameOver=true; revealAllMines(); status('Поражение — подорвались!'); renderBoard(); return; }
+  if(cell.adj===0) floodFill(r,c);
+  checkWin(); renderBoard();
+}
+
+function floodFill(sr,sc){
+  const q=[[sr,sc]]; const seen=new Set([sr+','+sc]);
+  while(q.length){const [r,c]=q.shift();
+    for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++){
+      const rr=r+dr, cc=c+dc; if(!inBounds(rr,cc)) continue; const key=rr+','+cc; if(seen.has(key)) continue; const cell=board[rr][cc];
+      if(!cell.flag){cell.revealed=true; if(cell.adj===0) q.push([rr,cc]);}
+      seen.add(key);
+    }
+  }
+}
+
+function revealAllMines(){
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) if(board[r][c].mine) board[r][c].revealed=true;
+}
+
+function onClickCell(e){
+  const el=e.currentTarget;
+  const r=+el.dataset.r, c=+el.dataset.c;
+  if(gameOver) return;
+  if(firstClick){ placeMines(r,c); firstClick=false; }
+  revealCell(el);
+  if(enableAnalyzerEl.checked) analyzeAndShow();
+}
+
+function onRightClick(e){e.preventDefault(); const el=e.currentTarget; const r=+el.dataset.r, c=+el.dataset.c; const cell=board[r][c];
+  if(gameOver) return;
+  if(cell.revealed) return;
+  cell.flag=!cell.flag; remainingFlags += cell.flag? -1 : +1; renderBoard(); status();
+  if(enableAnalyzerEl.checked) analyzeAndShow();
+}
+
+function onDoubleClick(e){ const el=e.currentTarget; const r=+el.dataset.r, c=+el.dataset.c; const cell=board[r][c];
+  if(!cell.revealed || cell.adj===0 || gameOver) return;
+  // chord: if number of adjacent flags == adj -> reveal other neighbors
+  const neighbors = getNeighbors(r,c);
+  const flags = neighbors.filter(x=>board[x[0]][x[1]].flag).length;
+  if(flags===cell.adj){ neighbors.forEach(([rr,cc])=>{ if(!board[rr][cc].flag && !board[rr][cc].revealed) {
+    if(board[rr][cc].mine){ gameOver=true; revealAllMines(); status('Поражение — подорвались при двойном клике!'); }
+    board[rr][cc].revealed=true; if(board[rr][cc].adj===0) floodFill(rr,cc);
+  } }) }
+  renderBoard(); if(enableAnalyzerEl.checked) analyzeAndShow(); checkWin();
+}
+
+function getNeighbors(r,c){ const out=[]; for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++){ if(dr===0&&dc===0) continue; const rr=r+dr, cc=c+dc; if(inBounds(rr,cc)) out.push([rr,cc]); } return out; }
+
+function checkWin(){
+  let ok=true; for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+    const cell=board[r][c]; if(!cell.mine && !cell.revealed) ok=false;
+  }
+  if(ok){ gameOver=true; status('Победа! Все клетки открыты.'); revealAllMines(); renderBoard(); }
+}
+
+// Analyzer core
+const ENUM_LIMIT = 300; // max frontier cells to enumerate exactly
+let autoOpenTimer = null;
+
+function analyzeAndShow(){
+  // compute probabilities for covered cells visible to player
+  const probs = computeProbabilities();
+  // display overlay
+  const cellsEls = boardEl.querySelectorAll('.cell');
+  cellsEls.forEach(el=>{
+    const r=+el.dataset.r, c=+el.dataset.c; const p=probs[r+','+c]; const pspan=el.querySelector('.prob');
+    if(p!==undefined && !board[r][c].revealed){ pspan.style.display='block'; pspan.textContent = Math.round(p*100)+'%'; }
+    else pspan.style.display='none';
+  });
+  // auto-open safe with 100ms delay
+  if(autoOpenEl.checked){
+    // clear previous timer if any
+    if(autoOpenTimer) clearTimeout(autoOpenTimer);
+    autoOpenTimer = setTimeout(()=>{
+      let opened=false;
+      for(const key in probs){
+        if(probs[key]===0){ const [r,c]=key.split(',').map(Number);
+          if(!board[r][c].revealed && !board[r][c].flag){ board[r][c].revealed=true; if(board[r][c].adj===0) floodFill(r,c); opened=true; }
+        }
+      }
+      if(opened){ renderBoard(); if(enableAnalyzerEl.checked) analyzeAndShow(); }
+    }, 100);
+  }
+}
+
+function computeProbabilities(){
+  // identify frontier: covered cells adjacent to at least one revealed number
+  const frontier=[]; const frontierIdx = {};
+  const constraints = []; // each is {cells:[keys], total}
+  let coveredCount=0; let knownMinesFlags=0;
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+    const cell=board[r][c]; if(!cell.revealed && !cell.flag) coveredCount++;
+    if(cell.flag) knownMinesFlags++;
+  }
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+    const cell = board[r][c]; if(!cell.revealed) continue; if(cell.adj===0) continue;
+    const neigh = getNeighbors(r,c);
+    const unknowns = [];
+    let flagged=0;
+    for(const [rr,cc] of neigh){ if(board[rr][cc].flag) flagged++; else if(!board[rr][cc].revealed) {
+      const key = rr+','+cc; if(!(key in frontierIdx)){ frontierIdx[key]=frontier.length; frontier.push([rr,cc]); } unknowns.push(key);
+    } }
+    const total = cell.adj - flagged;
+    if(unknowns.length>0) constraints.push({cells:unknowns.map(k=>frontierIdx[k]), total});
+  }
+  // If nothing in frontier -> trivial uniform
+  const remMines = Math.max(0, mines - knownMinesFlags);
+  const probs = {};
+  if(frontier.length===0){ // uniform probability across all covered non-flag cells
+    const uniform = remMines / Math.max(1, coveredCount);
+    for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) if(!board[r][c].revealed && !board[r][c].flag) probs[r+','+c]=uniform;
+    return probs;
+  }
+  // If frontier too large, fallback to approximate: uniform on unknowns + remaining outside
+  if(frontier.length>ENUM_LIMIT){
+    const naive = remMines / Math.max(1, coveredCount);
+    for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) if(!board[r][c].revealed && !board[r][c].flag) probs[r+','+c]=naive;
+    probs['__note'] = 'fallback-enum';
+    return probs;
+  }
+  // enumerate all assignments on frontier consistent with constraints
+  const N = frontier.length;
+  const solutions = []; let totalSolutions=0;
+  // precompute constraint mask arrays
+  const consMasks = constraints.map(cons=>{
+    const mask = new Array(N).fill(0);
+    for(const idx of cons.cells) mask[idx]=1;
+    return {mask, total:cons.total};
+  });
+  // backtracking
+  const assignment = new Array(N).fill(0);
+  function checkPartial(pos){
+    for(const cm of consMasks){
+      let sum=0, unknowns=0;
+      for(let i=0;i<N;i++){
+        if(cm.mask[i]){
+          if(i<pos) sum+=assignment[i]; else if(i>=pos) unknowns++;
+        }
+      }
+      if(sum > cm.total) return false;
+      if(sum + unknowns < cm.total) return false;
+    }
+    return true;
+  }
+  function backtrack(pos){
+    if(pos===N){
+      for(const cm of consMasks){ let s=0; for(let i=0;i<N;i++) if(cm.mask[i]) s+=assignment[i]; if(s!==cm.total) return; }
+      totalSolutions++;
+      solutions.push(assignment.slice());
+      return;
+    }
+    assignment[pos]=0; if(checkPartial(pos+1)) backtrack(pos+1);
+    assignment[pos]=1; if(checkPartial(pos+1)) backtrack(pos+1);
+    assignment[pos]=0;
+  }
+  backtrack(0);
+  if(totalSolutions===0){ // no solutions? fallback naive
+    const naive = remMines / Math.max(1, coveredCount);
+    for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) if(!board[r][c].revealed && !board[r][c].flag) probs[r+','+c]=naive;
+    return probs;
+  }
+  // compute probability for each frontier cell
+  const counts = new Array(N).fill(0);
+  let totalMinesPlacedInSolutions = 0;
+  for(const sol of solutions){
+    for(let i=0;i<N;i++) if(sol[i]===1) counts[i]++;
+    totalMinesPlacedInSolutions += sol.reduce((a,b)=>a+b,0);
+  }
+  // For cells outside frontier but still covered: distribute remaining mines uniformly (expected value)
+  const expectedFrontierMines = totalMinesPlacedInSolutions/totalSolutions;
+  const remainingMinesOutside = Math.max(0, remMines - expectedFrontierMines);
+  let outsideCount=0; const outsideKeys=[];
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+    if(!board[r][c].revealed && !board[r][c].flag){ const key=r+','+c; if(!(key in frontierIdx)){ outsideCount++; outsideKeys.push(key);} }
+  }
+  const outsideProb = outsideCount>0 ? remainingMinesOutside/outsideCount : 0;
+  for(const [key,idx] of Object.entries(frontierIdx)){
+    probs[key] = counts[idx]/totalSolutions;
+  }
+  for(const k of outsideKeys) probs[k]=outsideProb;
+  return probs;
+}
+
+// UI wiring
+newGameBtn.addEventListener('click', ()=>{ setPresetFromDropdown(); initBoard(); });
+showProbBtn.addEventListener('click', ()=>{ if(enableAnalyzerEl.checked){ analyzeAndShow(); } });
+
+// when analyzer toggle changes
+enableAnalyzerEl.addEventListener('change', ()=>{ if(enableAnalyzerEl.checked) analyzeAndShow(); else { const ps=document.querySelectorAll('.prob'); ps.forEach(p=>p.style.display='none'); if(autoOpenTimer){ clearTimeout(autoOpenTimer); autoOpenTimer=null; } } });
+// when auto-open checkbox changes, start auto behavior immediately if enabled
+autoOpenEl.addEventListener('change', ()=>{ if(autoOpenEl.checked && enableAnalyzerEl.checked) analyzeAndShow(); else if(!autoOpenEl.checked && autoOpenTimer){ clearTimeout(autoOpenTimer); autoOpenTimer=null; } });
+
+// initialize
+setPresetFromDropdown(); initBoard();
+
+</script>
+</body>
+</html>
