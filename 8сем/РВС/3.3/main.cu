@@ -4,10 +4,9 @@ x64 Native Tools Command Prompt for VS 2022
 
 nvcc main.cu -o program.exe -std=c++17
 
-program.exe input1.txt input2.txt expected.txt
+ffmpeg -i example.ppm -vf "colorchannelmixer=.21:.71:.07" -frames:v 1 ffmpeg.ppm
 
-ffmpeg -i example2.png example2.ppm
-ffmpeg -i example.jpg example.ppm
+program.exe example.ppm
 
 */
 
@@ -35,6 +34,37 @@ __global__ void rgb2gray(float *inputImage, float *grayImage, int width, int hei
         float b = inputImage[channels * idx + 2];
         grayImage[idx] = 0.21f * r + 0.71f * g + 0.07f * b;
     }
+}
+
+void saveGrayscaleToPGM(const char* filename, float* data, int width, int height) {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        wbLog(ERROR, "Failed to open file for writing: ", filename);
+        return;
+    }
+    
+    // Заголовок PGM формата
+    file << "P2\n";
+    file << width << " " << height << "\n";
+    file << "255\n";
+    
+    // Запись данных пикселей
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            // Преобразование float [0,1] в целое [0,255]
+            int pixelValue = static_cast<int>(data[i * width + j] * 255.0f + 0.5f);
+            pixelValue = std::min(255, std::max(0, pixelValue)); // Ограничение значений
+            file << pixelValue;
+            
+            if (j < width - 1) {
+                file << " ";
+            }
+        }
+        file << "\n";
+    }
+    
+    file.close();
+    wbLog(INFO, "Grayscale image saved to ", filename);
 }
 
 int main(int argc, char *argv[]) {
@@ -104,8 +134,9 @@ int main(int argc, char *argv[]) {
   wbTime_stop(Copy, "Copying data from the GPU");
 
   wbTime_stop(GPU, "Doing GPU Computation (memory + compute)");
-
-  wbSolution(args, outputImage);
+	
+	
+  saveGrayscaleToPGM("output_gray.pgm", hostOutputImageData, imageWidth, imageHeight);
 
   cudaFree(deviceInputImageData);
   cudaFree(deviceOutputImageData);
