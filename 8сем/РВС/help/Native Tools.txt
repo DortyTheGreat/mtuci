@@ -1,0 +1,2 @@
+x64 Native Tools Command Prompt for VS 2022 (on Windows):
+C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools
