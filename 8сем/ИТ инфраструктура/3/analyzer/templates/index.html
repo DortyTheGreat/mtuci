@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Security Analyzer</title>
+</head>
+<body>
+    <h1>Анализ IP</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="ip" placeholder="Введите IP" required>
+        <button type="submit">Анализ</button>
+    </form>
+
+    {% if ip %}
+        <h2>IP: {{ ip }}</h2>
+        <p>DNS: {{ dns|default:"не найден" }}</p>
+        <p>Открытые порты: {{ ports }}</p>
+
+        <h3>Score: {{ score }}/100</h3>
+        <h3>{{ conclusion }}</h3>
+    {% endif %}
+</body>
+</html>
